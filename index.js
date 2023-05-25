@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const morgan=require('morgan');
 
 //coneccion a la carpeta views
 const path = require('path')
@@ -12,7 +13,7 @@ dotenv.config();
 const PORT= process.env.PORT;
 
 app.use(express.json());
-
+app.use(morgan('dev'));
 
 const ruta = require('./enrutamiento/rutas')
 
