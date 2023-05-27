@@ -12,10 +12,15 @@ const dotenv =require('dotenv');
 dotenv.config();
 const PORT= process.env.PORT;
 
+
 app.use(express.json());
 app.use(morgan('dev'));
 
+//express.urlencoded se utiliza par que escuche  la informacio que llega al req
+app.use(express.urlencoded({extends:true}));
+
 const ruta = require('./enrutamiento/rutas')
+
 
 app.use('/tienda/v1',ruta);
 

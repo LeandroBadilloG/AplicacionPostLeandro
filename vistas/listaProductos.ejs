@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lista productos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-light navbar ">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page"
+                            href="http://localhost:5900/tienda/v1/principal">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Compras</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Productos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Hogar</a></li>
+                            <li><a class="dropdown-item" href="#">Moda</a></li>
+                            <li><a class="dropdown-item" href="#">Tecnologia</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <a class="btn btn-outline-secondary m-1" href="/tienda/v1/registro" role="button" data-bs-toggle="modal"
+                    data-bs-target="#modalInicioSesion"><i class="bi bi-person-circle"></i></a>
+
+                <a class="btn btn-outline-secondary m-1" href="" role="button" data-bs-toggle="modal"
+                    data-bs-target="#modalInicioSesion"><i class="bi bi-cart3"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="row g-0">
+        <div class=" col-md-11">
+            <table class="table table-striped table-hover table-bordered m-5 text-center">
+                <thead>
+                    <tr >
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% productos.forEach(function(elemento) { %>
+                        <tr>
+                            <td>
+                                <%=elemento.categoriaProducto%>
+                            </td>
+                            <td>
+                                <%=elemento.nombreProducto%>
+                            </td>
+                            <td>
+                                <%=elemento.descripcionProducto%>
+                            </td>
+                            <td>
+                                <%=elemento.precioProducto%>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-outline-danger" >Eliminar</button>
+                                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="llamarDatosProducto(`<%=elemento.categoriaProducto%>`,`<%=elemento.nombreProducto%>`,`<%=elemento.descripcionProducto%>`,`<%=elemento.precioProducto%>`,`<%=elemento._id%>`)">Editar</button>
+                            </td>
+                        </tr>
+                        <%})%>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+  
+  <!-- Modal editar producto -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Actualizar Producto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form class="m-5" id="formActualizar" method="post">
+                <div class="form-group ">
+                    
+                    <label class="form-label p-1" for="categoriaProducto">CATEGORIA</label>
+                    <select class="form-select" id="categoriaProducto" name="categoriaProducto">
+                        <option value="Hogar">Hogar</option>
+                        <option value="Moda">Moda</option>
+                        <option value="Tecnologia">Tecnologia</option>
+                    </select>
+                    
+                    <input type="hidden" name="id" id="id">
+
+                    <label for="nombreProducto" class="form-label p-1 ">NOMBRE DEL PRODUCTO</label>
+                    <input type="text" class="form-control" id="nombreProducto"  name="nombreProducto">
+        
+                    <label for="descripcionProducto" class="form-label p-1">DESCRIPCION DEL PRODUCTO:</label>
+                    <input type="text" class="form-control" id="descripcionProducto" name="descripcionProducto">
+        
+                    <label for="precioProducto" class="form-label p-1">PRECIO DEL PRODUCTO</label>
+                    <input type="number" class="form-control" id="precioProducto" name="precioProducto">
+        
+                </div>
+                <div class="form-group text-center">
+                    <input type="submit" class="btn btn-primary p-1 mt-5"></input>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+
+    <script>
+        function llamarDatosProducto(c,n,d,p,i){
+            id.value=i
+            categoriaProducto.value=c;
+            nombreProducto.value=n;
+            descripcionProducto.value=d;
+            precioProducto.value=p
+
+            const from = document.getElementById('formActualizar');
+            from.setAttribute('action', 'actualizarProducto');
+            
+        }
+    </script>
+</body>
+
+</html>

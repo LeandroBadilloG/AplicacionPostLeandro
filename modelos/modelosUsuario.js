@@ -13,7 +13,7 @@ const schemaUsuario = new mongoose.Schema({
         require:true,
     },
     telefonoUsuario:{
-        type:String,
+        type:Number,
         unique:true,
         require:true,
         min:10,
@@ -38,3 +38,6 @@ const schemaUsuario = new mongoose.Schema({
 
 const nuevoUsuario = mongoose.model('usuarios',schemaUsuario);
 module.exports=nuevoUsuario;
+
+
+
