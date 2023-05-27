@@ -1,5 +1,6 @@
 const usuario = require('../modelos/modelosUsuario');
-const producto = require('../modelos/modelosProducto')
+const producto = require('../modelos/modelosProducto');
+const vendedores = require('../modelos/modelosVendedores');
 
 exports.paginaprincipal=(req, res)=>{
     res.render('principal')
@@ -12,12 +13,26 @@ exports.formProducto=(req,res)=>{
     res.render('formProducto');
 }
 
+exports.formVendedores=(req,res)=>{
+    res.render('formVendedor')
+}
+
+exports.inicioSesion=(req,res)=>{
+    res.render('inicioSesion')
+}
+
 exports.listaproductos= async(req,res)=>{
     const listaProductos = await producto.find();
     res.render('listaProductos',{
         "productos":listaProductos,
     })
+}
 
+exports.listaVendedores= async(req,res)=>{
+    const listaVendedores= await vendedores.find();
+    res.render('listaVendedores',{
+        'vendedores':listaVendedores
+    })
 }
 
 
@@ -58,4 +73,16 @@ exports.actualizarProducto=async(req,res)=>{
     })
     console.log(req.body)
     res.redirect('listaProductos')
+}
+
+
+exports.registrarVendedor=(req,res)=>{
+    const nuevoVendedor = new vendedores({
+        nombreVendedor:req.body.nombreVendedor,
+        documentoVendedor:req.body.documentoVendedor,
+        correoVendedor:req.body.correoVendedor,
+        contraseñaVendedor:req.body.contraseñaVendedor,
+    })
+    nuevoVendedor.save()
+    res.send('Se registro el vendedor');
 }
