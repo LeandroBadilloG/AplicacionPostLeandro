@@ -1,6 +1,6 @@
 const { default: mongoose } = require("mongoose");
 
-const coneccion  = require('../configuracion/coneccionBD')
+const coneccion  = require('../configuracion/conexionBD')
 
 const schemaProducto = new mongoose.Schema({
     categoriaProducto:{

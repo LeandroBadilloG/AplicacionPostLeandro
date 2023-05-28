@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 //express.urlencoded se utiliza par que escuche  la informacio que llega al req
-app.use(express.urlencoded({extends:true}));
+app.use(express.urlencoded({extended:true}));
 
 const ruta = require('./enrutamiento/rutas')
 

@@ -28,6 +28,13 @@ exports.listaproductos= async(req,res)=>{
     })
 }
 
+exports.productos=async(req,res)=>{
+    const listaProductos = await producto.find();
+    res.render('productos',{
+        "productos":listaProductos,
+    })
+}
+
 exports.listaVendedores= async(req,res)=>{
     const listaVendedores= await vendedores.find();
     res.render('listaVendedores',{
@@ -51,6 +58,18 @@ exports.nuevoUsuario=(req,res)=>{
     res.redirect('/tienda/v1/principal')   
 }
 
+exports.autenticarUsuario=async(req,res)=>{
+    const correo =req.body.correoUsuario;
+    const contraseña =req.body.contraseñaUsuario;
+    console.log(correo);
+    const buscarUsuario = await usuario.findOne({"correoUsuario":correo});
+    console.log(buscarUsuario);
+    if(buscarUsuario.contraseñaUsuario==contraseña){
+        res.send('inicio sesion');
+    }else {
+        res.send('ERROR')
+    }
+}
 
 exports.nuevoProducto=(req,res)=>{
     const nuevoProducto = new producto({
