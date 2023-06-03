@@ -6,38 +6,38 @@ exports.paginaprincipal=(req, res)=>{
     res.render('principal')
 }
 exports.formUsuario=(req,res)=>{
-    res.render('formUsuario');  
+    res.render('usuarios/formUsuario');  
 }
 
 exports.formProducto=(req,res)=>{
-    res.render('formProducto');
+    res.render('productos/formProducto');
 }
 
 exports.formVendedores=(req,res)=>{
-    res.render('formVendedor')
+    res.render('vendedores/formVendedor')
 }
 
 exports.inicioSesion=(req,res)=>{
-    res.render('inicioSesion')
+    res.render('usuarios/inicioSesion')
 }
 
 exports.listaproductos= async(req,res)=>{
     const listaProductos = await producto.find();
-    res.render('listaProductos',{
+    res.render('productos/listaProductos',{
         "productos":listaProductos,
     })
 }
 
 exports.productos=async(req,res)=>{
     const listaProductos = await producto.find();
-    res.render('productos',{
+    res.render('productos/productos',{
         "productos":listaProductos,
     })
 }
 
 exports.listaVendedores= async(req,res)=>{
     const listaVendedores= await vendedores.find();
-    res.render('listaVendedores',{
+    res.render('vendedores/listaVendedores',{
         'vendedores':listaVendedores
     })
 }
@@ -55,7 +55,7 @@ exports.nuevoUsuario=(req,res)=>{
     })
     nuevoUsuario.save();
     console.log(req.body)
-    res.redirect('/tienda/v1/principal')   
+    res.redirect('principal')   
 }
 
 exports.autenticarUsuario=async(req,res)=>{
@@ -80,7 +80,7 @@ exports.nuevoProducto=(req,res)=>{
     })
     nuevoProducto.save();
     console.log(req.body);
-    res.redirect('listaProductos')
+    res.redirect('productos/listaProductos')
 }
 
 exports.actualizarProducto=async(req,res)=>{
@@ -103,5 +103,9 @@ exports.registrarVendedor=(req,res)=>{
         contraseñaVendedor:req.body.contraseñaVendedor,
     })
     nuevoVendedor.save()
-    res.send('Se registro el vendedor');
+    res.render('vendedores/listaVendedores');
 }
+
+exports.agregarAlCarrito=(req,res)=>{
+   
+}           
