@@ -26,6 +26,7 @@ exports.listaproductos= async(req,res)=>{
     res.render('productos/listaProductos',{
         "productos":listaProductos,
     })
+    
 }
 
 exports.productos=async(req,res)=>{

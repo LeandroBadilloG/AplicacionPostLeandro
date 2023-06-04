@@ -18,9 +18,8 @@
 
     <div class="container">
       <div class="row">
-        <!--Productos-->
-        <main id="items" class="col-sm-9 row ">
-          <div class="row row-cols-2 row-cols-md-3 g-5 m-5">
+        <main id="items" class="col-sm-12 row ">
+          <div class="row row-cols-2 row-cols-md-4 m-5">
 
             <% productos.forEach(function(elemento) { %>
               <div class="col">
@@ -38,41 +37,33 @@
                     </p>
                   </div>
                   <div class="card-footer text-center">
-                    
+
                     <button type="button" class="btn btn-primary"
-                      onclick="traerDatos(`<%=elemento._id%>`,`<%=elemento.nombreProducto%>`,`<%=elemento.precioProducto%>`)">Agregar</button>
+                      onclick="traerDatos(`<%=elemento._id%>`)">Agregar</button>
                   </div>
                 </div>
               </div>
               <%})%>
           </div>
         </main>
-        <!-- Compras -->
-        <aside class="col-sm-3 mt-5">
-          <h2>Carrito</h2>
-          <!-- Elementos del carrito -->
-          <ul id="carrito" class="list-group">
-            <li id="producto"></li>
-          </ul>
-          <hr>
-          <!-- Precio total -->
-          <p class="text-right">Total: <span id="total"></span></p>
-          <button id="boton-comprar" class="btn btn-primary">Comprar</button>
-          <button id="boton-vaciar" class="btn btn-danger">Vaciar</button>
-        </aside>
       </div>
     </div>
 
+
+
+
+
+
+
+
     <script>
-      function traerDatos(i, n, p) {
+      function traerDatos() {
 
-        const producto = document.getElementById('producto');
-        producto.textContent = n;
+        const carrito = document.getElementById('productoCarrito');
+        const productos = document.createElement('p');
+        productos.textContent=i;
 
-
-        const precio = document.getElementById('total');
-        precio.textContent = p;
-
+        carrito.appendChild(productos);
       }
 
       /*
