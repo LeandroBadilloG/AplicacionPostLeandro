@@ -4,6 +4,7 @@ const xl = require('excel4node');
 const path = require('path')
 const fs = require('fs');
 
+
 exports.descargarExcel = async(req, res) => {
     //configuramos el excel4node
 
@@ -13,8 +14,6 @@ exports.descargarExcel = async(req, res) => {
     const nombreArchivo = 'TablaPrductos';
     //se define el nombre 
     var ws = wb.addWorksheet(nombreArchivo);
-
-
 
     //definimos estilos
     const columnaEstilo = wb.createStyle({
@@ -26,13 +25,11 @@ exports.descargarExcel = async(req, res) => {
         }
     });
 
-
     const contenidoEstilo = wb.createStyle({
         font: {
             name: 'Arial',
             color: '#565656',
             size: 11,
-
         }
     });
 
@@ -59,19 +56,12 @@ exports.descargarExcel = async(req, res) => {
     fila = fila +1;
     });
     
-
-
-
-
-
     //Creamos una carpeta en la cual guardaremos los documentos
     //definimos la ruta de la carpeta 
-
 
     //const rutaExcel = path.join(__dirname,'excel',nombreArchivo +'.xlsx');
 
     const rutaExcel = path.join(__dirname,'excel'+ nombreArchivo +'.xlsx');
-
 
     //escrivir y guardar en el documento 
     //se le inclulle la ruta y una funcion 
@@ -91,8 +81,6 @@ exports.descargarExcel = async(req, res) => {
                     if(err)console.log(err);
                     else console.log('Arechibo descargado y borrado del servidor correctamente');
                 });
-                
-
         }
     });
 
@@ -128,7 +116,7 @@ exports.nuevoProducto = (req, res) => {
     })
     nuevoProducto.save();
     console.log(req.body);
-    res.redirect('productos/listaProductos')
+    res.redirect('listaProductos')
 }
 
 exports.actualizarProducto = async (req, res) => {

@@ -13,7 +13,7 @@ exports.registrarVendedor = (req, res) => {
         contraseñaVendedor: req.body.contraseñaVendedor,
     })
     nuevoVendedor.save()
-    res.render('vendedores/listaVendedores');
+    res.redirect('listaVendedores');
 }
 
 exports.listaVendedores = async (req, res) => {
