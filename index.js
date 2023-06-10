@@ -12,6 +12,13 @@ const dotenv =require('dotenv');
 dotenv.config();
 const PORT= process.env.PORT;
 
+//cookie
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
+//excel 
+var xl = require('excel4node');
+
 
 app.use(express.json());
 app.use(morgan('dev'));

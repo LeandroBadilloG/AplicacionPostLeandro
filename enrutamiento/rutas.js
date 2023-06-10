@@ -31,5 +31,11 @@ router.get('/inicioSesion',funciones.inicioSesion);
 //rutas Carrito
 router.get('/agregarCarrito',funciones.agregarAlCarrito);
 
+//cookie
+router.get('/cookie',funciones.cookies);
+
+
+//descargar excel
+router.get('/descargarExcel',funciones.descargarExcel);
 
 module.exports=router;

@@ -36,14 +36,11 @@
                       <%=elemento.precioProducto%>
                     </p>
                   </div>
-                  <div class="card-footer text-center">
-
-                    <button type="button" class="btn btn-primary"
-                      onclick="traerDatos(`<%=elemento._id%>`)">Agregar</button>
-                  </div>
+                  <button type="button" class="btn btn-primary"
+                    onclick="traerDatos(`<%=elemento._id%>`)">Agregar</button>
                 </div>
               </div>
-              <%})%>
+            <%})%>
           </div>
         </main>
       </div>
@@ -52,25 +49,18 @@
 
 
 
-
-
-
-
     <script>
-      function traerDatos() {
+
+      function traerDatos(i) {
 
         const carrito = document.getElementById('productoCarrito');
         const productos = document.createElement('p');
-        productos.textContent=i;
-
+        productos.textContent = i;
         carrito.appendChild(productos);
+
+
       }
 
-      /*
-      const producto = document.createElement('li');
-      producto.classList.add('list-group-item', 'text-right', 'mx-2');
-      producto.textContent = n;
-      */
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
