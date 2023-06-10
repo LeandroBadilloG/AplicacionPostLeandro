@@ -10,4 +10,6 @@ router.get('/inicioSesion',funciones.inicioSesion);
 router.get('/agregarCarrito',funciones.agregarAlCarrito);
 router.get('/cookie',funciones.cookies);
 
+router.post('/enviarCorreo',funciones.enviarCorreo);
+
 module.exports=router;

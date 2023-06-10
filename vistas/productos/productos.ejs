@@ -23,8 +23,8 @@
 
             <% productos.forEach(function(elemento) { %>
               <div class="col">
-                <div class="card">
-                  <img src="https://picsum.photos/50/50" class="card-img-top" style="width:auto;" alt="...">
+                <div class="card mt-3">
+                  <img src="https://picsum.photos/200/300" class="card-img-top" style="width:auto;" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">
                       <%=elemento.nombreProducto%>
@@ -36,8 +36,12 @@
                       <%=elemento.precioProducto%>
                     </p>
                   </div>
-                  <button type="button" class="btn btn-primary"
-                    onclick="traerDatos(`<%=elemento._id%>`)">Agregar</button>
+                  <form action="cookie" method="get">
+                    <input type="text" name="id" hidden value="<%=elemento._id%>">
+                    <input type="submit" value="Agregar">
+                  </form>
+                  < <button type="button" class="btn btn-primary"
+                    onclick="traerDatos(`<%=elemento._id%>`)">Agregar</button> 
                 </div>
               </div>
             <%})%>
@@ -54,8 +58,11 @@
       function traerDatos(i) {
 
         const carrito = document.getElementById('productoCarrito');
+
         const productos = document.createElement('p');
+
         productos.textContent = i;
+
         carrito.appendChild(productos);
 
 

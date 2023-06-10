@@ -10,8 +10,8 @@ exports.descargarExcel = async(req, res) => {
 
     //creamos un nuevo documento
     const wb = new xl.Workbook();
-    //definimos el nombre con el cual se descargara el archibo 
-    const nombreArchivo = 'TablaPrductos';
+    //definimos el nombre con el cual se descargara el archivo 
+    const nombreArchivo = 'TablaProductos';
     //se define el nombre 
     var ws = wb.addWorksheet(nombreArchivo);
 
@@ -33,8 +33,8 @@ exports.descargarExcel = async(req, res) => {
         }
     });
 
-    //definimos el nombre de las colombas
-    ws.cell(1, 1).string('Caegoria').style(columnaEstilo);
+    //definimos el nombre de las columnas
+    ws.cell(1, 1).string('Categoria').style(columnaEstilo);
     ws.cell(1, 2).string('Nombre').style(columnaEstilo);
     ws.cell(1, 3).string('Descripcion').style(columnaEstilo);
     ws.cell(1, 4).string('Precio').style(columnaEstilo);
@@ -42,10 +42,10 @@ exports.descargarExcel = async(req, res) => {
     //llamamos a la base de datos
     const listaProductos = await producto.find()
 
-    // definimos un contador que empiese en 2 
+    // definimos un contador que empiece en 2 
     let fila = 2;
 
-    //agregamos el contenido de la base de daros con un for o un forEach para llamar todos los datos 
+    //agregamos el contenido de la base de datos con un for o un forEach para llamar todos los datos 
     
     listaProductos.forEach(datoProducto => {
     ws.cell(fila, 1).string(datoProducto.categoriaProducto).style(contenidoEstilo);
@@ -55,32 +55,29 @@ exports.descargarExcel = async(req, res) => {
     
     fila = fila +1;
     });
-    
-    //Creamos una carpeta en la cual guardaremos los documentos
-    //definimos la ruta de la carpeta 
-
-    //const rutaExcel = path.join(__dirname,'excel',nombreArchivo +'.xlsx');
 
     const rutaExcel = path.join(__dirname,'excel'+ nombreArchivo +'.xlsx');
 
-    //escrivir y guardar en el documento 
+    //escribir y guardar en el documento 
     //se le inclulle la ruta y una funcion 
     wb.write(rutaExcel, function(err,stars){
+
         //capturamos y mostramos en caso de un error
         if(err)console.log(err);
         //creamos una funcion que descargue el archibo y lo elimine 
         else{
 
             //guardamos el documento en la carpeta para excel para poder descargarla en el pc
-            function descargarDocumento(){res.download(rutaExcel);}
-                descargarDocumento();
+                res.download(rutaExcel);
+                
                 console.log('documento descargado correctamente');
 
                 //Eliminamos el documento de la carpeta excel
                 fs.rm(rutaExcel, function(err){
                     if(err)console.log(err);
-                    else console.log('Arechibo descargado y borrado del servidor correctamente');
+                    else console.log('Archivo descargado y borrado del servidor correctamente');
                 });
+                
         }
     });
 
