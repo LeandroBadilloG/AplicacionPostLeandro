@@ -26,11 +26,13 @@ app.use(morgan('dev'));
 //express.urlencoded se utiliza par que escuche  la informacio que llega al req
 app.use(express.urlencoded({extended:true}));
 
-const ruta = require('./enrutamiento/rutas')
-
+const ruta = require('./enrutamiento/rutas');
+const rutaProductos = require('./enrutamiento/rutasProductos');
+const rutaVendedores = require('./enrutamiento/rutasVendedores');
 
 app.use('/tienda/v1',ruta);
-
+app.use('/productos/v1',rutaProductos);
+app.use('/vendedores/v1',rutaVendedores);
 
 
 app.listen(PORT, ()=>{

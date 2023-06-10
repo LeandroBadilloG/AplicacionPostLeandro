@@ -17,14 +17,6 @@ router.get('/listaVendedores',funciones.listaVendedores);
 router.post('/registrarVendeodor',funciones.registrarVendedor);
 
 
-
-//rutas Productos
-router.get('/formProducto',funciones.formProducto);
-router.get('/listaProductos',funciones.listaproductos);
-router.get('/productos',funciones.productos);
-router.post('/registrarProducto',funciones.nuevoProducto);
-router.post('/actualizarProducto',funciones.actualizarProducto);
-
 //rutas Inicio de sesión 
 router.get('/inicioSesion',funciones.inicioSesion);
 
@@ -33,9 +25,5 @@ router.get('/agregarCarrito',funciones.agregarAlCarrito);
 
 //cookie
 router.get('/cookie',funciones.cookies);
-
-
-//descargar excel
-router.get('/descargarExcel',funciones.descargarExcel);
 
 module.exports=router;
