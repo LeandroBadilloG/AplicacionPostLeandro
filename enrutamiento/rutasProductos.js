@@ -10,5 +10,6 @@ router.post('/registrarProducto',funciones.nuevoProducto);
 router.post('/actualizarProducto',funciones.actualizarProducto);
 router.get('/descargarExcel',funciones.descargarExcel);
 router.post('/carrito',funciones.carrito);
+router.get('/grafica',funciones.grafica);
 
 module.exports=router;

@@ -1,25 +1,37 @@
 const { default: mongoose } = require("mongoose");
 
-const coneccion  = require('../configuracion/conexionBD')
+const coneccion = require('../configuracion/conexionBD')
 
 const schemaProducto = new mongoose.Schema({
-    categoriaProducto:{
-        type:String,
-        require:true,   
+    referencia: {
+        type: String,
+        require: true,
     },
-    nombreProducto:{
-        type:String,
-        require:true,
+    nombre: {
+        type: String,
+        require: true,
     },
-    descripcionProducto:{
-        type:String,
-        require:true,
+    descripcion: {
+        type: String,
+        require: true
     },
-    precioProducto:{
-        type:Number,
-        require:true,
-    }
+    precio: {
+        type: Number,
+        require: true,
+    },
+    stock: {
+        type: Number,
+        require: true,
+    },
+    habilitado: {
+        type: Boolean,
+        require: true
+    },
+    imagenUrl: {
+        type: String,
+        require: true,
+    },
 })
 
-const nuevoProducto = mongoose.model('productos',schemaProducto)
-module.exports= nuevoProducto;
+const nuevoProducto = mongoose.model('productos', schemaProducto)
+module.exports = nuevoProducto;

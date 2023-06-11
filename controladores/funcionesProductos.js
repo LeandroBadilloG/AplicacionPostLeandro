@@ -5,7 +5,7 @@ const path = require('path')
 const fs = require('fs');
 
 
-exports.descargarExcel = async(req, res) => {
+exports.descargarExcel = async (req, res) => {
     //configuramos el excel4node
 
     //creamos un nuevo documento
@@ -46,42 +46,42 @@ exports.descargarExcel = async(req, res) => {
     let fila = 2;
 
     //agregamos el contenido de la base de datos con un for o un forEach para llamar todos los datos 
-    
+
     listaProductos.forEach(datoProducto => {
-    ws.cell(fila, 1).string(datoProducto.categoriaProducto).style(contenidoEstilo);
-    ws.cell(fila, 2).string(datoProducto.nombreProducto).style(contenidoEstilo);
-    ws.cell(fila, 3).string(datoProducto.descripcionProducto).style(contenidoEstilo);
-    ws.cell(fila, 4).number(datoProducto.precioProducto).style(contenidoEstilo);
-    
-    fila = fila +1;
+        ws.cell(fila, 1).string(datoProducto.categoriaProducto).style(contenidoEstilo);
+        ws.cell(fila, 2).string(datoProducto.nombreProducto).style(contenidoEstilo);
+        ws.cell(fila, 3).string(datoProducto.descripcionProducto).style(contenidoEstilo);
+        ws.cell(fila, 4).number(datoProducto.precioProducto).style(contenidoEstilo);
+
+        fila = fila + 1;
     });
 
-    const rutaExcel = path.join(__dirname,'excel'+ nombreArchivo +'.xlsx');
+    const rutaExcel = path.join(__dirname, 'excel' + nombreArchivo + '.xlsx');
 
     //escribir y guardar en el documento 
     //se le inclulle la ruta y una funcion 
-    wb.write(rutaExcel, function(err,stars){
+    wb.write(rutaExcel, function (err, stars) {
 
         //capturamos y mostramos en caso de un error
-        if(err)console.log(err);
+        if (err) console.log(err);
         //creamos una funcion que descargue el archibo y lo elimine 
-        else{
+        else {
 
             //guardamos el documento en la carpeta para excel para poder descargarla en el pc
-                res.download(rutaExcel);
-                
-                console.log('documento descargado correctamente');
+            res.download(rutaExcel);
 
-                //Eliminamos el documento de la carpeta excel
-                fs.rm(rutaExcel, function(err){
-                    if(err)console.log(err);
-                    else console.log('Archivo descargado y borrado del servidor correctamente');
-                });
-                
+            console.log('documento descargado correctamente');
+
+            //Eliminamos el documento de la carpeta excel
+            fs.rm(rutaExcel, function (err) {
+                if (err) console.log(err);
+                else console.log('Archivo descargado y borrado del servidor correctamente');
+            });
+
         }
     });
 
-    
+
 }
 
 exports.formProducto = (req, res) => {
@@ -128,7 +128,7 @@ exports.actualizarProducto = async (req, res) => {
 }
 
 
-exports.carrito = async(req,res)=>{
+exports.carrito = async (req, res) => {
     const nuevaCompra = new compra({
         _id: req.body.id,
         nombreProducto: req.body.nombre,
@@ -137,9 +137,22 @@ exports.carrito = async(req,res)=>{
     nuevaCompra.save()
 }
 
-exports.mostarCarrito =async(req,res)=>{
+exports.mostarCarrito = async (req, res) => {
     const productos = await compra.find()
-    res.render('parciales/nav',{
-        'productos':productos
+    res.render('parciales/nav', {
+        'productos': productos
     });
 }
+
+exports.grafica = async (req, res) => {
+    
+    
+    const nombreProductos = await producto.find({},{nombre:1,stock:1,_id:0});
+    //console.table(nombreProductos);
+    const stockProductos = await producto.find({},{stock:1,_id:0});
+    //console.table(stockProductos);
+    res.render('productos/grafica',{
+        'nombre':nombreProductos,
+        'stock':stockProductos
+    });
+};

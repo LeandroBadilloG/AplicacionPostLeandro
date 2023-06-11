@@ -23,25 +23,25 @@
 
             <% productos.forEach(function(elemento) { %>
               <div class="col">
-                <div class="card mt-3">
+                <div class="card mt-3" style="height: 700px;">
                   <img src="https://picsum.photos/200/300" class="card-img-top" style="width:auto;" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">
-                      <%=elemento.nombreProducto%>
+                      <%=elemento.nombre%>
                     </h5>
                     <p class="card-text">
-                      <%=elemento.descripcionProducto%>
+                      <%=elemento.descripcion%>
                     </p>
                     <p class="card-text">
-                      <%=elemento.precioProducto%>
+                      <%=elemento.precio%>
                     </p>
                   </div>
-                  <form action="carrito" method="post">
+                  <form action="carrito" method="post" class="text-center">
                     <input type="text" name="id" hidden value="<%=elemento._id%>">
                     <input type="text" name="nombre" hidden value="<%=elemento.nombreProducto%>">
                     <input type="text" name="precio" hidden value="<%=elemento.precioProducto%>">
 
-                    <input class="btn btn-primary" type="submit" value="Agregar">
+                    <input class="btn btn-primary mb-2" type="submit" value="Agregar">
                   </form>
                 </div>
               </div>
