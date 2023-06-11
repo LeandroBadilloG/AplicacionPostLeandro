@@ -1,9 +1,13 @@
 const usuario = require('../modelos/modelosUsuario');
+const compra = require('../modelos/modelosVentas');
 const nodemailer = require('nodemailer');
+const multer  = require('multer')
 
-
-exports.paginaprincipal = (req, res) => {
-    res.render('principal')
+exports.paginaprincipal = async (req, res) => {
+  const productos = await compra.find()
+    res.render('principal',{
+      'productos':productos
+    })
 }
 
 exports.enviarCorreo = (req, res)=>{
@@ -91,6 +95,28 @@ exports.cookies = (req, res) => {
     res.send('Producto agregado al carrito');
 
 
+}
+
+
+exports.subirArchivo = (req,res) =>{
+  const storage = multer.diskStorage({
+    //ruta en la cual se guardan los documentos subidos 
+    destination: './documentos',
+
+    //configuramos el nombre del archibo guardado y identificamos la extencion del documento suvido 
+    filename: function (req, file, cb) {
+      //Tomamos el nombre original del documento y le ponesmos el mismo nombre
+      //cortamos en el ultimo punto del nombre del documento para identificar el archivo
+      var extencion= file.originalname.slice(file.originalname.lastIndexOf('.'));
+      //definimos el nombre con el cual se guradara el documento y la extencion
+      cb(null, Date.now()+extencion);
+    }
+  })
+  console.log('exitoso')
+  multer({ storage: storage }).single('file');
+  console.log(multer);
+  res.send('listo')
+  
 }
 
 

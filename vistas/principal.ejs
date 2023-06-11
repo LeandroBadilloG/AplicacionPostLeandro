@@ -13,7 +13,7 @@
 
 <body>
 
-  <%- include('./parciales/nav')%>
+  <%- include('parciales/nav')%>
 
 
     <!--Carrusel princial-->
@@ -175,6 +175,23 @@
           <div class="mb-3">
             <label for="textarea1" class="form-label">Contenido</label>
             <textarea class="form-control" id="textarea1" name="textarea1" rows="3"></textarea>
+          </div>
+
+          <div>
+            <input type="submit" value="Enviar">
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+    <div class="row g-0">
+      <div class=" col-md-6 m-5 ">
+        <form action="subirArchivo" method="post">
+
+          <div class="mb-3">
+            <label for="documento" class="form-label">Usuario</label>
+            <input type="file" class="form-control" id="documento" name="documento"Juanito Perez">
           </div>
 
           <div>

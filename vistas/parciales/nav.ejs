@@ -25,7 +25,7 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page"
-                            href="http://localhost:5900/tienda/v1/principal">Inicio</a>
+                            href="http://localhost:5800/tienda/v1/principal">Inicio</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Compras</a>
@@ -45,25 +45,41 @@
                 <a class="btn btn-outline-secondary m-1" href="/tienda/v1/registro" role="button" data-bs-toggle="modal"
                     data-bs-target="#modalInicioSesion"><i class="bi bi-person-circle"></i></a>
 
-                <a class="btn btn-outline-secondary m-1" href="" role="button" data-bs-toggle="offcanvas" data-bs-target="#carrito"
-                aria-controls="carrito"><i class="bi bi-cart3"></i></a>
+                <a class="btn btn-outline-secondary m-1" href="" role="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#carrito" aria-controls="carrito"><i class="bi bi-cart3"></i></a>
             </div>
         </div>
     </nav>
 
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="carrito" aria-labelledby="carritoLabel">
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="carrito"
+        aria-labelledby="carritoLabel">
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="carritoLabel">Carrito</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <h5 class="offcanvas-title" id="carritoLabel">Carrito</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body" id="productoCarrito">
-          
+        <div class="offcanvas-body">
+            <% productos.forEach(function(elemento) { %>
+                <div class="card text-bg-light mb-3" style="max-width:500px;">
+                    <div class="card-header">
+                        <%=elemento.nombreProducto%>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <%=elemento.precioProducto%>
+                        </p>
+                    </div>
+                </div>
+            <%})%>
         </div>
-      </div>
-  
+        <div class="offcanvas-end py-3">
+            <h5>Total:</h5>
+        </div>
+
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-    crossorigin="anonymous"></script>
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

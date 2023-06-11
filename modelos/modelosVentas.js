@@ -11,10 +11,6 @@ const schemaVenta = new mongoose.Schema({
         type:String,
         require:true,
     },
-    descripcionProducto:{
-        type:String,
-        require:true,
-    },
     precioProducto:{
         type:Number,
         require:true,

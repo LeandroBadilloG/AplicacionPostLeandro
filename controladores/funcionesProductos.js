@@ -1,5 +1,5 @@
 const producto = require('../modelos/modelosProducto');
-
+const compra = require('../modelos/modelosVentas');
 const xl = require('excel4node');
 const path = require('path')
 const fs = require('fs');
@@ -98,7 +98,7 @@ exports.listaproductos = async (req, res) => {
 
 exports.productos = async (req, res) => {
     const listaProductos = await producto.find();
-    res.render('productos/productos', {
+    res.render('productos/catalogoProductos', {
         "productos": listaProductos,
     })
 
@@ -125,4 +125,21 @@ exports.actualizarProducto = async (req, res) => {
     })
     console.log(req.body)
     res.redirect('listaProductos')
+}
+
+
+exports.carrito = async(req,res)=>{
+    const nuevaCompra = new compra({
+        _id: req.body.id,
+        nombreProducto: req.body.nombre,
+        precioProducto: req.body.precio,
+    })
+    nuevaCompra.save()
+}
+
+exports.mostarCarrito =async(req,res)=>{
+    const productos = await compra.find()
+    res.render('parciales/nav',{
+        'productos':productos
+    });
 }

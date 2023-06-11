@@ -36,12 +36,13 @@
                       <%=elemento.precioProducto%>
                     </p>
                   </div>
-                  <form action="cookie" method="get">
+                  <form action="carrito" method="post">
                     <input type="text" name="id" hidden value="<%=elemento._id%>">
-                    <input type="submit" value="Agregar">
+                    <input type="text" name="nombre" hidden value="<%=elemento.nombreProducto%>">
+                    <input type="text" name="precio" hidden value="<%=elemento.precioProducto%>">
+
+                    <input class="btn btn-primary" type="submit" value="Agregar">
                   </form>
-                  < <button type="button" class="btn btn-primary"
-                    onclick="traerDatos(`<%=elemento._id%>`)">Agregar</button> 
                 </div>
               </div>
             <%})%>
