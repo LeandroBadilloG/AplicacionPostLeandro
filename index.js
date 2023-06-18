@@ -16,9 +16,8 @@ const PORT= process.env.PORT;
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
-//excel 
-var xl = require('excel4node');
-
+//static
+app.use(express.static(path.join(__dirname,'static')));
 
 app.use(express.json());
 app.use(morgan('dev'));
@@ -26,13 +25,9 @@ app.use(morgan('dev'));
 //express.urlencoded se utiliza par que escuche  la informacio que llega al req
 app.use(express.urlencoded({extended:true}));
 
-const rutaUsuarios = require('./enrutamiento/rutasUsuarios');
-const rutaProductos = require('./enrutamiento/rutasProductos');
-const rutaVendedores = require('./enrutamiento/rutasVendedores');
+const rutas = require('./enrutamiento/rutas');
 
-app.use('/tienda/v1',rutaUsuarios);
-app.use('/productos/v1',rutaProductos);
-app.use('/vendedores/v1',rutaVendedores);
+app.use('/tienda/v1',rutas);
 
 
 app.listen(PORT, ()=>{

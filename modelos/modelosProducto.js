@@ -15,11 +15,11 @@ const schemaProducto = new mongoose.Schema({
         type: String,
         require: true
     },
-    precio: {
-        type: Number,
-        require: true,
+    stock:{
+        type:Number,
+        require: true
     },
-    stock: {
+    precio: {
         type: Number,
         require: true,
     },

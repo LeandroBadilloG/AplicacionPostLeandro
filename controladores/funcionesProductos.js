@@ -96,7 +96,7 @@ exports.listaproductos = async (req, res) => {
 
 }
 
-exports.productos = async (req, res) => {
+exports.catalogoProductos = async (req, res) => {
     const listaProductos = await producto.find();
     res.render('productos/catalogoProductos', {
         "productos": listaProductos,
@@ -106,10 +106,12 @@ exports.productos = async (req, res) => {
 
 exports.nuevoProducto = (req, res) => {
     const nuevoProducto = new producto({
-        categoriaProducto: req.body.categoriaProducto,
-        nombreProducto: req.body.nombreProducto,
-        descripcionProducto: req.body.descripcionProducto,
-        precioProducto: req.body.precioProducto,
+        referencia: req.body.referencia,
+        nombre: req.body.nombre,
+        descripcion: req.body.descripcion,
+        stock: req.body.stock,
+        precio: req.body.precio,
+        
     })
     nuevoProducto.save();
     console.log(req.body);
@@ -149,10 +151,9 @@ exports.grafica = async (req, res) => {
     
     const nombreProductos = await producto.find({},{nombre:1,stock:1,_id:0});
     //console.table(nombreProductos);
-    const stockProductos = await producto.find({},{stock:1,_id:0});
+    // const stockProductos = await producto.find({},{stock:1,_id:0});
     //console.table(stockProductos);
     res.render('productos/grafica',{
-        'nombre':nombreProductos,
-        'stock':stockProductos
+        'productos':nombreProductos,
     });
 };

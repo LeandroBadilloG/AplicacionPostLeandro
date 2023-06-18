@@ -25,21 +25,18 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page"
-                            href="http://localhost:5800/tienda/v1/principal">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Compras</a>
+                            href="principal">Inicio</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Productos
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Hogar</a></li>
-                            <li><a class="dropdown-item" href="#">Moda</a></li>
-                            <li><a class="dropdown-item" href="#">Tecnologia</a></li>
-                        </ul>
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Productos</a>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="catalogoProductos">Catalogo</a>
+                          <a class="dropdown-item" href="fromProducto">Agregar Producto</a>
+                          <a class="dropdown-item" href="listaProductos">Lista de productos</a>
+                        </div>
+                      </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="catalogoProductos">Catalogo</a>
                     </li>
                 </ul>
                 <a class="btn btn-outline-secondary m-1" href="/tienda/v1/registro" role="button" data-bs-toggle="modal"
@@ -58,18 +55,10 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <% productos.forEach(function(elemento) { %>
-                <div class="card text-bg-light mb-3" style="max-width:500px;">
-                    <div class="card-header">
-                        <%=elemento.nombreProducto%>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">
-                            <%=elemento.precioProducto%>
-                        </p>
-                    </div>
-                </div>
-            <%})%>
+
+
+
+
         </div>
         <div class="offcanvas-end py-3">
             <h5>Total:</h5>

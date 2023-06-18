@@ -20,10 +20,11 @@
             <table class="table table-striped table-hover table-bordered m-5 text-center">
                 <thead>
                     <tr >
-                        <th scope="col">Categoria</th>
+                        <th scope="col">Referencia</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Descripcion</th>
                         <th scope="col">Precio</th>
+                        <th scope="col">Habilitado</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
@@ -31,16 +32,19 @@
                     <% productos.forEach(function(elemento) { %>
                         <tr>
                             <td>
-                                <%=elemento.categoriaProducto%>
+                                <%=elemento.referencia%>
                             </td>
                             <td>
-                                <%=elemento.nombreProducto%>
+                                <%=elemento.nombre%>
                             </td>
                             <td>
-                                <%=elemento.descripcionProducto%>
+                                <%=elemento.descripcion%>
                             </td>
                             <td>
-                                <%=elemento.precioProducto%>
+                                <%=elemento.precio%>
+                            </td>
+                            <td>
+                                <%=elemento.habilitado%>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-outline-danger" >Eliminar</button>
