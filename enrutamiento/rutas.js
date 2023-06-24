@@ -22,10 +22,10 @@ router.get('/formUsuario',funcionesUsuarios.formUsuario);
 router.post('/registrarUsuario',funcionesUsuarios.nuevoUsuario);
 router.post('/autenticarUsuario',funcionesUsuarios.autenticarUsuario);
 router.get('/inicioSesion',funcionesUsuarios.inicioSesion);
-router.get('/agregarCarrito',funcionesUsuarios.agregarAlCarrito);
 router.get('/cookie',funcionesUsuarios.cookies);
 router.post('/enviarCorreo',funcionesUsuarios.enviarCorreo);
-router.post('/subirArchivo',funcionesUsuarios.subirArchivo)
+router.post('/subirArchivo',funcionesUsuarios.subirArchivo);
+router.get('/listaUsuarios',funcionesUsuarios.listaUsuarios);
 
 //vendedores
 router.get('/formVendedor',funcionesVendedores.formVendedores);

@@ -73,8 +73,11 @@ exports.autenticarUsuario = async (req, res) => {
     }
 }
 
-exports.agregarAlCarrito = (req, res) => {
-
+exports.listaUsuarios = async (req, res) => {
+  const listaUsuarios = await usuario.find();
+  res.render('usuarios/listaUsuarios', {
+      "usuarios": listaUsuarios,
+  })
 }
 
 exports.cookies = (req, res) => {
