@@ -3,6 +3,7 @@ const compra = require('../modelos/modelosVentas');
 const xl = require('excel4node');
 const path = require('path')
 const fs = require('fs');
+const {localStorage} = require("node-localstorage")
 
 
 exports.descargarExcel = async (req, res) => {
@@ -111,7 +112,7 @@ exports.nuevoProducto = (req, res) => {
         descripcion: req.body.descripcion,
         stock: req.body.stock,
         precio: req.body.precio,
-        
+
     })
     nuevoProducto.save();
     console.log(req.body);
@@ -119,41 +120,70 @@ exports.nuevoProducto = (req, res) => {
 }
 
 exports.actualizarProducto = async (req, res) => {
-    await producto.findByIdAndUpdate(req.body.id, {
-        categoriaProducto: req.body.categoriaProducto,
-        nombreProducto: req.body.nombreProducto,
-        descripcionProducto: req.body.descripcionProducto,
-        precioProducto: req.body.precioProducto,
-    })
-    console.log(req.body)
-    res.redirect('listaProductos')
-}
 
+    await producto.findByIdAndUpdate(req.body.idN, {
 
-exports.carrito = async (req, res) => {
-    const nuevaCompra = new compra({
-        _id: req.body.id,
-        nombreProducto: req.body.nombre,
+        referencia: req.body.referencia,
+
+        nombre: req.body.nombre,
+
+        descripcion: req.body.descripcion,
+
+        stock: req.body.stock,
+
         precioProducto: req.body.precio,
+
+        habilitado: req.body.habilitado
+
     })
-    nuevaCompra.save()
+    
+    console.log(req.body)
+
+    res.redirect('listaProductos')
+
 }
 
-exports.mostarCarrito = async (req, res) => {
-    const productos = await compra.find()
-    res.render('parciales/nav', {
-        'productos': productos
-    });
-}
+
 
 exports.grafica = async (req, res) => {
-    
-    
-    const nombreProductos = await producto.find({},{nombre:1,stock:1,_id:0});
+    const nombreProductos = await producto.find({}, { nombre: 1, stock: 1, _id: 0 });
     //console.table(nombreProductos);
     // const stockProductos = await producto.find({},{stock:1,_id:0});
     //console.table(stockProductos);
-    res.render('productos/grafica',{
-        'productos':nombreProductos,
+    res.render('productos/grafica', {
+        'productos': nombreProductos,
     });
 };
+
+
+
+
+exports.cookiesProductos = (req, res) => {
+//    const informacionPrducto= {
+//     id:req.body.id,
+//     nombre:req.body.nombre,
+//     precio:req.body.precio,
+//    };
+
+    const a = req.body.id;
+   function agregarAlCarrito(producto) {
+    let carrito = localStorage.getItem('carrito');
+    if (!carrito) {
+        carrito = [];
+    } else {
+        carrito = JSON.parse(carrito);
+    }
+    carrito.push(producto);
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    const div= document.getElementById('productos');
+    const id = document.createElement('p');
+    id.textContent = carrito;
+    div.appendChild(id);
+
+}
+        
+    agregarAlCarrito(a)
+
+
+}
+

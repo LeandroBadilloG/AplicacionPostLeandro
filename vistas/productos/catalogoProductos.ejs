@@ -36,13 +36,19 @@
                       <%=elemento.precio%>
                     </p>
                   </div>
-                  <form action="carrito" method="post" class="text-center">
+                  <button onclick="agregarAlCarrito(`<%=elemento.nombre%>`,`<%=elemento.precio%>`,`<%=elemento._id%>`) ">agregar</button>
+
+
+                  <form action="cookiesProducto" method="post" class="text-center">
+
                     <input type="text" name="id" hidden value="<%=elemento._id%>">
                     <input type="text" name="nombre" hidden value="<%=elemento.nombreProducto%>">
                     <input type="text" name="precio" hidden value="<%=elemento.precioProducto%>">
 
                     <input class="btn btn-primary mb-2" type="submit" value="Agregar">
                   </form>
+
+                  
                 </div>
               </div>
             <%})%>
@@ -56,18 +62,6 @@
 
     <script>
 
-      function traerDatos(i) {
-
-        const carrito = document.getElementById('productoCarrito');
-
-        const productos = document.createElement('p');
-
-        productos.textContent = i;
-
-        carrito.appendChild(productos);
-
-
-      }
 
     </script>
 

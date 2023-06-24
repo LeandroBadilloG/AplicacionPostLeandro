@@ -23,6 +23,7 @@
                         <th scope="col">Referencia</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Descripcion</th>
+                        <th scope="col">Stock</th>
                         <th scope="col">Precio</th>
                         <th scope="col">Habilitado</th>
                         <th scope="col"></th>
@@ -41,6 +42,9 @@
                                 <%=elemento.descripcion%>
                             </td>
                             <td>
+                                <%=elemento.stock%>
+                            </td>
+                            <td>
                                 <%=elemento.precio%>
                             </td>
                             <td>
@@ -48,7 +52,7 @@
                             </td>
                             <td>
                                 <button type="button" class="btn btn-outline-danger" >Eliminar</button>
-                                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="llamarDatosProducto(`<%=elemento.categoriaProducto%>`,`<%=elemento.nombreProducto%>`,`<%=elemento.descripcionProducto%>`,`<%=elemento.precioProducto%>`,`<%=elemento._id%>`)">Editar</button>
+                                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="llamarDatosProducto(`<%=elemento.referencia%>`,`<%=elemento.nombre%>`,`<%=elemento.descripcion%>`,`<%=elemento.precio%>`,`<%=elemento.stock%>`,`<%=elemento.habilitado%>`,`<%=elemento._id%>`)">Editar</button>
                             </td>
                         </tr>
                         <%})%>
@@ -71,29 +75,43 @@
         <div class="modal-body">
             <form class="m-5" id="formActualizar" method="post">
                 <div class="form-group ">
-                    
-                    <label class="form-label p-1" for="categoriaProducto">CATEGORIA</label>
-                    <select class="form-select" id="categoriaProducto" name="categoriaProducto">
-                        <option value="Hogar">Hogar</option>
-                        <option value="Moda">Moda</option>
-                        <option value="Tecnologia">Tecnologia</option>
-                    </select>
-                    
-                    <input type="hidden" name="id" id="id">
+                    <div>
+                        <label for="referencia" class="form-label p-1 text-center">
+                            <h5>Referencia:</h5>
+                        </label>
+                        <input type="text" class="form-control" id="referenciaN" name="referencia">
+                    </div>
+                    <div>
+                        <label for="nombre" class="form-label p-1 text-center">
+                            <h5>Nombre:</h5></label>
+                        <input type="text" class="form-control" id="nombreN" name="nombre">
+                    </div>
+                    <div>
+                        <label for="descripcion" class="form-label p-1"><h5>Descripcion:</h5></label>
+                        <textarea id="descripcionN" name="descripcion" class="form-control" cols="10" rows="3"></textarea>
+                    </div>
+                    <div>
 
-                    <label for="nombreProducto" class="form-label p-1 ">NOMBRE DEL PRODUCTO</label>
-                    <input type="text" class="form-control" id="nombreProducto"  name="nombreProducto">
-        
-                    <label for="descripcionProducto" class="form-label p-1">DESCRIPCION DEL PRODUCTO:</label>
-                    <input type="text" class="form-control" id="descripcionProducto" name="descripcionProducto">
-        
-                    <label for="precioProducto" class="form-label p-1">PRECIO DEL PRODUCTO</label>
-                    <input type="number" class="form-control" id="precioProducto" name="precioProducto">
-        
+                        <label for="stock" class='form-label p-1'><h5>Cantidad:</h5></label>
+                        <input type="number" class="form-control" id="stockN" name="stock">
+                    </div>
+                    <div>
+
+                        <label for="precio" class="form-label p-1"><h5>Precio:</h5></label>
+                        <input type="number" class="form-control" id="precioN" name="precio">
+                    </div>
+
+                    <div>
+                        <input class="form-check-input" type="checkbox" id="habilitadoN" name="habilitado" checked>
+                        <label for="habilitado" class='form-label'><h5>Habilitado</h5></label>
+                    </div>
                 </div>
                 <div class="form-group text-center">
-                    <input type="submit" class="btn btn-primary p-1 mt-5"></input>
+                    <input type="submit" class="btn btn-primary px-3 mt-5"></input>
                 </div>
+
+                <input type="hidden" id="idN" name="idN">
+
             </form>
         </div>
       </div>
@@ -105,12 +123,14 @@
         crossorigin="anonymous"></script>
 
     <script>
-        function llamarDatosProducto(c,n,d,p,i){
-            id.value=i
-            categoriaProducto.value=c;
-            nombreProducto.value=n;
-            descripcionProducto.value=d;
-            precioProducto.value=p
+        function llamarDatosProducto(referencia,nombre,descripcion,precio,stock,habilitado,id){
+            referenciaN.value=referencia;
+            nombreN.value=nombre;
+            descripcionN.value=descripcion;
+            precioN.value=precio;
+            stockN.value=stock;
+            habilitadoN.value=habilitado;
+            idN.value=id
 
             const from = document.getElementById('formActualizar');
             from.setAttribute('action', 'actualizarProducto');

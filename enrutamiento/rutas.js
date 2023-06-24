@@ -13,8 +13,8 @@ router.get('/catalogoProductos',funciones.catalogoProductos);
 router.post('/registrarProducto',funciones.nuevoProducto);
 router.post('/actualizarProducto',funciones.actualizarProducto);
 router.get('/descargarExcel',funciones.descargarExcel);
-router.post('/carrito',funciones.carrito);
 router.get('/grafica',funciones.grafica);
+router.post('/cookiesProducto',funciones.cookiesProductos);
 
 //usuarios
 router.get('/principal',funcionesUsuarios.paginaprincipal);
