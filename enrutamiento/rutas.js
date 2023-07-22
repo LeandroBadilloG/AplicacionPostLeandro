@@ -28,7 +28,7 @@ router.get('/inicioSesion',funcionesUsuarios.inicioSesion);
 router.get('/cookie',funcionesUsuarios.cookies);
 router.post('/enviarCorreo',funcionesUsuarios.enviarCorreo);
 router.post('/subirArchivo',funcionesUsuarios.subirArchivo);
-
+router.post('/actualizarUsuario',funcionesUsuarios.editarUsuario);
 router.post('/registrarUsuario',[
 
     body('nombreUsuario', 'Ingrese un nombre de usuario.').exists().isLength({min:2,max:30}),

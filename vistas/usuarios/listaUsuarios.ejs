@@ -57,7 +57,7 @@
                                     <button type="button" class="btn btn-outline-danger">Eliminar</button>
                                     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
                                         data-bs-target="#modalActualizarUsuario"
-                                        onclick="llamarDatosUsuario(`<%=elemento.nombreUsuario%>`,`<%=elemento.apellidosUsuario%>`,`<%=elemento.telefonoUsuario%>`,`<%=elemento.correoUsuario%>`,`<%=elemento._id%>`)">Editar</button>
+                                        onclick="llamarDatosUsuario(`<%=elemento.nombreUsuario%>`,`<%=elemento.apellidosUsuario%>`,`<%=elemento.telefonoUsuario%>`,`<%=elemento.correoUsuario%>`,`<%=elemento.ubicacionUsuario%>`,`<%=elemento._id%>`)">Editar</button>
                                 </td>
                             </tr>
                             <%})%>
@@ -76,7 +76,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="formularioUsuario" method="post">
+                        <form id="formularioUsuario" action="actualizarUsuario" method="post">
                             <div class="form-group ">
 
                                 <label for="nombreUsuario" class="form-label p-1 ">NOMBRE</label>
@@ -100,7 +100,7 @@
 
                             </div>
                             <div class="form-group text-center ">
-                                <input type="submit" class="btn btn-primary p-1 mt-5"></input>
+                                <input type="submit" class="btn btn-primary p-1 mt-5">
                             </div>
                         </form>
                     </div>
@@ -110,11 +110,12 @@
 
 
         <script>
-            function llamarDatosUsuario(nombre, apellido, telefono, corre, contraseña, id) {
+            function llamarDatosUsuario(nombre, apellido, telefono, corre,direccion, contraseña, id) {
                 nombreUsuario.value = nombre;
                 apellidoUsuario.value = apellido;
                 telefonoUsuario.value = telefono;
-                correUsuario.value = corre;
+                direccionUsuario.value=direccion;
+                correoUsuario.value = corre;
                 contraseñaUsuario.value = contraseña;
                 id.value = id
 
@@ -125,4 +126,4 @@
         </script>
 </body>
 
-</html>
+</html>00848382

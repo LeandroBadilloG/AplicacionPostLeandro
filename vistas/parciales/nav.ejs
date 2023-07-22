@@ -28,25 +28,16 @@
     
     <nav class="navbar navbar-expand-lg bg-light navbar ">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-            </button>
+              </button>
+          
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="principal">Inicio</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                            aria-expanded="true">Productos</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="catalogoProductos">Catalogo</a>
-                            <a class="dropdown-item" href="fromProducto">Agregar Producto</a>
-                            <a class="dropdown-item" href="listaProductos">Lista de productos</a>
-                        </div>
-                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="catalogoProductos">Catalogo</a>
                     </li>
@@ -61,6 +52,48 @@
         </div>
     </nav>
 
+
+    <div class="modal fade" id="modalInicioSesion" tabindex="-1" aria-labelledby="modalInicioSesionLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="modalInicioSesionLabel">Inicio de sesion</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="m-5" action="autenticarUsuario" method="post">
+                    <div class="form-group ">
+                        <label for="correoUsuario" class="form-label p-1">CORREO</label>
+                        <input type="email" class="form-control" name="correoUsuario" value="<% if(typeof valores != 'undefined') {%> <%= valores.correoUsuario %> <% } %>">
+
+                        <label for="contraseñaUsuario" class="form-label p-1">CONTRASEÑA</label>
+                        <input type="password" class="form-control" name="contraseñaUsuario">
+
+                    </div>
+                    <div class="form-group text-center ">
+                        <input type="submit" class="btn btn-primary p-1 mt-5" value="ingresar">
+                    </div>
+                    <div>
+                        <% if(typeof validaciones !='undefined' ) {%>
+                            <% validaciones.forEach((validacion)=> {%>
+                                <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
+                                    <strong>
+                                        <%= validacion.msg %>
+                                    </strong>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                                <% })} %>
+                    </div>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+
+    <!-- Offcanvas del carrito -->
     <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="carrito"
         aria-labelledby="carritoLabel">
         <div class="offcanvas-header">

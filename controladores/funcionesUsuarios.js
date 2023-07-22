@@ -150,4 +150,27 @@ exports.subirArchivo = (req, res) => {
 
 }
 
+exports.editarUsuario = async (req,res) =>{
+  
+  await usuario.findByIdAndUpdate(req.body.id, {
+
+    nombreUsuario: req.body.nombreUsuario,
+
+    apellidosUsuario: req.body.apellidoUsuario,
+
+    telefonoUsuario: req.body.telefonoUsuario,
+
+    ubicacionUsuario: req.body.direccionUsuario,
+
+    correoUsuario: req.body.correoUsuario,
+    
+    contraseñaUsuario: req.body.id,
+
+})
+
+console.log(req.body)
+
+res.redirect('listaUsuarios')
+}
+
 
