@@ -6,14 +6,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta id="" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista Usuarios</title>
+
+
 </head>
 
 <body>
     <%- include('../parciales/nav')%>
+    <script>
 
-        <div class="row g-0">
-            <div class=" col-md-11">
-                <table class="table table-striped table-hover table-bordered m-5 text-center">
+        $(document).ready(function () {
+          new DataTable('#table_id', {
+            stateSave: true
+          })
+        });
+    
+      </script>
+        <div class="container mt-5">
+            <div>
+                <div class="card-header ">
+                    <h4 class="text-center">LISTA USUARIOS</h4>
+                </div>
+                <div class="card-body">
+                    <table id="table_id" class="display table table-bordered " style="width:100%">
                     <thead>
                         <tr>
                             <th scope="col">Nombre</th>
@@ -21,7 +35,6 @@
                             <th scope="col">Telefono</th>
                             <th scope="col">direccion</th>
                             <th scope="col">Correo</th>
-                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -81,7 +94,8 @@
                                 <label for="correoUsuario" class="form-label p-1">CORREO</label>
                                 <input type="email" class="form-control" id="correoUsuario" name="correoUsuario">
 
-                                <input type="password" class="form-control" hidden id="contraseñaUsuario" name="contraseñaUsuario">
+                                <input type="password" class="form-control" hidden id="contraseñaUsuario"
+                                    name="contraseñaUsuario">
                                 <input type="text" class="form-control" hidden id="id" name="id">
 
                             </div>
