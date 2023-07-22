@@ -18,7 +18,7 @@
   <div class="row g-0">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class=" col-md-5">
-        <form class="m-5" action="registrarVendeodor" method="post">
+        <form class="m-5" action="/tienda/v1/registrarUsuario" method="post">
           <div class="form-group ">
 
             <label for="nombreVendedor" class="form-label p-1 ">NOMBRE</label>
@@ -33,6 +33,8 @@
 
             <label for="contraseñaVendedor" class="form-label p-1">CONTRASEÑA</label>
             <input type="password" class="form-control" name="contraseñaVendedor">
+
+            <input type="text" hidden id="rol" name="rol" value="vendedor">
 
 
           </div>

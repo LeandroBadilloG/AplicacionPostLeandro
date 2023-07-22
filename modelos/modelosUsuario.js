@@ -33,9 +33,12 @@ const schemaUsuario = new mongoose.Schema({
     },
     contraseñaUsuario:{
         type:String,
-        unique:true,
+        
         require:true,
-    }
+    },
+    rol:{
+        type:String
+    },
 },{
     //crea una variable mas al modelo con la informacion de cuando fue creado o cuando fue ctualizado la ultima vez
     timestamps:true,

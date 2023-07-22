@@ -66,6 +66,7 @@ exports.nuevoUsuario = async (req, res) => {
       ubicacionUsuario: req.body.direccionUsuario,
       correoUsuario: req.body.correoUsuario,
       contraseñaUsuario: req.body.contraseñaUsuario,
+      rol:req.body.rol,
     })
     nuevoUsuario.save();
     res.redirect('principal')
