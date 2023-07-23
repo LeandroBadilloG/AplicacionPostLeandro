@@ -33,7 +33,7 @@ router.post('/registrarUsuario',[
 
     body('nombreUsuario', 'Ingrese un nombre de usuario.').exists().isLength({min:2,max:30}),
     body('apellidoUsuario','Ingrese un apellido de usuario').exists().isLength({min:3,max:50}),
-    body('telefonoUsuario','Ingrese un telefono de usuario').exists().isNumeric(),
+    body('telefonoUsuario','Ingrese un numero de telefono valido').exists().isLength({min:10}),
     body('direccionUsuario','Ingrese un direccion de usuario').exists().isLength({min:5}),
     body('correoUsuario','Ingrese un correo de usuario').exists().isEmail(),
     body('contraseñaUsuario','Ingrese un contraseña con un minimo 8 caracteres').exists().isLength({min:8}),

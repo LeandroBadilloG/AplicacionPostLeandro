@@ -33,8 +33,8 @@ const schemaUsuario = new mongoose.Schema({
     },
     contraseñaUsuario:{
         type:String,
-        
         require:true,
+
     },
     rol:{
         type:String

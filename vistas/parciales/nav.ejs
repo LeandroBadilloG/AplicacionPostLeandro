@@ -57,7 +57,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="modalInicioSesionLabel">Inicio de sesion</h1>
+              <h1 class="modal-title fs-5 " id="modalInicioSesionLabel">Inicio de sesion</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -71,7 +71,7 @@
 
                     </div>
                     <div class="form-group text-center ">
-                        <input type="submit" class="btn btn-primary p-1 mt-5" value="ingresar">
+                        <input type="submit" class="btn btn-outline-primary p-1 mt-5" value="ingresar">
                     </div>
                     <div>
                         <% if(typeof validaciones !='undefined' ) {%>
@@ -86,6 +86,9 @@
                                 <% })} %>
                     </div>
                 </form>
+            </div>
+            <div class="modal-footer">
+                <a href="http://localhost:5900/tienda/v1/formUsuario" class="btn btn-outline-primary">Registrarse</a>
             </div>
           </div>
         </div>
@@ -158,7 +161,7 @@
                 <div class="card mb-3" style="max-width: 545px;">
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <img src="https:picsum.photos/100/150" class="img-fluid rounded-start" alt="...">
+                            <img src="https:picsum.photos/100/155?random${elemento.id}" class="img-fluid rounded-start" alt="...">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">

@@ -123,25 +123,43 @@
                   <div class="card-body">
                     <form class="m-5" action="/tienda/v1/registrarUsuario" method="post">
                       <div class="form-group ">
-
+          
                         <label for="nombreUsuario" class="form-label p-1 ">NOMBRE</label>
-                        <input type="text" class="form-control" name="nombreUsuario">
-
+                        <input type="text" class="form-control" name="nombreUsuario"
+                          value="<% if(typeof valores != 'undefined') {%> <%= valores.nombreUsuario %> <% } %>">
+          
                         <label for="apellidoUsuario" class="form-label p-1">APELLIDO</label>
-                        <input type="text" class="form-control" name="apellidoUsuario">
-
+                        <input type="text" class="form-control" name="apellidoUsuario"
+                          value="<% if(typeof valores != 'undefined') {%> <%= valores.apellidoUsuario %> <% } %>">
+          
                         <label for="telefonoUsuario" class="form-label p-1">TELEFONO</label>
-                        <input type="number" class="form-control" name="telefonoUsuario">
-
+                        <input type="number" class="form-control" name="telefonoUsuario"
+                          value="<% if(typeof valores != 'undefined') {%> <%= valores.telefonoUsuario %> <% } %>">
+          
                         <label for="direccionUsuario" class="form-label p-1">DIRECCION</label>
-                        <input type="text" class="form-control" id="direccionUsuario" name="direccionUsuario">
-
+                        <input type="text" class="form-control" id="direccionUsuario" name="direccionUsuario"
+                          value="<% if(typeof valores != 'undefined') {%> <%= valores.direccionUsuario %> <% } %>">
+          
                         <label for="correoUsuario" class="form-label p-1">CORREO</label>
-                        <input type="email" class="form-control" name="correoUsuario">
-
+                        <input type="email" class="form-control" name="correoUsuario"
+                          value="<% if(typeof valores != 'undefined') {%> <%= valores.correoUsuario %> <% } %>">
+          
                         <label for="contraseñaUsuario" class="form-label p-1">CONTRASEÑA</label>
                         <input type="password" class="form-control" name="contraseñaUsuario">
-
+          
+                        <input type="text" hidden id="rol" name="rol" value="usuario">
+          
+                      </div>
+                      <div>
+                        <% if(typeof validaciones !='undefined' ) {%>
+                          <% validaciones.forEach((validacion)=> {%>
+                            <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
+                              <strong>
+                                <%= validacion.msg %>
+                              </strong>
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <% })} %>
                       </div>
                       <div class="form-group ">
                         <input type="submit" class="btn btn-primary p-1 mt-5"></input>

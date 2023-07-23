@@ -66,7 +66,7 @@ exports.nuevoUsuario = async (req, res) => {
       ubicacionUsuario: req.body.direccionUsuario,
       correoUsuario: req.body.correoUsuario,
       contraseñaUsuario: req.body.contraseñaUsuario,
-      rol:req.body.rol,
+      rol:req.body.rol
     })
     nuevoUsuario.save();
     res.redirect('principal')
@@ -91,8 +91,19 @@ exports.autenticarUsuario = async (req, res) => {
 
     const buscarUsuario = await usuario.findOne({ "correoUsuario": correo });
 
+    
     if (buscarUsuario.contraseñaUsuario == contraseña) {
-      res.send('inicio sesion');
+    
+      const sesion = JSON.parse(localStorage.getItem('sesion')) || [];
+
+      const usuarioT = { 'nombre': buscarUsuario.id};
+
+      sesion.push(usuarioT);
+
+      localStorage.setItem('sesion', JSON.stringify(sesion));
+
+      res.send('bien')
+      
     }
     else {
       res.send('ERROR');
