@@ -35,7 +35,6 @@ exports.editarVendedor = async (req,res) =>{
     nombreVendedor: req.body.nombreVendedor,
     documentoVendedor: req.body.documentoVendedor,
     correoVendedor: req.body.correoVendedor,
-    contraseñaVendedor: req.body.contraseñaVendedor,
     rol:req.body.rol
 
 })

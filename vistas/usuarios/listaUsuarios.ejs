@@ -66,7 +66,7 @@
                                     <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalEliminar" onclick="datosEliminar(`<%=elemento._id%>`,`<%=elemento.nombreUsuario%>`)">Eliminar</button>
                                     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
                                         data-bs-target="#modalActualizarUsuario"
-                                        onclick="llamarDatosUsuario(`<%=elemento.nombreUsuario%>`,`<%=elemento.apellidosUsuario%>`,`<%=elemento.telefonoUsuario%>`,`<%=elemento.correoUsuario%>`,`<%=elemento.ubicacionUsuario%>`,`<%=elemento._id%>`,`<%=elemento.rol%>`)">Editar</button>
+                                        onclick="llamarDatosUsuario(`<%=elemento.nombreUsuario%>`,`<%=elemento.apellidosUsuario%>`,`<%=elemento.telefonoUsuario%>`,`<%=elemento.correoUsuario%>`,`<%=elemento.ubicacionUsuario%>`,`<%=elemento._id%>`)">Editar</button>
                                 </td>
                             </tr>
                             <%})%>
@@ -103,10 +103,8 @@
                                 <label for="correoUsuario" class="form-label p-1">CORREO</label>
                                 <input type="email" class="form-control" id="correoUsuario" name="correoUsuario">
 
-                                <input type="password" class="form-control" hidden id="contraseñaUsuario" name="contraseñaUsuario">
-                                    
+                                
                                 <input type="text" class="form-control" hidden id="idUsuario" name="idUsuario">
-                                <input type="text" class="form-control" hidden id="rol" name="rol" value="Usuario">
 
 
                             </div>

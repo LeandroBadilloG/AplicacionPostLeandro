@@ -61,7 +61,7 @@
                                             onclick="datosEliminar(`<%=elemento._id%>`,`<%=elemento.nombreVendedor%>`)">Eliminar</button>
                                         <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
                                             data-bs-target="#modalActualizarVendedor"
-                                            onclick="llamarDatosVendedor(`<%=elemento.nombreVendedor%>`,`<%=elemento.documentoVendedor%>`,`<%=elemento.correoVendedor%>`,`<%=elemento.contraseñaVendedor%>`,`<%=elemento._id%>`)">Editar</button>
+                                            onclick="llamarDatosVendedor(`<%=elemento.nombreVendedor%>`,`<%=elemento.documentoVendedor%>`,`<%=elemento.correoVendedor%>`,`<%=elemento._id%>`)">Editar</button>
                                     </td>
                                 </tr>
                                 <%})%>
@@ -136,11 +136,10 @@
             </div>
 
             <script>
-                function llamarDatosVendedor(nombre, documento, corre, contraseña, id,) {
+                function llamarDatosVendedor(nombre, documento, corre, id,) {
                     nombreVendedor.value = nombre;
                     documentoVendedor.value = documento;
                     correoVendedor.value = corre;
-                    contraseñaVendedor.value = contraseña
                     idVendedor.value = id;
 
                     const from = document.getElementById('formularioVendedor');

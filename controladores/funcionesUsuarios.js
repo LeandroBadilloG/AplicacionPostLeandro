@@ -8,12 +8,61 @@ const { body, validationResult } = require('express-validator');
 exports.navbar=(req,res)=>{
   res.render('parciales/navUsuario');
 }
+exports.formContraseña=(req,res)=>{
+  res.render('usuarios/recuperarContraseña')
+}
 
 exports.paginaprincipal = async (req, res) => {
   const productos = await compra.find()
   res.render('principal', {
     'productos': productos
   })
+}
+
+exports.enviarContraseña = async (req,res) =>{
+  const correo = req.body.correoUsuario;
+  const usuarion = await usuario.findOne({'correoUsuario':correo});
+  console.log(usuarion);
+
+ 
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'ljbadillo7@misena.edu.co',
+      pass: 'npqwcrkftjkqgafg'
+    }
+  });
+
+  var mailOptions = {
+    from: 'ljbadillo7@misena.edu.co',
+    to: correo,
+    subject: 'Sending Email using Node.js',
+    text: `para cambiar la contraseña entra en :  http://localhost:5900/tienda/v1/cambioContrasena/${usuarion._id}`,
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+
+  res.send('ya')
+}
+
+exports.cambioContraseña = async (req, res) =>{
+  
+  const usuarios= await usuario.findOne(req.params)
+  res.render('usuarios/cambioContraseña',{
+    'usuariosN': usuarios
+  });
+}
+
+exports.nuevaContraseña = async (req, res)=>{
+  await usuario.findByIdAndUpdate(req.body.id,{
+    correoUsuario: req.body.confirmarnuevaContraseña
+  });
 }
 
 exports.enviarCorreo = (req, res) => {
@@ -171,8 +220,6 @@ exports.editarUsuario = async (req,res) =>{
     telefonoUsuario: req.body.telefonoUsuario,
     ubicacionUsuario: req.body.direccionUsuario,
     correoUsuario: req.body.correoUsuario,
-    contraseñaUsuario: req.body.contraseñaUsuario,
-    rol: req.body.rol
 })
 
 res.redirect('listaUsuarios')

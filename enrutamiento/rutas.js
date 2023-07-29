@@ -22,12 +22,16 @@ router.post('/eliminarProducto',funciones.eliminarProducto);
 
 
 //usuarios
+router.get('/formContrasena',funcionesUsuarios.formContraseña);
 router.get('/navUsuario',funcionesUsuarios.navbar);
 router.get('/principal',funcionesUsuarios.paginaprincipal);
 router.get('/formUsuario',funcionesUsuarios.formUsuario);
 router.get('/listaUsuarios',funcionesUsuarios.listaUsuarios);
 router.get('/inicioSesion',funcionesUsuarios.inicioSesion);
 router.get('/cookie',funcionesUsuarios.cookies);
+router.get('/cambioContrasena/:id',funcionesUsuarios.cambioContraseña);
+router.post('/enviarContrasena',funcionesUsuarios.enviarContraseña);
+router.post('/nuevaContraseña',funcionesUsuarios.nuevaContraseña);
 router.post('/enviarCorreo',funcionesUsuarios.enviarCorreo);
 router.post('/subirArchivo',funcionesUsuarios.subirArchivo);
 router.post('/actualizarUsuario',funcionesUsuarios.editarUsuario);
