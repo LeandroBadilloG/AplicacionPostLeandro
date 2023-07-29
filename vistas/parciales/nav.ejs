@@ -18,20 +18,22 @@
 
     <script type="text/javascript" charset="utf8"
         src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
-        
+
 </head>
 
 <body>
 
 
     <!-- Navbar -->
-    
+
     <nav class="navbar navbar-expand-lg bg-light navbar ">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-              </button>
-          
+            </button>
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
@@ -41,6 +43,8 @@
                     <li class="nav-item">
                         <a class="nav-link" href="catalogoProductos">Catalogo</a>
                     </li>
+
+
                 </ul>
                 <a class="btn btn-outline-secondary m-1" href="/tienda/v1/registro" role="button" data-bs-toggle="modal"
                     data-bs-target="#modalInicioSesion"><i class="bi bi-person-circle"></i></a>
@@ -53,47 +57,50 @@
     </nav>
 
 
-    <div class="modal fade" id="modalInicioSesion" tabindex="-1" aria-labelledby="modalInicioSesionLabel" aria-hidden="true">
+    <div class="modal fade" id="modalInicioSesion" tabindex="-1" aria-labelledby="modalInicioSesionLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5 " id="modalInicioSesionLabel">Inicio de sesion</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form class="m-5" action="autenticarUsuario" method="post">
-                    <div class="form-group ">
-                        <label for="correoUsuario" class="form-label p-1">CORREO</label>
-                        <input type="email" class="form-control" name="correoUsuario" value="<% if(typeof valores != 'undefined') {%> <%= valores.correoUsuario %> <% } %>">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 " id="modalInicioSesionLabel">Inicio de sesion</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="m-5" action="autenticarUsuario" method="post">
+                        <div class="form-group ">
+                            <label for="correoUsuario" class="form-label p-1">CORREO</label>
+                            <input type="email" class="form-control" name="correoUsuario"
+                                value="<% if(typeof valores != 'undefined') {%> <%= valores.correoUsuario %> <% } %>">
 
-                        <label for="contraseñaUsuario" class="form-label p-1">CONTRASEÑA</label>
-                        <input type="password" class="form-control" name="contraseñaUsuario">
+                            <label for="contraseñaUsuario" class="form-label p-1">CONTRASEÑA</label>
+                            <input type="password" class="form-control" name="contraseñaUsuario">
 
-                    </div>
-                    <div class="form-group text-center ">
-                        <input type="submit" class="btn btn-outline-primary p-1 mt-5" value="ingresar">
-                    </div>
-                    <div>
-                        <% if(typeof validaciones !='undefined' ) {%>
-                            <% validaciones.forEach((validacion)=> {%>
-                                <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
-                                    <strong>
-                                        <%= validacion.msg %>
-                                    </strong>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
-                                </div>
-                                <% })} %>
-                    </div>
-                </form>
+                        </div>
+                        <div class="form-group text-center ">
+                            <input type="submit" class="btn btn-outline-primary p-1 mt-5" value="ingresar">
+                        </div>
+                        <div>
+                            <% if(typeof validaciones !='undefined' ) {%>
+                                <% validaciones.forEach((validacion)=> {%>
+                                    <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
+                                        <strong>
+                                            <%= validacion.msg %>
+                                        </strong>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <% })} %>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="http://localhost:5900/tienda/v1/formUsuario"
+                        class="btn btn-outline-primary">Registrarse</a>
+                </div>
             </div>
-            <div class="modal-footer">
-                <a href="http://localhost:5900/tienda/v1/formUsuario" class="btn btn-outline-primary">Registrarse</a>
-            </div>
-          </div>
         </div>
-      </div>
-      
+    </div>
+
 
 
     <!-- Offcanvas del carrito -->
@@ -125,29 +132,29 @@
 
             const verificarProducto = carrito.some((elemento) => elemento.id === id);
             console.log(verificarProducto)
-             
+
             if (verificarProducto) {
-                 carrito.map((elemento) => {
-                     if (elemento.id === id) {
+                carrito.map((elemento) => {
+                    if (elemento.id === id) {
 
                         elemento.cantidad++;
-                        
+
                         nuevoLocalStorage();
 
-                     }
-                 });
+                    }
+                });
 
-             } else {
+            } else {
 
                 const producto = { 'nombre': nombre, 'precio': precio, 'cantidad': 1, 'id': id };
 
                 carrito.push(producto);
 
                 nuevoLocalStorage()
-             }
             }
+        }
 
-        
+
 
 
 
@@ -193,8 +200,8 @@
         }
 
         function totalCompra() {
-            
-            const total = carrito.reduce((acc, el) => acc + parseFloat(el.precio* el.cantidad), 0).toFixed(2);
+
+            const total = carrito.reduce((acc, el) => acc + parseFloat(el.precio * el.cantidad), 0).toFixed(2);
 
             precioTotal.innerHTML = `
             <div class="row" >
@@ -226,34 +233,34 @@
 
 
         function sumar(id) {
-            
-                 carrito.map((elemento) => {
-                     if (elemento.id === id) {
 
-                        elemento.cantidad++;
+            carrito.map((elemento) => {
+                if (elemento.id === id) {
 
-                        nuevoLocalStorage();
-                        listaCarrito();
+                    elemento.cantidad++;
 
-                     }
-                 });
-             }
+                    nuevoLocalStorage();
+                    listaCarrito();
+
+                }
+            });
+        }
 
         function restar(id) {
 
             carrito.map((elemento) => {
-                     if (elemento.id === id) {
+                if (elemento.id === id) {
 
-                        elemento.cantidad--;
-                        
-                        if(elemento.cantidad==0){
-                            eliminarProducto(id)
-                        }
+                    elemento.cantidad--;
 
-                        nuevoLocalStorage();
-                        listaCarrito();
-                     }
-                 });
+                    if (elemento.cantidad == 0) {
+                        eliminarProducto(id)
+                    }
+
+                    nuevoLocalStorage();
+                    listaCarrito();
+                }
+            });
         }
 
     </script>

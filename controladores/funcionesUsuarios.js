@@ -5,6 +5,10 @@ const multer = require('multer')
 
 const { body, validationResult } = require('express-validator');
 
+exports.navbar=(req,res)=>{
+  res.render('parciales/navUsuario');
+}
+
 exports.paginaprincipal = async (req, res) => {
   const productos = await compra.find()
   res.render('principal', {
@@ -47,8 +51,6 @@ exports.inicioSesion = (req, res) => {
   res.render('usuarios/inicioSesion')
 }
 
-
-
 exports.nuevoUsuario = async (req, res) => {
 
   const errors = validationResult(req)
@@ -63,6 +65,7 @@ exports.nuevoUsuario = async (req, res) => {
       nombreUsuario: req.body.nombreUsuario,
       apellidosUsuario: req.body.apellidoUsuario,
       telefonoUsuario: req.body.telefonoUsuario,
+      documentoUsuario: req.body.documentoUsuario,
       ubicacionUsuario: req.body.direccionUsuario,
       correoUsuario: req.body.correoUsuario,
       contraseñaUsuario: req.body.contraseñaUsuario,
@@ -72,7 +75,6 @@ exports.nuevoUsuario = async (req, res) => {
     res.redirect('principal')
   }
 }
-
 
 exports.autenticarUsuario = async (req, res) => {
 
@@ -140,7 +142,6 @@ exports.cookies = (req, res) => {
 
 }
 
-
 exports.subirArchivo = (req, res) => {
   const storage = multer.diskStorage({
     //ruta en la cual se guardan los documentos subidos 
@@ -164,25 +165,25 @@ exports.subirArchivo = (req, res) => {
 
 exports.editarUsuario = async (req,res) =>{
   
-  await usuario.findByIdAndUpdate(req.body.id, {
-
+  await usuario.findByIdAndUpdate(req.body.idUsuario, {
     nombreUsuario: req.body.nombreUsuario,
-
     apellidosUsuario: req.body.apellidoUsuario,
-
     telefonoUsuario: req.body.telefonoUsuario,
-
     ubicacionUsuario: req.body.direccionUsuario,
-
     correoUsuario: req.body.correoUsuario,
-    
-    contraseñaUsuario: req.body.id,
-
+    contraseñaUsuario: req.body.contraseñaUsuario,
+    rol: req.body.rol
 })
-
-console.log(req.body)
 
 res.redirect('listaUsuarios')
 }
+
+exports.eliminarUsuario = async(req, res)=>{
+  
+  await usuario.findByIdAndDelete({'_id':req.body.usuarioEliminar});
+  
+  res.redirect('listaUsuarios')
+
+};
 
 

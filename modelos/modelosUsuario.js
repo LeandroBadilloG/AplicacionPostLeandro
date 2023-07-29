@@ -8,32 +8,37 @@ const schemaUsuario = new mongoose.Schema({
 
     nombreUsuario:{
         type:String,
-        require:true,
+        
     },
     apellidosUsuario:{
         type:String,
-        require:true,
+        
     },
     telefonoUsuario:{
         type:Number,
         unique:true,
-        require:true,
+        
         min:10,
+    },
+    documentoUsuario:{
+        type:Number,
+        unique:true,
+        
     },
     ubicacionUsuario: {
         type:String,
-        require:true,
+        
         min:10
     },
     correoUsuario:{
         type:String,
-        unique:true,
-        require:true,
+        
+        
         
     },
     contraseñaUsuario:{
         type:String,
-        require:true,
+        
 
     },
     rol:{

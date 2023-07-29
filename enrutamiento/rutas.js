@@ -18,9 +18,11 @@ router.get('/grafica',funciones.grafica);
 router.post('/cookiesProducto',funciones.cookiesProductos);
 router.post('/registrarProducto',funciones.nuevoProducto);
 router.post('/actualizarProducto',funciones.actualizarProducto);
+router.post('/eliminarProducto',funciones.eliminarProducto);
 
 
 //usuarios
+router.get('/navUsuario',funcionesUsuarios.navbar);
 router.get('/principal',funcionesUsuarios.paginaprincipal);
 router.get('/formUsuario',funcionesUsuarios.formUsuario);
 router.get('/listaUsuarios',funcionesUsuarios.listaUsuarios);
@@ -29,6 +31,7 @@ router.get('/cookie',funcionesUsuarios.cookies);
 router.post('/enviarCorreo',funcionesUsuarios.enviarCorreo);
 router.post('/subirArchivo',funcionesUsuarios.subirArchivo);
 router.post('/actualizarUsuario',funcionesUsuarios.editarUsuario);
+router.post('/eliminarUsuario',funcionesUsuarios.eliminarUsuario);
 router.post('/registrarUsuario',[
 
     body('nombreUsuario', 'Ingrese un nombre de usuario.').exists().isLength({min:2,max:30}),
@@ -49,6 +52,8 @@ router.post('/autenticarUsuario',[
 //vendedores
 router.get('/formVendedor',funcionesVendedores.formVendedores);
 router.get('/listaVendedores',funcionesVendedores.listaVendedores);
-router.post('/registrarVendeodor',funcionesVendedores.registrarVendedor);
+router.post('/nuevoVendeodor',funcionesVendedores.nuevoVendedor);
+router.post('/actualizarVendedor',funcionesVendedores.editarVendedor);
+router.post('/eliminarVendedor',funcionesVendedores.eliminarVendedor);
 
 module.exports=router;

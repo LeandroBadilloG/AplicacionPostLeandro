@@ -22,6 +22,9 @@
     
       </script>
         <div class="container mt-5">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end my-5">
+                <a href="http://localhost:5900/tienda/v1/formUsuario" class="btn btn-primary">Registrar Usuario</a>
+            </div>
             <div>
                 <div class="card-header ">
                     <h4 class="text-center">LISTA USUARIOS</h4>
@@ -33,8 +36,11 @@
                             <th scope="col">Nombre</th>
                             <th scope="col">Apellido</th>
                             <th scope="col">Telefono</th>
-                            <th scope="col">direccion</th>
                             <th scope="col">Correo</th>
+                            <th scope="col">rol</th>
+                            <th scope="col">opciones</th>
+
+
                         </tr>
                     </thead>
                     <tbody>
@@ -52,12 +58,15 @@
                                 <td>
                                     <%=elemento.correoUsuario%>
                                 </td>
+                                <td>
+                                    <%=elemento.rol%>
+                                </td>
 
                                 <td>
-                                    <button type="button" class="btn btn-outline-danger">Eliminar</button>
+                                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalEliminar" onclick="datosEliminar(`<%=elemento._id%>`,`<%=elemento.nombreUsuario%>`)">Eliminar</button>
                                     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
                                         data-bs-target="#modalActualizarUsuario"
-                                        onclick="llamarDatosUsuario(`<%=elemento.nombreUsuario%>`,`<%=elemento.apellidosUsuario%>`,`<%=elemento.telefonoUsuario%>`,`<%=elemento.correoUsuario%>`,`<%=elemento.ubicacionUsuario%>`,`<%=elemento._id%>`)">Editar</button>
+                                        onclick="llamarDatosUsuario(`<%=elemento.nombreUsuario%>`,`<%=elemento.apellidosUsuario%>`,`<%=elemento.telefonoUsuario%>`,`<%=elemento.correoUsuario%>`,`<%=elemento.ubicacionUsuario%>`,`<%=elemento._id%>`,`<%=elemento.rol%>`)">Editar</button>
                                 </td>
                             </tr>
                             <%})%>
@@ -76,7 +85,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="formularioUsuario" action="actualizarUsuario" method="post">
+                        <form id="formularioUsuario" method="post">
                             <div class="form-group ">
 
                                 <label for="nombreUsuario" class="form-label p-1 ">NOMBRE</label>
@@ -94,9 +103,11 @@
                                 <label for="correoUsuario" class="form-label p-1">CORREO</label>
                                 <input type="email" class="form-control" id="correoUsuario" name="correoUsuario">
 
-                                <input type="password" class="form-control" hidden id="contraseñaUsuario"
-                                    name="contraseñaUsuario">
-                                <input type="text" class="form-control" hidden id="id" name="id">
+                                <input type="password" class="form-control" hidden id="contraseñaUsuario" name="contraseñaUsuario">
+                                    
+                                <input type="text" class="form-control" hidden id="idUsuario" name="idUsuario">
+                                <input type="text" class="form-control" hidden id="rol" name="rol" value="Usuario">
+
 
                             </div>
                             <div class="form-group text-center ">
@@ -107,22 +118,55 @@
                 </div>
             </div>
         </div>
+          
+          <!-- Modal Confirmacion de eliminacion -->
+          <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="modalEliminarLabel">Eliminar Usuario</h1>
+                </div>
+                <div class="modal-body" id="confirmacionEliminar">
+                    
+                </div>
+                <div class="modal-footer">
+                    <form id="eliminarform" method="post">
+                        <input id="usuarioEliminar" name="usuarioEliminar" type="text" hidden> 
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" >Eliminar</button>
+                    </form>
 
+                </div>
+              </div>
+            </div>
+          </div>
 
         <script>
-            function llamarDatosUsuario(nombre, apellido, telefono, corre,direccion, contraseña, id) {
+            function llamarDatosUsuario(nombre, apellido, telefono, corre,direccion,id,) {
                 nombreUsuario.value = nombre;
                 apellidoUsuario.value = apellido;
                 telefonoUsuario.value = telefono;
                 direccionUsuario.value=direccion;
                 correoUsuario.value = corre;
-                contraseñaUsuario.value = contraseña;
-                id.value = id
+                idUsuario.value = id;
 
                 const from = document.getElementById('formularioUsuario');
-                from.setAttribute('action', 'actualizarProducto');
-
+                from.setAttribute('action', 'actualizarUsuario');
             }
+
+
+            function datosEliminar(id,nombre){
+                confirmacionEliminar.innerHTML=``;
+                confirmacionEliminar.innerHTML+=
+                `
+                <p>Eliminar al usuario: <samp>${nombre}</samp> </p>
+                
+                `;
+                eliminarform.setAttribute('action',`eliminarUsuario`);
+                usuarioEliminar.value = id;
+                
+            }
+
         </script>
 </body>
 

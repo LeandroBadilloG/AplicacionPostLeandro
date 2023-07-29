@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>lista productos</title>
+    <title>Lista Vendedores</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -23,7 +23,12 @@
 
         </script>
 
+
+
         <div class="container mt-5">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end my-5">
+                <a href="http://localhost:5900/tienda/v1/formVendedor" class="btn btn-primary">Registrar Vendedor</a>
+            </div>
             <div>
                 <div class="card-header">
                     <h4 class="text-center">LISTA VENDEDORES</h4>
@@ -32,9 +37,10 @@
                     <table id="table_id" class="display table table-bordered" style="width:100%">
                         <thead>
                             <tr>
-                                <th scope="col">VENDEDOR</th>
                                 <th scope="col">NOMBRE</th>
-                                <th scope="col">VENTAS</th>
+                                <th scope="col">DOCUMENTO</th>
+                                <th scope="col">CORREO</th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -47,9 +53,16 @@
                                         <%=elemento.documentoVendedor%>
                                     </td>
                                     <td>
-
+                                        <%=elemento.correoVendedor%>
                                     </td>
-
+                                    <td>
+                                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                            data-bs-target="#modalEliminar"
+                                            onclick="datosEliminar(`<%=elemento._id%>`,`<%=elemento.nombreVendedor%>`)">Eliminar</button>
+                                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                                            data-bs-target="#modalActualizarVendedor"
+                                            onclick="llamarDatosVendedor(`<%=elemento.nombreVendedor%>`,`<%=elemento.documentoVendedor%>`,`<%=elemento.correoVendedor%>`,`<%=elemento.contraseñaVendedor%>`,`<%=elemento._id%>`)">Editar</button>
+                                    </td>
                                 </tr>
                                 <%})%>
                         </tbody>
@@ -57,7 +70,97 @@
                 </div>
             </div>
 
+            <div class="modal fade" id="modalActualizarVendedor" tabindex="-1"
+                aria-labelledby="modalActualizarVendedorLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="modalActualizarVendedorLabel">Actualizar Vendedor</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="formularioVendedor" method="post">
+                                <div class="form-group ">
 
+                                    <label for="nombreVendedor" class="form-label p-1 ">NOMBRE</label>
+                                    <input type="text" class="form-control" id="nombreVendedor" name="nombreVendedor">
+
+
+                                    <label for="documentoVendedor" class="form-label p-1">DOCUMENTO</label>
+                                    <input type="number" class="form-control" id="documentoVendedor"
+                                        name="documentoVendedor">
+
+                                    <label for="correoVendedor" class="form-label p-1">CORREO</label>
+                                    <input type="email" class="form-control" id="correoVendedor" name="correoVendedor">
+
+                                    <input type="password" class="form-control" hidden id="contraseñaVendedor"
+                                        name="contraseñaVendedor">
+
+                                    <input type="text" class="form-control" hidden id="idVendedor" name="idVendedor">
+
+                                    <input type="text" hidden id="rol" name="rol" value="Vendedor">
+
+
+                                </div>
+                                <div class="form-group text-center ">
+                                    <input type="submit" class="btn btn-primary p-1 mt-5">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Confirmacion de eliminacion -->
+            <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="modalEliminarLabel">Eliminar Vendedor</h1>
+                        </div>
+                        <div class="modal-body" id="confirmacionEliminar">
+
+                        </div>
+                        <div class="modal-footer">
+                            <form id="eliminarform" method="post">
+                                <input id="VendedorEliminar" name="VendedorEliminar" type="text" hidden>
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Eliminar</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                function llamarDatosVendedor(nombre, documento, corre, contraseña, id,) {
+                    nombreVendedor.value = nombre;
+                    documentoVendedor.value = documento;
+                    correoVendedor.value = corre;
+                    contraseñaVendedor.value = contraseña
+                    idVendedor.value = id;
+
+                    const from = document.getElementById('formularioVendedor');
+                    from.setAttribute('action', 'actualizarVendedor');
+                }
+
+
+                function datosEliminar(id, nombre) {
+                    confirmacionEliminar.innerHTML = ``;
+                    confirmacionEliminar.innerHTML +=
+                        `
+                    <p>Eliminar al Vendedor: <samp>${nombre}</samp> </p>
+                    
+                    `;
+                    eliminarform.setAttribute('action', `eliminarVendedor`);
+                    VendedorEliminar.value = id;
+
+                }
+
+            </script>
 
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"

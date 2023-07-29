@@ -131,7 +131,7 @@ exports.actualizarProducto = async (req, res) => {
 
         stock: req.body.stock,
 
-        precioProducto: req.body.precio,
+        precio: req.body.precio,
 
         habilitado: req.body.habilitado
 
@@ -143,7 +143,10 @@ exports.actualizarProducto = async (req, res) => {
 
 }
 
-
+exports.eliminarProducto =async (req, res) => {
+    await producto.findByIdAndDelete({'_id':req.body.idProducto});
+    res.redirect('listaProductos');
+}
 
 exports.grafica = async (req, res) => {
     const nombreProductos = await producto.find({}, { nombre: 1, stock: 1, _id: 0 });
