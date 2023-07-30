@@ -31,7 +31,7 @@ router.get('/inicioSesion',funcionesUsuarios.inicioSesion);
 router.get('/cookie',funcionesUsuarios.cookies);
 router.get('/cambioContrasena/:id',funcionesUsuarios.cambioContraseña);
 router.post('/enviarContrasena',funcionesUsuarios.enviarContraseña);
-router.post('/nuevaContraseña',funcionesUsuarios.nuevaContraseña);
+router.post('/nuevaContrasena',funcionesUsuarios.nuevaContraseña);
 router.post('/enviarCorreo',funcionesUsuarios.enviarCorreo);
 router.post('/subirArchivo',funcionesUsuarios.subirArchivo);
 router.post('/actualizarUsuario',funcionesUsuarios.editarUsuario);

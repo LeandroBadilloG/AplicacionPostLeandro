@@ -8,23 +8,16 @@ const { body, validationResult } = require('express-validator');
 exports.navbar=(req,res)=>{
   res.render('parciales/navUsuario');
 }
+
+// recuperar contraseña
 exports.formContraseña=(req,res)=>{
   res.render('usuarios/recuperarContraseña')
-}
-
-exports.paginaprincipal = async (req, res) => {
-  const productos = await compra.find()
-  res.render('principal', {
-    'productos': productos
-  })
 }
 
 exports.enviarContraseña = async (req,res) =>{
   const correo = req.body.correoUsuario;
   const usuarion = await usuario.findOne({'correoUsuario':correo});
-  console.log(usuarion);
-
- 
+  
   var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -52,18 +45,36 @@ exports.enviarContraseña = async (req,res) =>{
 }
 
 exports.cambioContraseña = async (req, res) =>{
-  
-  const usuarios= await usuario.findOne(req.params)
+
+  const usuarios= await usuario.findOne({'_id':req.params.id});
+
   res.render('usuarios/cambioContraseña',{
-    'usuariosN': usuarios
+
+    "usuario" : usuarios,
+
   });
 }
 
 exports.nuevaContraseña = async (req, res)=>{
+
   await usuario.findByIdAndUpdate(req.body.id,{
-    correoUsuario: req.body.confirmarnuevaContraseña
+    contraseñaUsuario: req.body.confirmarnuevaContraseña
   });
+  
+  res.redirect('listaUsuarios');
 }
+//--------------------------------------------------
+
+
+
+
+exports.paginaprincipal = async (req, res) => {
+  const productos = await compra.find()
+  res.render('principal', {
+    'productos': productos
+  })
+}
+
 
 exports.enviarCorreo = (req, res) => {
   const texto = req.body.textarea1;
@@ -145,14 +156,6 @@ exports.autenticarUsuario = async (req, res) => {
     
     if (buscarUsuario.contraseñaUsuario == contraseña) {
     
-      const sesion = JSON.parse(localStorage.getItem('sesion')) || [];
-
-      const usuarioT = { 'nombre': buscarUsuario.id};
-
-      sesion.push(usuarioT);
-
-      localStorage.setItem('sesion', JSON.stringify(sesion));
-
       res.send('bien')
       
     }
