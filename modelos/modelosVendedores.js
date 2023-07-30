@@ -4,21 +4,24 @@ const coneccion = require('../configuracion/conexionBD');
 const nuevoUsuario = require("./modelosUsuario");
 
 const schemaVendedor = new mongoose.Schema({
-    nombreVendedor: {
+    nombre: {
         type: String,
         require: true,
     },
-    documentoVendedor: {
+    documento: {
         type: Number,
         require: true,
     },
-    correoVendedor: {
+    correo: {
         type: String,
         require: true,
     },
-    contraseñaVendedor: {
+    contraseña: {
         type: String,
         require: true,
+    },
+    rol:{
+        type:String,
     }
 
 })

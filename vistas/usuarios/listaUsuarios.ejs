@@ -34,8 +34,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">Nombre</th>
-                                <th scope="col">Apellido</th>
-                                <th scope="col">Telefono</th>
+                                <th scope="col">Documento</th>
                                 <th scope="col">Correo</th>
                                 <th scope="col">rol</th>
                                 <th scope="col">opciones</th>
@@ -50,10 +49,7 @@
                                         <%=elemento.nombreUsuario%>
                                     </td>
                                     <td>
-                                        <%=elemento.apellidosUsuario%>
-                                    </td>
-                                    <td>
-                                        <%=elemento.telefonoUsuario%>
+                                        <%=elemento.documentoUsuario%>
                                     </td>
                                     <td>
                                         <%=elemento.correoUsuario%>
@@ -68,7 +64,7 @@
                                             onclick="datosEliminar(`<%=elemento._id%>`,`<%=elemento.nombreUsuario%>`)">Eliminar</button>
                                         <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
                                             data-bs-target="#modalActualizarUsuario"
-                                            onclick="llamarDatosUsuario(`<%=elemento.nombreUsuario%>`,`<%=elemento.apellidosUsuario%>`,`<%=elemento.telefonoUsuario%>`,`<%=elemento.correoUsuario%>`,`<%=elemento.ubicacionUsuario%>`,`<%=elemento._id%>`)">Editar</button>
+                                            onclick="llamarDatosUsuario(`<%=elemento.nombreUsuario%>`,`<%=elemento.apellidosUsuario%>`,`<%=elemento.telefonoUsuario%>`,`<%=elemento.correoUsuario%>`,`<%=elemento.ubicacionUsuario%>`,`<%=elemento.documentoUsuario%>`,`<%=elemento._id%>`)">Editar</button>
                                     </td>
                                 </tr>
                                 <%})%>
@@ -97,12 +93,13 @@
                                     <input type="text" class="form-control" id="apellidoUsuario" name="apellidoUsuario">
 
                                     <label for="telefonoUsuario" class="form-label p-1">TELEFONO</label>
-                                    <input type="number" class="form-control" id="telefonoUsuario"
-                                        name="telefonoUsuario">
+                                    <input type="number" class="form-control" id="telefonoUsuario" name="telefonoUsuario">
 
                                     <label for="direccionUsuario" class="form-label p-1">DIRECCION</label>
-                                    <input type="text" class="form-control" id="direccionUsuario"
-                                        name="direccionUsuario">
+                                    <input type="text" class="form-control" id="direccionUsuario" name="direccionUsuario">
+
+                                    <label for="documentoUsuario" class="form-label p-1">DOCUMENTO</label>
+                                    <input type="text" class="form-control" id="documentoUsuario" name="documentoUsuario">
 
                                     <label for="correoUsuario" class="form-label p-1">CORREO</label>
                                     <input type="email" class="form-control" id="correoUsuario" name="correoUsuario">
@@ -146,11 +143,12 @@
             </div>
 
             <script>
-                function llamarDatosUsuario(nombre, apellido, telefono, corre, direccion, id,) {
+                function llamarDatosUsuario(nombre, apellido, telefono, corre, direccion,documento, id,) {
                     nombreUsuario.value = nombre;
                     apellidoUsuario.value = apellido;
                     telefonoUsuario.value = telefono;
                     direccionUsuario.value = direccion;
+                    documentoUsuario.value = documento;
                     correoUsuario.value = corre;
                     idUsuario.value = id;
 

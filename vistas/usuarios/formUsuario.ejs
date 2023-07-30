@@ -38,6 +38,11 @@
               <input type="text" class="form-control" id="direccionUsuario" name="direccionUsuario"
                 value="<% if(typeof valores != 'undefined') {%> <%= valores.direccionUsuario %> <% } %>">
 
+              <label for="documentoUsuario" class="form-label p-1">DOCUMENTO:</label>
+              <input type="text" class="form-control" id="documentoUsuario" name="documentoUsuario"
+                value="<% if(typeof valores != 'undefined') {%> <%= valores.documentoUsuario %> <% } %>">
+              
+
               <label for="correoUsuario" class="form-label p-1">CORREO</label>
               <input type="email" class="form-control" name="correoUsuario"
                 value="<% if(typeof valores != 'undefined') {%> <%= valores.correoUsuario %> <% } %>">
@@ -45,7 +50,7 @@
               <label for="contraseñaUsuario" class="form-label p-1">CONTRASEÑA</label>
               <input type="password" class="form-control" name="contraseñaUsuario">
 
-              <input type="text" hidden id="rol" name="rol" value="Usuario">
+              <input type="text" hidden id="rol" name="rol" value="Cliente">
 
             </div>
             <div>

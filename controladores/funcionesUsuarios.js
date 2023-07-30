@@ -1,4 +1,5 @@
 const usuario = require('../modelos/modelosUsuario');
+const vendedor = require('../modelos/modelosVendedores');
 const compra = require('../modelos/modelosVentas');
 const nodemailer = require('nodemailer');
 const multer = require('multer')
@@ -138,7 +139,10 @@ exports.autenticarUsuario = async (req, res) => {
 }
 
 exports.listaUsuarios = async (req, res) => {
-  const listaUsuarios = await usuario.find();
+  const listaVendedores = await vendedor.find();
+  const listaClientes = await usuario.find();
+  const listaUsuarios = listaVendedores + listaClientes;
+
   res.render('usuarios/listaUsuarios', {
     "usuarios": listaUsuarios,
   })
@@ -173,6 +177,7 @@ exports.editarUsuario = async (req, res) => {
     apellidosUsuario: req.body.apellidoUsuario,
     telefonoUsuario: req.body.telefonoUsuario,
     ubicacionUsuario: req.body.direccionUsuario,
+    documentoUsuario:req.body.documentoUsuario,
     correoUsuario: req.body.correoUsuario,
   })
 
