@@ -3,7 +3,7 @@ const compra = require('../modelos/modelosVentas');
 const xl = require('excel4node');
 const path = require('path')
 const fs = require('fs');
-const {localStorage} = require("node-localstorage")
+const { localStorage } = require("node-localstorage")
 
 
 exports.descargarExcel = async (req, res) => {
@@ -136,23 +136,20 @@ exports.actualizarProducto = async (req, res) => {
         habilitado: req.body.habilitado
 
     })
-    
+
     console.log(req.body)
 
     res.redirect('listaProductos')
 
 }
 
-exports.eliminarProducto =async (req, res) => {
-    await producto.findByIdAndDelete({'_id':req.body.idProducto});
+exports.eliminarProducto = async (req, res) => {
+    await producto.findByIdAndDelete({ '_id': req.body.idProducto });
     res.redirect('listaProductos');
 }
 
 exports.grafica = async (req, res) => {
     const nombreProductos = await producto.find({}, { nombre: 1, stock: 1, _id: 0 });
-    //console.table(nombreProductos);
-    // const stockProductos = await producto.find({},{stock:1,_id:0});
-    //console.table(stockProductos);
     res.render('productos/grafica', {
         'productos': nombreProductos,
     });
@@ -162,29 +159,24 @@ exports.grafica = async (req, res) => {
 
 
 exports.cookiesProductos = (req, res) => {
-//    const informacionPrducto= {
-//     id:req.body.id,
-//     nombre:req.body.nombre,
-//     precio:req.body.precio,
-//    };
 
     const a = req.body.id;
-   function agregarAlCarrito(producto) {
-    let carrito = localStorage.getItem('carrito');
-    if (!carrito) {
-        carrito = [];
-    } else {
-        carrito = JSON.parse(carrito);
-    }
-    carrito.push(producto);
-    localStorage.setItem('carrito', JSON.stringify(carrito));
-    const div= document.getElementById('productos');
-    const id = document.createElement('p');
-    id.textContent = carrito;
-    div.appendChild(id);
+    function agregarAlCarrito(producto) {
+        let carrito = localStorage.getItem('carrito');
+        if (!carrito) {
+            carrito = [];
+        } else {
+            carrito = JSON.parse(carrito);
+        }
+        carrito.push(producto);
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        const div = document.getElementById('productos');
+        const id = document.createElement('p');
+        id.textContent = carrito;
+        div.appendChild(id);
 
-}
-        
+    }
+
     agregarAlCarrito(a)
 
 

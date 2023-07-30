@@ -5,32 +5,32 @@ const multer = require('multer')
 
 const { body, validationResult } = require('express-validator');
 
-exports.navbar=(req,res)=>{
+exports.navbar = (req, res) => {
   res.render('parciales/navUsuario');
 }
 
 // recuperar contraseña
-exports.formContraseña=(req,res)=>{
+exports.formContraseña = (req, res) => {
   res.render('usuarios/recuperarContraseña')
 }
 
-exports.enviarContraseña = async (req,res) =>{
+exports.enviarContraseña = async (req, res) => {
   const correo = req.body.correoUsuario;
-  const usuarion = await usuario.findOne({'correoUsuario':correo});
-  
+  const usuarion = await usuario.findOne({ 'correoUsuario': correo });
+
   var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: 'ljbadillo7@misena.edu.co',
-      pass: 'npqwcrkftjkqgafg'
+      pass: `${process.env.D_PCORREO}`,
     }
   });
 
   var mailOptions = {
     from: 'ljbadillo7@misena.edu.co',
     to: correo,
-    subject: 'Sending Email using Node.js',
-    text: `para cambiar la contraseña entra en :  http://localhost:5900/tienda/v1/cambioContrasena/${usuarion._id}`,
+    subject: 'Recuperacion de contraseña',
+    text: `Para cambiar la contraseña entra en :  http://localhost:5900/tienda/v1/cambioContrasena/${usuarion._id}`,
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
@@ -44,28 +44,25 @@ exports.enviarContraseña = async (req,res) =>{
   res.send('ya')
 }
 
-exports.cambioContraseña = async (req, res) =>{
+exports.cambioContraseña = async (req, res) => {
 
-  const usuarios= await usuario.findOne({'_id':req.params.id});
+  const usuarios = await usuario.findOne({ '_id': req.params.id });
 
-  res.render('usuarios/cambioContraseña',{
+  res.render('usuarios/cambioContraseña', {
 
-    "usuario" : usuarios,
+    "usuario": usuarios,
 
   });
 }
 
-exports.nuevaContraseña = async (req, res)=>{
+exports.nuevaContraseña = async (req, res) => {
 
-  await usuario.findByIdAndUpdate(req.body.id,{
+  await usuario.findByIdAndUpdate(req.body.id, {
     contraseñaUsuario: req.body.confirmarnuevaContraseña
   });
-  
+
   res.redirect('listaUsuarios');
 }
-//--------------------------------------------------
-
-
 
 
 exports.paginaprincipal = async (req, res) => {
@@ -75,33 +72,6 @@ exports.paginaprincipal = async (req, res) => {
   })
 }
 
-
-exports.enviarCorreo = (req, res) => {
-  const texto = req.body.textarea1;
-  console.log(req.body)
-  var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'ljbadillo7@misena.edu.co',
-      pass: 'npqwcrkftjkqgafg'
-    }
-  });
-
-  var mailOptions = {
-    from: 'ljbadillo7@misena.edu.co',
-    to: 'ljbadillo7@misena.edu.co',
-    subject: 'Sending Email using Node.js',
-    text: texto,
-  };
-
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
-  });
-}
 
 exports.formUsuario = (req, res) => {
   res.render('usuarios/formUsuario');
@@ -129,7 +99,7 @@ exports.nuevoUsuario = async (req, res) => {
       ubicacionUsuario: req.body.direccionUsuario,
       correoUsuario: req.body.correoUsuario,
       contraseñaUsuario: req.body.contraseñaUsuario,
-      rol:req.body.rol
+      rol: req.body.rol
     })
     nuevoUsuario.save();
     res.redirect('principal')
@@ -153,11 +123,11 @@ exports.autenticarUsuario = async (req, res) => {
 
     const buscarUsuario = await usuario.findOne({ "correoUsuario": correo });
 
-    
+
     if (buscarUsuario.contraseñaUsuario == contraseña) {
-    
+
       res.send('bien')
-      
+
     }
     else {
       res.send('ERROR');
@@ -174,25 +144,6 @@ exports.listaUsuarios = async (req, res) => {
   })
 }
 
-exports.cookies = (req, res) => {
-  // const arr = [1,2,3];
-  // res.cookie('Leandro',{arr}).send('lista la cookie');
-
-  const { idProducto } = req.params;
-
-  // Obtén el carrito actual de las cookies
-  let carrito = req.cookies.carrito || [];
-
-  // Agrega el ID del producto al carrito
-  carrito.push(idProducto);
-
-  // Actualiza la cookie con el nuevo carrito
-  res.cookie('carrito', carrito);
-
-  res.send('Producto agregado al carrito');
-
-
-}
 
 exports.subirArchivo = (req, res) => {
   const storage = multer.diskStorage({
@@ -215,23 +166,23 @@ exports.subirArchivo = (req, res) => {
 
 }
 
-exports.editarUsuario = async (req,res) =>{
-  
+exports.editarUsuario = async (req, res) => {
+
   await usuario.findByIdAndUpdate(req.body.idUsuario, {
     nombreUsuario: req.body.nombreUsuario,
     apellidosUsuario: req.body.apellidoUsuario,
     telefonoUsuario: req.body.telefonoUsuario,
     ubicacionUsuario: req.body.direccionUsuario,
     correoUsuario: req.body.correoUsuario,
-})
+  })
 
-res.redirect('listaUsuarios')
+  res.redirect('listaUsuarios')
 }
 
-exports.eliminarUsuario = async(req, res)=>{
-  
-  await usuario.findByIdAndDelete({'_id':req.body.usuarioEliminar});
-  
+exports.eliminarUsuario = async (req, res) => {
+
+  await usuario.findByIdAndDelete({ '_id': req.body.usuarioEliminar });
+
   res.redirect('listaUsuarios')
 
 };

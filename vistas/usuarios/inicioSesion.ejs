@@ -22,7 +22,8 @@
                     <form class="m-5" action="autenticarUsuario" method="post">
                         <div class="form-group ">
                             <label for="correoUsuario" class="form-label p-1">CORREO</label>
-                            <input type="email" class="form-control" name="correoUsuario" value="<% if(typeof valores != 'undefined') {%> <%= valores.correoUsuario %> <% } %>">
+                            <input type="email" class="form-control" name="correoUsuario"
+                                value="<% if(typeof valores != 'undefined') {%> <%= valores.correoUsuario %> <% } %>">
 
                             <label for="contraseñaUsuario" class="form-label p-1">CONTRASEÑA</label>
                             <input type="password" class="form-control" name="contraseñaUsuario">

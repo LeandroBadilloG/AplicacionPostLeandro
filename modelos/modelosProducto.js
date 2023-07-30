@@ -15,8 +15,8 @@ const schemaProducto = new mongoose.Schema({
         type: String,
         require: true
     },
-    stock:{
-        type:Number,
+    stock: {
+        type: Number,
         require: true
     },
     precio: {

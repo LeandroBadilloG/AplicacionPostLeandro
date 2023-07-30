@@ -1,48 +1,50 @@
 <!DOCTYPE html>
 <html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
 <body onload="grafico()">
 
-<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+  <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
 
-<script>
-function grafico(){
-// var xValues = JSON.stringify(nombre);
-// var yValues = JSON.stringify(stock);
-var xValues =[];
-var yValues =[];
-generateData("Math.sin(x)", 0, 10, 0.5);
+  <script>
+    function grafico() {
+      // var xValues = JSON.stringify(nombre);
+      // var yValues = JSON.stringify(stock);
+      var xValues = [];
+      var yValues = [];
+      generateData("Math.sin(x)", 0, 10, 0.5);
 
-new Chart("myChart", {
-  type: "line",
-  data: {
-    labels: nombre,
-    datasets: [{
-      fill: false,
-      pointRadius: 2,
-      borderColor: "rgba(0,0,255,0.5)",
-      data: stock
-    }]
-  },    
-  options: {
-    legend: {display: false},
-    title: {
-      display: true,
-      text: "y = sin(x)",
-      fontSize: 16
+      new Chart("myChart", {
+        type: "line",
+        data: {
+          labels: nombre,
+          datasets: [{
+            fill: false,
+            pointRadius: 2,
+            borderColor: "rgba(0,0,255,0.5)",
+            data: stock
+          }]
+        },
+        options: {
+          legend: { display: false },
+          title: {
+            display: true,
+            text: "y = sin(x)",
+            fontSize: 16
+          }
+        }
+      });
+      function generateData() {
+        productos.forEach(element => {
+          xValues.push(element.nombre);
+          yValues.push(element.stock);
+        });
+
+
+      }
     }
-  }
-});
-function generateData() {
-    productos.forEach(element => {
-    xValues.push(element.nombre);
-    yValues.push(element.stock);
-    });
-
-  
-}
-}
-</script>
+  </script>
 
 </body>
+
 </html>

@@ -24,7 +24,7 @@
             <% productos.forEach(function(elemento) { %>
               <div class="col">
                 <div class="card mt-3" style="height: 530px;">
-                  <img src="https://picsum.photos/300/300?random<%=elemento.id%>" class="card-img-top"  alt="...">
+                  <img src="https://picsum.photos/300/300?random<%=elemento.id%>" class="card-img-top" alt="...">
                   <div class="card-body">
                     <h5 class="card-title">
                       <%=elemento.nombre%>
@@ -36,17 +36,18 @@
                       <%=elemento.precio%>
                     </p>
                   </div>
-                  <button class="btn btn-primary m-2" onclick="agregarAlCarrito(`<%=elemento.nombre%>`,`<%=elemento.precio%>`,`<%=elemento._id%>`) ">Comprar</button>
+                  <button class="btn btn-primary m-2"
+                    onclick="agregarAlCarrito(`<%=elemento.nombre%>`,`<%=elemento.precio%>`,`<%=elemento._id%>`) ">Comprar</button>
                 </div>
               </div>
-            <%})%>
+              <%})%>
           </div>
         </main>
       </div>
     </div>
 
 
-    
+
 
     <script>
 
