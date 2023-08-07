@@ -40,6 +40,7 @@
                                 <th scope="col">NOMBRE</th>
                                 <th scope="col">DOCUMENTO</th>
                                 <th scope="col">CORREO</th>
+                                <th scope="col">ROL</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -47,21 +48,24 @@
                             <% vendedores.forEach(function(elemento) { %>
                                 <tr>
                                     <td>
-                                        <%=elemento.nombreVendedor%>
+                                        <%=elemento.nombreUsuario%>
                                     </td>
                                     <td>
-                                        <%=elemento.documentoVendedor%>
+                                        <%=elemento.documentoUsuario%>
                                     </td>
                                     <td>
-                                        <%=elemento.correoVendedor%>
+                                        <%=elemento.correoUsuario%>
+                                    </td>
+                                    <td>
+                                        <%=elemento.rol%>
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                                            data-bs-target="#modalEliminar"
-                                            onclick="datosEliminar(`<%=elemento._id%>`,`<%=elemento.nombreVendedor%>`)">Eliminar</button>
+                                            data-bs-target="#modalEliminarVendedor"
+                                            onclick="eliminarVendedor(`<%=elemento._id%>`,`<%=elemento.nombreUsuario%>`)">Eliminar</button>
                                         <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
                                             data-bs-target="#modalActualizarVendedor"
-                                            onclick="llamarDatosVendedor(`<%=elemento.nombreVendedor%>`,`<%=elemento.documentoVendedor%>`,`<%=elemento.correoVendedor%>`,`<%=elemento._id%>`)">Editar</button>
+                                            onclick="llamarDatosVendedor(`<%=elemento.nombreUsuario%>`,`<%=elemento.documentoUsuario%>`,`<%=elemento.correoUsuario%>`,`<%=elemento._id%>`)">Editar</button>
                                     </td>
                                 </tr>
                                 <%})%>
@@ -69,7 +73,7 @@
                     </table>
                 </div>
             </div>
-
+            <!-- Modal Editar Vendedor -->
             <div class="modal fade" id="modalActualizarVendedor" tabindex="-1"
                 aria-labelledby="modalActualizarVendedorLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -111,13 +115,13 @@
                 </div>
             </div>
 
-            <!-- Modal Confirmacion de eliminacion -->
-            <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel"
+            <!-- Modal Confirmacion de eliminacion Vendedor -->
+            <div class="modal fade" id="modalEliminarVendedor" tabindex="-1" aria-labelledby="modalEliminarVendedorLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="modalEliminarLabel">Eliminar Vendedor</h1>
+                            <h1 class="modal-title fs-5" id="modalEliminarVendedorLabel">Eliminar Vendedor</h1>
                         </div>
                         <div class="modal-body" id="confirmacionEliminar">
 
@@ -145,9 +149,7 @@
                     const from = document.getElementById('formularioVendedor');
                     from.setAttribute('action', 'actualizarVendedor');
                 }
-
-
-                function datosEliminar(id, nombre) {
+                function eliminarVendedor(id, nombre) {
                     confirmacionEliminar.innerHTML = ``;
                     confirmacionEliminar.innerHTML +=
                         `

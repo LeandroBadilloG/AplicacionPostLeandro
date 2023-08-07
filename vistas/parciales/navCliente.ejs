@@ -22,10 +22,8 @@
 </head>
 
 <body>
-
-
+    
     <!-- Navbar -->
-
     <nav class="navbar navbar-expand-lg bg-light navbar ">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -37,29 +35,17 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" href="principal">Inicio</a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="catalogoProductos">Catalogo</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled">Disabled</a>
-                    </li>
+
+
                 </ul>
+                <a class="btn btn-outline-secondary m-1" href="/tienda/v1/registro" role="button" data-bs-toggle="modal"
+                    data-bs-target="#modalInicioSesion"><i class="bi bi-person-circle"></i></a>
 
                 <a class="btn btn-outline-secondary m-1" href="" role="button" data-bs-toggle="offcanvas"
                     data-bs-target="#carrito" aria-controls="carrito" onclick="listaCarrito()"><i
@@ -67,9 +53,59 @@
             </div>
         </div>
     </nav>
+   
+    <div class="modal fade" id="modalInicioSesion" tabindex="-1" aria-labelledby="modalInicioSesionLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 " id="modalInicioSesionLabel">Inicio de sesion</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="m-5" action="autenticarUsuario" method="post">
+                        <div class="form-group ">
+                            <label for="correoUsuario" class="form-label p-1">CORREO</label>
+                            <input type="email" class="form-control" name="correoUsuario"
+                                value="<% if(typeof valores != 'undefined') {%> <%= valores.correoUsuario %> <% } %>">
+
+                            <label for="contraseñaUsuario" class="form-label p-1">CONTRASEÑA</label>
+                            <input type="password" class="form-control" name="contraseñaUsuario">
+
+                        </div>
+                        <div class="form-group text-center ">
+                            <input type="submit" class="btn btn-outline-primary p-1 mt-5" value="ingresar">
+                        </div>
+                        <div>
+                            <% if(typeof validaciones !='undefined' ) {%>
+                                <% validaciones.forEach((validacion)=> {%>
+                                    <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
+                                        <strong>
+                                            <%= validacion.msg %>
+                                        </strong>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <% })} %>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div>
+                        <a href="http://localhost:5900/tienda/v1/formUsuario"
+                            class="btn btn-outline-primary mx-5">Registrarse</a>
+                    </div>
+                    <div>
+                        <a class="mx-5" href="http://localhost:5900/tienda/v1/formContrasena"> ¿olvidaste tu
+                            contraseña?</a>
+                    </div>
 
 
 
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Offcanvas del carrito -->
     <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="carrito"
         aria-labelledby="carritoLabel">
@@ -88,9 +124,8 @@
         </div>
 
     </div>
-
-
     <script type="text/javascript">
+
 
         var carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
@@ -135,7 +170,7 @@
                 <div class="card mb-3" style="max-width: 545px;">
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <img src="https:picsum.photos/100/150" class="img-fluid rounded-start" alt="...">
+                            <img src="https:picsum.photos/100/155?random${elemento.id}" class="img-fluid rounded-start" alt="...">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
@@ -144,13 +179,13 @@
                                 <div class="row" >
                                     <div  class="row row-cols-md-2">
             
-                                        <button  class="btn btn-outline-primary mx-1" style="max-height:40px; max-width:40px;" onclick="restar('${elemento.id}')">-</button>
+                                        <button  class="btn btn-outline-primary ms-1" style="max-height:40px; max-width:40px;" onclick="restar('${elemento.id}')">-</button>
 
-                                        <input name='cantidad'  class="form-control" type="text" value="${elemento.cantidad}" style="max-height:40px; max-width:40px;"  readonly>
+                                        <input name='cantidad'  class="form-control mx-1" type="text" value="${elemento.cantidad}" style="max-height:40px; max-width:45px;"  readonly>
 
-                                        <button class="btn btn-outline-success ms-1" style="max-height:40px; max-width:40px;" onclick="sumar('${elemento.id}')">+</button>
+                                        <button class="btn btn-outline-success" style="max-height:40px; max-width:40px;" onclick="sumar('${elemento.id}')">+</button>
                                         
-                                        <button class="btn btn-outline-danger ms-4" style="max-height:40px; max-width:40px;" onclick="eliminarProducto('${elemento.id}')"><i class="bi bi-trash3"></i></button>
+                                        <button class="btn btn-outline-danger ms-1" style="max-height:40px; max-width:40px;" onclick="eliminarProducto('${elemento.id}')"><i class="bi bi-trash3"></i></button>
 
                                     </div>
                                 </div>
@@ -172,8 +207,8 @@
 
             precioTotal.innerHTML = `
             <div class="row" >
-                <div class="row row-cols-6 row-cols-md-2">
-                    <h5 class="text-success">Total: ${total}$</h5>
+                <div class="row row-cols-6 row-cols-md-2 ms-2">
+                    <h5 class="text-success">Total: $${total}</h5>
                 </div>
             </div>
             `
@@ -232,8 +267,9 @@
 
     </script>
     <script src="https:cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
+    </script>
+
 </body>
 
 </html>

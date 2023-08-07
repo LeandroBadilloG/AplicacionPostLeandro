@@ -67,9 +67,11 @@ exports.nuevaContraseña = async (req, res) => {
 
 
 exports.paginaprincipal = async (req, res) => {
-  const productos = await compra.find()
+  const productos = await compra.find();
+
   res.render('principal', {
-    'productos': productos
+    'productos': productos,
+    'rol': 'cliente'
   })
 }
 
@@ -119,19 +121,36 @@ exports.autenticarUsuario = async (req, res) => {
   } else {
 
     const correo = req.body.correoUsuario;
-
     const contraseña = req.body.contraseñaUsuario;
 
-    const buscarUsuario = await usuario.findOne({ "correoUsuario": correo });
+    const buscarCliente = await usuario.findOne({ "correoUsuario": correo });
 
+    if(buscarCliente===null){
 
-    if (buscarUsuario.contraseñaUsuario == contraseña) {
+      const buscarVendedor = await vendedor.findOne({ "correoUsuario": correo });
 
-      res.send('bien')
+      if(buscarVendedor===null){
+        res.send('no se encontro el usuario')
 
-    }
-    else {
-      res.send('ERROR');
+      }else if(buscarVendedor.contraseñaUsuario === contraseña){
+        res.cookie('usuario',`${buscarVendedor._id}`,{
+          httpOnly: true,
+        });
+        res.cookie('rol', `${buscarVendedor.rol}`, {
+          httpOnly: true,
+        });
+        res.redirect('principal');
+      }
+    }else if(buscarCliente.contraseñaUsuario === contraseña){
+          res.cookie('usuarioi',`${buscarCliente._id}`,{
+          httpOnly: true,
+        });
+      res.cookie('rol', `${buscarCliente.rol}`, {
+        httpOnly: true,
+      });
+      res.redirect('principal');
+    }else{
+      res.send('no se encontro el usuario')
     }
 
   }
@@ -141,11 +160,12 @@ exports.autenticarUsuario = async (req, res) => {
 exports.listaUsuarios = async (req, res) => {
   const listaVendedores = await vendedor.find();
   const listaClientes = await usuario.find();
-  const listaUsuarios = listaVendedores + listaClientes;
 
   res.render('usuarios/listaUsuarios', {
-    "usuarios": listaUsuarios,
+    "clientes": listaClientes,
+    "vendedores": listaVendedores,
   })
+  console.log(`${req.cookie}`);
 }
 
 
@@ -177,7 +197,7 @@ exports.editarUsuario = async (req, res) => {
     apellidosUsuario: req.body.apellidoUsuario,
     telefonoUsuario: req.body.telefonoUsuario,
     ubicacionUsuario: req.body.direccionUsuario,
-    documentoUsuario:req.body.documentoUsuario,
+    documentoUsuario: req.body.documentoUsuario,
     correoUsuario: req.body.correoUsuario,
   })
 

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Datos compra</title>
+</head>
+
+<body onload="datosCompra()">
+  <%- include('../parciales/nav')%>
+    <div class="container mt-5">
+      <div class="row">
+        <main id="items" class="col-sm-12 row ">
+          <div class="row row-cols-5 m-1" id="productosCompra">
+
+
+          </div>
+        </main>
+      </div>
+      <div class="text-center border border-danger rounded-pill mt-5" id="totalPrecio">
+
+      </div>
+    </div>
+    <div class="row g-0 m-5">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class=" col-md-10 mt-5">
+          <div class="accordion" id="accordionExample">
+            <form action="">
+              <!--PARTE 1-->
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne">
+                    <strong> DATOS PERSONALES</strong>
+                  </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <div class="mb-3">
+                      <label for="nombreUsuario" class="form-label">Nombres</label>
+                      <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario">
+
+                    </div>
+                    <div class="mb-3">
+                      <label for="apellidoUsuario" class="form-label">Apellidos</label>
+                      <input type="text" class="form-control" id="apellidoUsuario" name="apellidoUsuario">
+
+                    </div>
+                    <div class="mb-3">
+                      <label for="telefonoUsuario" class="form-label">Telefono</label>
+                      <input type="text" class="form-control" id="telefonoUsuario" name="telefonoUsuario">
+
+                    </div>
+                    <div class="mb-3">
+                      <label for="correoUsuario" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="correoUsuario" name="correoUsuario"
+                        aria-describedby="emailHelp">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!--PARTE 2-->
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    <strong>DIRECCIÓN</strong>
+                  </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <div class="mb-3">
+                      <label for="direccionUsuario" class="form-label">Direccion</label>
+                      <input type="text" class="form-control" id="direccionUsuario" name="direccionUsuario">
+
+                    </div>
+                    <div class="mb-3">
+                      <label for="barrioUsuario" class="form-label">Barrio</label>
+                      <input type="text" class="form-control" id="barrioUsuario" name="barrioUsuario">
+
+                    </div>
+                    <div class="mb-3">
+                      <label for="detallesDireccion" class="form-label">Más detalles</label>
+                      <input type="text" class="form-control" id="detallesDireccion" name="detallesDireccion">
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!--PARTE 3-->
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <strong>METODOS DE PAGO</strong>
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value=""
+                                    id="visa" checked>
+                                <label class="form-check-label" for="visa">Tarjeta visa</label>
+                                <img src="estaticas/imagenes/visa.png" alt="">
+                            </li>
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value=""
+                                    id="contraEntrega">
+                                <label class="form-check-label" for="contraEntrega">Pago contra entrega</label>
+                            </li>
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value=""
+                                    id="PSE">
+                                <label class="form-check-label" for="PSE">PSE</label>
+                            </li>
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value=""
+                                    id="efecti">
+                                <label class="form-check-label" for="efecti">Efecti</label>
+                            </li>
+                            <li class="list-group-item">
+                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value=""
+                                    id="bancolombia">
+                                <label class="form-check-label" for="bancolombia">Bancolombia</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+              <div class="text-center mt-5">
+                <button type="submit" class="btn btn-dark">Comprar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var carrito = JSON.parse(localStorage.getItem('carrito'));
+
+      function datosCompra() {
+        productosCompra.innerHTML =``
+        JSON.parse(localStorage.getItem('carrito')).forEach((elemento) => {
+
+          productosCompra.innerHTML +=
+            `
+            <div class="card-group" >
+              <div class="card mb-1">
+                <img src="https://picsum.photos/300/300??random${elemento.id}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">${elemento.nombre}</h5>
+                  <p class="card-text">${elemento.descripcion}</p>
+                  <p class="card-text text-success">${elemento.precio}</p>
+                  <div class="row" >
+                    <div  class="row row-cols-md-2">
+            
+                      <button  class="btn btn-outline-primary ms-1" style="max-height:40px; max-width:40px;" onclick="restarC('${elemento.id}')">-</button>
+
+                      <input name='cantidad'  class="form-control mx-1" type="text" value="${elemento.cantidad}" style="max-height:40px; max-width:45px;"  readonly>
+
+                      <button class="btn btn-outline-success" style="max-height:40px; max-width:40px;" onclick="sumarC('${elemento.id}')">+</button> 
+                      
+                      <button class="btn btn-outline-danger ms-1 mt-2" style="max-height:40px; max-width:40px;" onclick="eliminarProductoP('${elemento.id}')"><i class="bi bi-trash3"></i></button>                                 
+                    
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div> 
+          `
+          totalCompraP()
+        });
+      }
+
+      function totalCompraP() {
+
+        const total = carrito.reduce((acc, el) => acc + parseFloat(el.precio * el.cantidad), 0).toFixed(2);
+
+        totalPrecio.innerHTML =
+          `
+            <h5 class="m-5">Precio a pagar: $${total}</h5>
+          `
+      }
+
+      function sumarC(id) {
+
+        carrito.map((elemento) => {
+          if (elemento.id === id) {
+
+            elemento.cantidad++;
+
+            nuevoLocalStorage();
+            datosCompra();
+
+          }
+        });
+      }
+
+      function restarC(id) {
+
+        carrito.map((elemento) => {
+          if (elemento.id === id) {
+
+            elemento.cantidad--;
+
+            if (elemento.cantidad == 0) {
+              eliminarProductoP(id)
+            }
+            nuevoLocalStorage();
+            datosCompra();
+            
+          }
+        });
+      }
+
+      function eliminarProductoP(id) {
+        const idProducto = carrito.find((elemento) => elemento.id === id);
+
+        carrito = carrito.filter((elemento) => {
+          return elemento !== idProducto;
+        });
+
+        
+        nuevoLocalStorage();
+        datosCompra();
+
+      }
+
+      function nuevoLocalStorage() {
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+      }
+
+    </script>
+</body>
+
+</html>

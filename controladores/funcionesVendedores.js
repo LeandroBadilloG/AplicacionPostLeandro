@@ -14,15 +14,15 @@ exports.listaVendedores = async (req, res) => {
 
 exports.nuevoVendedor = async (req, res) => {
   new vendedores({
-    nombreVendedor: req.body.nombreVendedor,
-    documentoVendedor: req.body.documentoVendedor,
-    correoVendedor: req.body.correoVendedor,
-    contraseñaVendedor: req.body.contraseñaVendedor,
+    nombreUsuario: req.body.nombreUsuario,
+    documentoUsuario: req.body.documentoUsuario,
+    correoUsuario: req.body.correoUsuario,
+    contraseñaUsuario: req.body.contraseñaUsuario,
     rol: req.body.rol
   }).save()
 
   const listaVendedores = await vendedores.find();
-  res.redirect('vendedores/listaVendedores')
+  res.redirect('/tienda/v1/listaVendedores')
 
 }
 
@@ -30,18 +30,18 @@ exports.nuevoVendedor = async (req, res) => {
 
 exports.editarVendedor = async (req, res) => {
 
-  await vendedores.findByIdAndUpdate(req.body.idVendedor, {
+  await vendedores.findByIdAndUpdate(req.body.idVUsuario, {
 
-    nombreVendedor: req.body.nombreVendedor,
-    documentoVendedor: req.body.documentoVendedor,
-    correoVendedor: req.body.correoVendedor,
+    nombreUsuario: req.body.nombreUsuario,
+    documentoUsuario: req.body.documentoUsuario,
+    correoUsuario: req.body.correoUsuario,
     rol: req.body.rol
 
   })
 
   console.log(req.body)
 
-  res.redirect('listaVendedores')
+  res.redirect('/tienda/v1/listaVendedores')
 }
 
 

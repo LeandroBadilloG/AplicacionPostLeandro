@@ -1,6 +1,7 @@
 const funciones = require('../controladores/funcionesProductos');
 const funcionesUsuarios = require('../controladores/funcionesUsuarios');
 const funcionesVendedores = require('../controladores/funcionesVendedores');
+const funcionesVentas = require('../controladores/funcionesVentas');
 
 
 const express = require('express');
@@ -58,5 +59,8 @@ router.get('/listaVendedores', funcionesVendedores.listaVendedores);
 router.post('/nuevoVendeodor', funcionesVendedores.nuevoVendedor);
 router.post('/actualizarVendedor', funcionesVendedores.editarVendedor);
 router.post('/eliminarVendedor', funcionesVendedores.eliminarVendedor);
+
+//vebtas
+router.get('/datosCompra',funcionesVentas.datosCompra);
 
 module.exports = router;
