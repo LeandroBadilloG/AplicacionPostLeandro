@@ -10,7 +10,15 @@
 
 </head>
 <body>
-    
+  <%if(rol=='Cliente'){%>
+    <%- include('../parciales/navCliente')%>
+  <%}else if(rol=='Vendedor'){%>
+    <%- include('../parciales/nav')%>
+  <%}else if(rol=='Administrador'){%>
+    <%- include('../parciales/nav')%>
+  <%}else{%>
+    <%- include('parciales/nav')%>
+  <%}%>
 
 
 

@@ -8,7 +8,17 @@
 </head>
 
 <body onload="datosCompra()">
-  <%- include('../parciales/nav')%>
+  
+  <%if(rol=='Cliente'){%>
+    <%- include('../parciales/navCliente')%>
+  <%}else if(rol=='Vendedor'){%>
+    <%- include('../parciales/nav')%>
+  <%}else if(rol=='Administrador'){%>
+    <%- include('../parciales/nav')%>
+  <%}else{%>
+    <%- include('../parciales/nav')%>
+  <%}%>
+  
     <div class="container mt-5">
       <div class="row">
         <main id="items" class="col-sm-12 row ">
@@ -40,23 +50,27 @@
                   <div class="accordion-body">
                     <div class="mb-3">
                       <label for="nombreUsuario" class="form-label">Nombres</label>
-                      <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario">
+                      <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" 
+                      value="<% if(rol=='Cliente') {%> <%=usuario.nombreUsuario%> <%}%>">
 
                     </div>
                     <div class="mb-3">
                       <label for="apellidoUsuario" class="form-label">Apellidos</label>
-                      <input type="text" class="form-control" id="apellidoUsuario" name="apellidoUsuario">
+                      <input type="text" class="form-control" id="apellidoUsuario" name="apellidoUsuario"
+                      value="<% if(rol=='Cliente') {%> <%=usuario.apellidosUsuario%> <%}%>">
 
                     </div>
                     <div class="mb-3">
                       <label for="telefonoUsuario" class="form-label">Telefono</label>
-                      <input type="text" class="form-control" id="telefonoUsuario" name="telefonoUsuario">
+                      <input type="text" class="form-control" id="telefonoUsuario" name="telefonoUsuario"
+                      value="<% if(rol=='Cliente') {%> <%=usuario.telefonoUsuario%> <%}%>">
 
                     </div>
                     <div class="mb-3">
                       <label for="correoUsuario" class="form-label">Email</label>
                       <input type="email" class="form-control" id="correoUsuario" name="correoUsuario"
-                        aria-describedby="emailHelp">
+                        aria-describedby="emailHelp"
+                        value="<% if(rol=='Cliente') {%> <%=usuario.correoUsuario%> <%}%>">
                     </div>
                   </div>
                 </div>
@@ -75,7 +89,8 @@
                   <div class="accordion-body">
                     <div class="mb-3">
                       <label for="direccionUsuario" class="form-label">Direccion</label>
-                      <input type="text" class="form-control" id="direccionUsuario" name="direccionUsuario">
+                      <input type="text" class="form-control" id="direccionUsuario" name="direccionUsuario"
+                      value="<% if(rol=='Cliente') {%> <%=usuario.ubicacionUsuario%> <%}%>">
 
                     </div>
                     <div class="mb-3">

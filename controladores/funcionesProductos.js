@@ -1,3 +1,4 @@
+const usuario = require('../modelos/modelosUsuario');
 const producto = require('../modelos/modelosProducto');
 const compra = require('../modelos/modelosVentas');
 const xl = require('excel4node');
@@ -85,22 +86,28 @@ exports.descargarExcel = async (req, res) => {
 
 }
 
-exports.formProducto = (req, res) => {
-    res.render('productos/formProducto');
+exports.formProducto = async (req, res) => {
+    res.render('productos/formProducto', {
+        'rol': req.cookies.rol,
+        'usuario':await usuario.findOne({'_id':req.cookies.usuario})
+      });
 }
 
 exports.listaproductos = async (req, res) => {
     const listaProductos = await producto.find();
     res.render('productos/listaProductos', {
         "productos": listaProductos,
+        'rol': req.cookies.rol,
+        'usuario':await usuario.findOne({'_id':req.cookies.usuario})
     })
 
 }
 
 exports.catalogoProductos = async (req, res) => {
-    const listaProductos = await producto.find();
     res.render('productos/catalogoProductos', {
-        "productos": listaProductos,
+        "productos": await producto.find(),
+        'rol': req.cookies.rol,
+        'usuario':await usuario.findOne({'_id':req.cookies.usuario})
     })
 
 }
@@ -152,33 +159,8 @@ exports.grafica = async (req, res) => {
     const nombreProductos = await producto.find({}, { nombre: 1, stock: 1, _id: 0 });
     res.render('productos/grafica', {
         'productos': nombreProductos,
+        
     });
 };
 
-
-
-
-exports.cookiesProductos = (req, res) => {
-
-    const a = req.body.id;
-    function agregarAlCarrito(producto) {
-        let carrito = localStorage.getItem('carrito');
-        if (!carrito) {
-            carrito = [];
-        } else {
-            carrito = JSON.parse(carrito);
-        }
-        carrito.push(producto);
-        localStorage.setItem('carrito', JSON.stringify(carrito));
-        const div = document.getElementById('productos');
-        const id = document.createElement('p');
-        id.textContent = carrito;
-        div.appendChild(id);
-
-    }
-
-    agregarAlCarrito(a)
-
-
-}
 

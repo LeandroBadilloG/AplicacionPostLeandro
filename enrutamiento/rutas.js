@@ -16,7 +16,6 @@ router.get('/listaProductos', funciones.listaproductos);
 router.get('/catalogoProductos', funciones.catalogoProductos);
 router.get('/descargarExcel', funciones.descargarExcel);
 router.get('/grafica', funciones.grafica);
-router.post('/cookiesProducto', funciones.cookiesProductos);
 router.post('/registrarProducto', funciones.nuevoProducto);
 router.post('/actualizarProducto', funciones.actualizarProducto);
 router.post('/eliminarProducto', funciones.eliminarProducto);

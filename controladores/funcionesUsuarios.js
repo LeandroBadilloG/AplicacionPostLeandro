@@ -6,9 +6,22 @@ const multer = require('multer')
 
 const { body, validationResult } = require('express-validator');
 
-exports.navbar = (req, res) => {
-  res.render('parciales/navUsuario');
+exports.navbar =async (req, res) => {
+  
+  res.render('parciales/navCliente',{
+    'usuario':await usuario.findOne({'_id':req.cookies.usuario})
+  });
+  
 }
+
+exports.paginaprincipal = async (req, res) => {
+  res.render('principal', {
+    'rol': req.cookies.rol,
+    'usuario':await usuario.findOne({'_id':req.cookies.usuario})
+  });
+}
+
+
 
 // recuperar contraseña
 exports.formContraseña = (req, res) => {
@@ -65,17 +78,6 @@ exports.nuevaContraseña = async (req, res) => {
   res.redirect('listaUsuarios');
 }
 
-
-exports.paginaprincipal = async (req, res) => {
-  const productos = await compra.find();
-
-  res.render('principal', {
-    'productos': productos,
-    'rol': 'cliente'
-  })
-}
-
-
 exports.formUsuario = (req, res) => {
   res.render('usuarios/formUsuario');
 }
@@ -105,8 +107,19 @@ exports.nuevoUsuario = async (req, res) => {
       rol: req.body.rol
     })
     nuevoUsuario.save();
-    res.redirect('principal')
+
   }
+  const nUsuario = await usuario.findOne({'correoUsuario': req.body.correoUsuario})
+  console.log(nUsuario);
+
+  res.cookie('rol', nUsuario.rol,{
+    httpOnly: true,
+  });
+  res.cookie('usuario', nUsuario._id, {
+    httpOnly: true,
+  });
+  res.redirect('principal')
+
 }
 
 exports.autenticarUsuario = async (req, res) => {
@@ -125,47 +138,45 @@ exports.autenticarUsuario = async (req, res) => {
 
     const buscarCliente = await usuario.findOne({ "correoUsuario": correo });
 
-    if(buscarCliente===null){
+    if (buscarCliente === null) {
 
       const buscarVendedor = await vendedor.findOne({ "correoUsuario": correo });
 
-      if(buscarVendedor===null){
+      if (buscarVendedor === null) {
         res.send('no se encontro el usuario')
 
-      }else if(buscarVendedor.contraseñaUsuario === contraseña){
-        res.cookie('usuario',`${buscarVendedor._id}`,{
+      } else if (buscarVendedor.contraseñaUsuario === contraseña) {
+        res.cookie('usuario', `${buscarVendedor._id}`, {
           httpOnly: true,
         });
         res.cookie('rol', `${buscarVendedor.rol}`, {
           httpOnly: true,
         });
+        
         res.redirect('principal');
       }
-    }else if(buscarCliente.contraseñaUsuario === contraseña){
-          res.cookie('usuarioi',`${buscarCliente._id}`,{
-          httpOnly: true,
-        });
+    } else if (buscarCliente.contraseñaUsuario === contraseña) {
+      res.cookie('usuario', `${buscarCliente._id}`, {
+        httpOnly: true,
+      });
       res.cookie('rol', `${buscarCliente.rol}`, {
         httpOnly: true,
       });
+
       res.redirect('principal');
-    }else{
+    } else {
       res.send('no se encontro el usuario')
     }
-
   }
-
 }
 
 exports.listaUsuarios = async (req, res) => {
-  const listaVendedores = await vendedor.find();
-  const listaClientes = await usuario.find();
-
   res.render('usuarios/listaUsuarios', {
-    "clientes": listaClientes,
-    "vendedores": listaVendedores,
+    "clientes": await usuario.find(), 
+    "vendedores": await vendedor.find(),
+    'rol': req.cookies.rol,
+    'usuario':await usuario.findOne({'_id':req.cookies.usuario})
   })
-  console.log(`${req.cookie}`);
 }
 
 
