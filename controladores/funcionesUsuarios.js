@@ -9,7 +9,7 @@ const { body, validationResult } = require('express-validator');
 exports.navbar =async (req, res) => {
   
   res.render('parciales/navCliente',{
-    'usuario':await usuario.findOne({'_id':req.cookies.usuario})
+    'usuario':await usuario.f-indOne({'_id':req.cookies.usuario})
   });
   
 }
@@ -17,11 +17,10 @@ exports.navbar =async (req, res) => {
 exports.paginaprincipal = async (req, res) => {
   res.render('principal', {
     'rol': req.cookies.rol,
-    'usuario':await usuario.findOne({'_id':req.cookies.usuario})
+    'usuario':await usuario.findOne({'_id':req.cookies.usuario}),
+    'vendedor':await vendedor.findOne({'_id':req.cookies.usuario})
   });
 }
-
-
 
 // recuperar contraseña
 exports.formContraseña = (req, res) => {
@@ -86,6 +85,12 @@ exports.inicioSesion = (req, res) => {
   res.render('usuarios/inicioSesion')
 }
 
+exports.cerrarSesion = async(req, res)=>{
+  res.clearCookie('rol');
+  res.clearCookie('usuario');
+  res.redirect('principal')
+}
+
 exports.nuevoUsuario = async (req, res) => {
 
   const errors = validationResult(req)
@@ -95,8 +100,9 @@ exports.nuevoUsuario = async (req, res) => {
     const valores = req.body
     const validaciones = errors.array()
     res.render('usuarios/formUsuario', { validaciones: validaciones, valores: valores })
+
   } else {
-    const nuevoUsuario = new usuario({
+    new usuario({
       nombreUsuario: req.body.nombreUsuario,
       apellidosUsuario: req.body.apellidoUsuario,
       telefonoUsuario: req.body.telefonoUsuario,
@@ -105,20 +111,20 @@ exports.nuevoUsuario = async (req, res) => {
       correoUsuario: req.body.correoUsuario,
       contraseñaUsuario: req.body.contraseñaUsuario,
       rol: req.body.rol
-    })
-    nuevoUsuario.save();
-
+    }).save();
   }
-  const nUsuario = await usuario.findOne({'correoUsuario': req.body.correoUsuario})
-  console.log(nUsuario);
 
-  res.cookie('rol', nUsuario.rol,{
-    httpOnly: true,
-  });
-  res.cookie('usuario', nUsuario._id, {
-    httpOnly: true,
-  });
   res.redirect('principal')
+  
+
+  res.cookie('rol', req.body.rol,{
+    httpOnly: true,
+  });
+  
+  res.cookie('usuario', usuarioNuevo._id, {
+    httpOnly: true,
+  });
+
 
 }
 
@@ -175,10 +181,10 @@ exports.listaUsuarios = async (req, res) => {
     "clientes": await usuario.find(), 
     "vendedores": await vendedor.find(),
     'rol': req.cookies.rol,
-    'usuario':await usuario.findOne({'_id':req.cookies.usuario})
+    'usuario':await usuario.findOne({'_id':req.cookies.usuario}),
+    'vendedor':await vendedor.findOne({'_id':req.cookies.usuario})
   })
 }
-
 
 exports.subirArchivo = (req, res) => {
   const storage = multer.diskStorage({

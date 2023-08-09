@@ -29,6 +29,7 @@ router.get('/formUsuario', funcionesUsuarios.formUsuario);
 router.get('/listaUsuarios', funcionesUsuarios.listaUsuarios);
 router.get('/inicioSesion', funcionesUsuarios.inicioSesion);
 router.get('/cambioContrasena/:id', funcionesUsuarios.cambioContraseña);
+router.get('/cerrarSesion', funcionesUsuarios.cerrarSesion);
 router.post('/enviarContrasena', funcionesUsuarios.enviarContraseña);
 router.post('/nuevaContrasena', funcionesUsuarios.nuevaContraseña);
 router.post('/subirArchivo', funcionesUsuarios.subirArchivo);
@@ -55,6 +56,7 @@ router.post('/autenticarUsuario', [
 //vendedores
 router.get('/formVendedor', funcionesVendedores.formVendedores);
 router.get('/listaVendedores', funcionesVendedores.listaVendedores);
+router.get('/navVendedor',funcionesVendedores.navVendedor);
 router.post('/nuevoVendeodor', funcionesVendedores.nuevoVendedor);
 router.post('/actualizarVendedor', funcionesVendedores.editarVendedor);
 router.post('/eliminarVendedor', funcionesVendedores.eliminarVendedor);

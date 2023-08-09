@@ -21,8 +21,8 @@
 
 </head>
 
-<body>
-    
+<body onload="carritoCounter()">
+
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg bg-light navbar ">
         <div class="container-fluid">
@@ -45,14 +45,48 @@
 
                 </ul>
 
-                <h5 class="mr-2">Hola! <%=usuario.nombreUsuario%></h5>
-                <a class="btn btn-outline-secondary m-1" href="" role="button" data-bs-toggle="offcanvas"
+                <button class="btn btn-black" type="button" data-bs-toggle="offcanvas" data-bs-target="#perfilUsuario"
+                aria-controls="perfilUsuario"><h5>Hola! <%=usuario.nombreUsuario%> <i class="bi bi-caret-down-fill"></i></h5></button>
+
+                
+                <a class="btn btn-black m-1 position-relative" href="" role="button" data-bs-toggle="offcanvas"
                     data-bs-target="#carrito" aria-controls="carrito" onclick="listaCarrito()"><i
-                        class="bi bi-cart3"></i></a>
+                        class="bi bi-cart3"><span
+                            class="position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger"><span
+                                id="cantidadProductos"></span></span></i></a>
             </div>
         </div>
     </nav>
-   
+
+
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="perfilUsuario" aria-labelledby="perfilUsuarioLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="perfilUsuarioLabel"><h5>Hola! <%=usuario.nombreUsuario%></h5></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="text-center">
+                <img class="rounded-circle" src="https://picsum.photos/300/300?random" alt="">
+            </div>
+            <div class="text-center border-bottom  mt-4">
+                <h3 class="mb-2" ><%=usuario.nombreUsuario%> <%=usuario.apellidosUsuario%></h3>
+            </div>
+            <div class="text-center border-bottom  mt-3">
+                <h3 class="mb-2" >Editar perfil <i class="bi bi-pen"></i></h3>
+            </div>       
+            <div class="text-center border-bottom  mt-3">
+                <h3 class="mb-2" >Mis compras <i class="bi bi-bag-check"></i></h3>
+            </div>
+            <div class="text-center border-bottom  mt-3">
+                <h3 class="mb-2" >Ayuda <i class="bi bi-question-octagon"></i></h3>
+            </div>
+            <div class="text-center border-bottom  mt-3">
+                <a class="text-dark" href="cerrarSesion" ><h3 class="mb-2" >Cerrar sesion <i class="bi bi-box-arrow-left"></i></h3></a> 
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="modalInicioSesion" tabindex="-1" aria-labelledby="modalInicioSesionLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -124,10 +158,7 @@
 
     </div>
     <script type="text/javascript">
-
-
         var carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-
 
         function agregarAlCarrito(nombre, precio, id) {
 
@@ -152,12 +183,9 @@
                 carrito.push(producto);
 
                 nuevoLocalStorage()
+                carritoCounter()
             }
         }
-
-
-
-
 
         function listaCarrito() {
 
@@ -195,9 +223,6 @@
             `
             })
             totalCompra();
-
-
-
         }
 
         function totalCompra() {
@@ -214,7 +239,6 @@
             `
         }
 
-
         function eliminarProducto(id) {
 
             const idProducto = carrito.find((elemento) => elemento.id === id);
@@ -225,14 +249,12 @@
 
             listaCarrito();
             nuevoLocalStorage();
+            carritoCounter()
         }
-
-
 
         function nuevoLocalStorage() {
             localStorage.setItem('carrito', JSON.stringify(carrito));
         }
-
 
         function sumar(id) {
 
@@ -265,10 +287,14 @@
             });
         }
 
+        function carritoCounter() {
+            cantidadProductos.innerText = carrito.length;
+        }
+
     </script>
     <script src="https:cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
-    </script>
+        </script>
 
 </body>
 
