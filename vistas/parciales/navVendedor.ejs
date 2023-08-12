@@ -21,11 +21,11 @@
 
 </head>
 
-<body>
+<body onload="alertaCarrito()">
 
     <!-- Navbar -->
 
-    <nav class="navbar navbar-expand-lg bg-light">
+    <nav class="navbar fixed-top navbar-expand-lg bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Navbar</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -61,15 +61,13 @@
                 </ul>
                 <button class="btn btn-black mr-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
                 aria-controls="offcanvasRight"><h6>Hola! <%=vendedor.nombreUsuario%> <i class="bi bi-caret-down-fill"></i></h6></button>
-                <a class="btn btn-black m-1" href="" role="button" data-bs-toggle="offcanvas"
+                
+                <a class="btn btn-black m-1 position-relative" href="" role="button" data-bs-toggle="offcanvas"
                     data-bs-target="#carrito" aria-controls="carrito" onclick="listaCarrito()"><i
-                        class="bi bi-cart3"></i></a>
+                        class="bi bi-cart3"><span id="alertaProducto"><span id="cantidadProductos"></span></span></i></a>
             </div>
         </div>
     </nav>
-
-
-
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
@@ -98,6 +96,7 @@
 
         </div>
     </div>
+
     <div class="modal fade" id="modalInicioSesion" tabindex="-1" aria-labelledby="modalInicioSesionLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -143,9 +142,6 @@
                         <a class="mx-5" href="http://localhost:5900/tienda/v1/formContrasena"> ¿olvidaste tu
                             contraseña?</a>
                     </div>
-
-
-
                 </div>
             </div>
         </div>
@@ -171,12 +167,9 @@
 
     </div>
     <script type="text/javascript">
-
-
         var carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-
-        function agregarAlCarrito(nombre, precio, id) {
+        function agregarAlCarrito(nombre, precio,descripcion, id) {
 
             const verificarProducto = carrito.some((elemento) => elemento.id === id);
             console.log(verificarProducto)
@@ -194,17 +187,14 @@
 
             } else {
 
-                const producto = { 'nombre': nombre, 'precio': precio, 'cantidad': 1, 'id': id };
+                const producto = { 'nombre': nombre, 'precio': precio,  'descripcion': descripcion, 'id': id,'cantidad': 1 };
 
                 carrito.push(producto);
 
                 nuevoLocalStorage()
+                alertaCarrito()
             }
         }
-
-
-
-
 
         function listaCarrito() {
 
@@ -261,7 +251,6 @@
             `
         }
 
-
         function eliminarProducto(id) {
 
             const idProducto = carrito.find((elemento) => elemento.id === id);
@@ -272,14 +261,12 @@
 
             listaCarrito();
             nuevoLocalStorage();
+            alertaCarrito();
         }
-
-
 
         function nuevoLocalStorage() {
             localStorage.setItem('carrito', JSON.stringify(carrito));
         }
-
 
         function sumar(id) {
 
@@ -312,6 +299,16 @@
             });
         }
 
+        function alertaCarrito() {
+            if(carrito.length > 0){
+                alertaProducto.setAttribute('class','position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger')
+                cantidadProductos.innerText = carrito.length;
+            }else{
+                alertaProducto.setAttribute('class','');
+                cantidadProductos.innerText = '';
+
+            }
+        }
     </script>
     <script src="https:cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">

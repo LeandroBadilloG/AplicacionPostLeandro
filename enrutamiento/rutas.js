@@ -63,5 +63,6 @@ router.post('/eliminarVendedor', funcionesVendedores.eliminarVendedor);
 
 //vebtas
 router.get('/datosCompra',funcionesVentas.datosCompra);
+router.post('/Comprar',funcionesVentas.guardarCompra);
 
 module.exports = router;

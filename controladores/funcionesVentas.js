@@ -9,3 +9,12 @@ exports.datosCompra=async(req,res)=>{
         'vendedor':await vendedor.findOne({'_id':req.cookies.usuario})
     });
 }
+
+exports.guardarCompra=async(req,res)=>{
+    console.log(req.body);
+    // const venta = new compra({
+
+    // });
+    // await venta.save();
+    res.send('listo');
+}

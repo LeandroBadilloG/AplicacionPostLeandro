@@ -22,28 +22,48 @@ exports.navVendedor=async(req,res)=>{
 }
 
 exports.nuevoVendedor = async (req, res) => {
-  new vendedores({
+  var nuevoV= new vendedores({
     nombreUsuario: req.body.nombreUsuario,
     documentoUsuario: req.body.documentoUsuario,
     correoUsuario: req.body.correoUsuario,
     contraseñaUsuario: req.body.contraseñaUsuario,
     rol: req.body.rol
-  }).save()
-  
-  const nUsuario = await usuario.findOne({'correoUsuario': req.body.correoUsuario})
-  console.log(nUsuario);
+  });
+  await nuevoV.save()
 
-  res.cookie('rol', nUsuario.rol,{
+  res.cookie('rol', nuevoV.rol,{
     httpOnly: true,
   });
-  res.cookie('usuario', nUsuario._id, {
+  res.cookie('usuario', nuevoV._id, {
     httpOnly: true,
   });
+
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'ljbadillo7@misena.edu.co',
+      pass: `${process.env.D_PCORREO}`,
+    }
+  });
+
+  var mailOptions = {
+    from: 'ljbadillo7@misena.edu.co',
+    to: nuevoV.correoUsuario,
+    subject: 'Registro de Vendedor Exitoso',
+    text: `Bienveni@ ${nuevoV.nombreUsuario} 😊` 
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+
   res.redirect('principal')
 
 }
-
-
 
 exports.editarVendedor = async (req, res) => {
 

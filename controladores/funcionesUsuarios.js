@@ -6,19 +6,20 @@ const multer = require('multer')
 
 const { body, validationResult } = require('express-validator');
 
-exports.navbar =async (req, res) => {
-  
-  res.render('parciales/navCliente',{
-    'usuario':await usuario.f-indOne({'_id':req.cookies.usuario})
+exports.navbar = async (req, res) => {
+
+  res.render('parciales/navCliente', {
+    'usuario': await usuario.indOne({ '_id': req.cookies.usuario })
   });
-  
+
 }
 
 exports.paginaprincipal = async (req, res) => {
+  console.log(req)
   res.render('principal', {
     'rol': req.cookies.rol,
-    'usuario':await usuario.findOne({'_id':req.cookies.usuario}),
-    'vendedor':await vendedor.findOne({'_id':req.cookies.usuario})
+    'usuario': await usuario.findOne({ '_id': req.cookies.usuario }),
+    'vendedor': await vendedor.findOne({ '_id': req.cookies.usuario })
   });
 }
 
@@ -85,7 +86,7 @@ exports.inicioSesion = (req, res) => {
   res.render('usuarios/inicioSesion')
 }
 
-exports.cerrarSesion = async(req, res)=>{
+exports.cerrarSesion = async (req, res) => {
   res.clearCookie('rol');
   res.clearCookie('usuario');
   res.redirect('principal')
@@ -101,29 +102,55 @@ exports.nuevoUsuario = async (req, res) => {
     const validaciones = errors.array()
     res.render('usuarios/formUsuario', { validaciones: validaciones, valores: valores })
 
-  } else {
-    new usuario({
-      nombreUsuario: req.body.nombreUsuario,
-      apellidosUsuario: req.body.apellidoUsuario,
-      telefonoUsuario: req.body.telefonoUsuario,
-      documentoUsuario: req.body.documentoUsuario,
-      ubicacionUsuario: req.body.direccionUsuario,
-      correoUsuario: req.body.correoUsuario,
-      contraseñaUsuario: req.body.contraseñaUsuario,
-      rol: req.body.rol
-    }).save();
   }
+  var nuevoUsuario = new usuario({
+    nombreUsuario: req.body.nombreUsuario,
+    apellidosUsuario: req.body.apellidoUsuario,
+    telefonoUsuario: req.body.telefonoUsuario,
+    documentoUsuario: req.body.documentoUsuario,
+    ubicacionUsuario: req.body.direccionUsuario,
+    correoUsuario: req.body.correoUsuario,
+    contraseñaUsuario: req.body.contraseñaUsuario,
+    rol: req.body.rol
+  });
+  await nuevoUsuario.save()
+
+
+
+  res.cookie('rol', req.body.rol, {
+    httpOnly: true,
+  });
+
+  res.cookie('usuario', nuevoUsuario._id, {
+    httpOnly: true,
+  });
+
+  
+
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'ljbadillo7@misena.edu.co',
+      pass: `${process.env.D_PCORREO}`,
+    }
+  });
+
+  var mailOptions = {
+    from: 'ljbadillo7@misena.edu.co',
+    to: nuevoUsuario.correoUsuario,
+    subject: 'Registro de Usuario Exitoso',
+    text: `Bienveni@ ${nuevoUsuario.nombreUsuario} 😊` 
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
 
   res.redirect('principal')
-  
-
-  res.cookie('rol', req.body.rol,{
-    httpOnly: true,
-  });
-  
-  res.cookie('usuario', usuarioNuevo._id, {
-    httpOnly: true,
-  });
 
 
 }
@@ -139,14 +166,14 @@ exports.autenticarUsuario = async (req, res) => {
     res.render('usuarios/inicioSesion', { validaciones: validaciones, valores: valores })
   } else {
 
-    const correo = req.body.correoUsuario;
-    const contraseña = req.body.contraseñaUsuario;
-
-    const buscarCliente = await usuario.findOne({ "correoUsuario": correo });
+    var correo = req.body.correoUsuario;
+    var contraseña = req.body.contraseñaUsuario;
+   
+    let buscarCliente = await usuario.findOne({ "correoUsuario": correo });
 
     if (buscarCliente === null) {
 
-      const buscarVendedor = await vendedor.findOne({ "correoUsuario": correo });
+      var buscarVendedor = await vendedor.findOne({ "correoUsuario": correo });
 
       if (buscarVendedor === null) {
         res.send('no se encontro el usuario')
@@ -158,7 +185,7 @@ exports.autenticarUsuario = async (req, res) => {
         res.cookie('rol', `${buscarVendedor.rol}`, {
           httpOnly: true,
         });
-        
+
         res.redirect('principal');
       }
     } else if (buscarCliente.contraseñaUsuario === contraseña) {
@@ -178,11 +205,11 @@ exports.autenticarUsuario = async (req, res) => {
 
 exports.listaUsuarios = async (req, res) => {
   res.render('usuarios/listaUsuarios', {
-    "clientes": await usuario.find(), 
+    "clientes": await usuario.find(),
     "vendedores": await vendedor.find(),
     'rol': req.cookies.rol,
-    'usuario':await usuario.findOne({'_id':req.cookies.usuario}),
-    'vendedor':await vendedor.findOne({'_id':req.cookies.usuario})
+    'usuario': await usuario.findOne({ '_id': req.cookies.usuario }),
+    'vendedor': await vendedor.findOne({ '_id': req.cookies.usuario })
   })
 }
 

@@ -21,10 +21,10 @@
 
 </head>
 
-<body onload="carritoCounter()">
+<body onload="alertaCarrito()">
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg bg-light navbar ">
+    <nav class="navbar fixed-top navbar-expand-lg bg-light navbar ">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -51,9 +51,7 @@
                 
                 <a class="btn btn-black m-1 position-relative" href="" role="button" data-bs-toggle="offcanvas"
                     data-bs-target="#carrito" aria-controls="carrito" onclick="listaCarrito()"><i
-                        class="bi bi-cart3"><span
-                            class="position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger"><span
-                                id="cantidadProductos"></span></span></i></a>
+                        class="bi bi-cart3"><span id="alertaProducto"><span id="cantidadProductos"></span></span></i></a>
             </div>
         </div>
     </nav>
@@ -82,7 +80,7 @@
                 <h3 class="mb-2" >Ayuda <i class="bi bi-question-octagon"></i></h3>
             </div>
             <div class="text-center border-bottom  mt-3">
-                <a class="text-dark" href="cerrarSesion" ><h3 class="mb-2" >Cerrar sesion <i class="bi bi-box-arrow-left"></i></h3></a> 
+                <a class="btn btn-light"  onclick="cerrarSesion()" class="text-dark" href="cerrarSesion" ><h3 class="mb-2" >Cerrar sesion <i class="bi bi-box-arrow-left"></i></h3></a> 
             </div>
         </div>
     </div>
@@ -160,7 +158,11 @@
     <script type="text/javascript">
         var carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-        function agregarAlCarrito(nombre, precio, id) {
+        function cerrarSesion(){
+            localStorage.clear();
+        }
+
+        function agregarAlCarrito(nombre, precio,descripcion, id) {
 
             const verificarProducto = carrito.some((elemento) => elemento.id === id);
             console.log(verificarProducto)
@@ -178,12 +180,12 @@
 
             } else {
 
-                const producto = { 'nombre': nombre, 'precio': precio, 'cantidad': 1, 'id': id };
+                const producto = {'nombre': nombre, 'precio': precio,  'descripcion': descripcion, 'id': id,'cantidad': 1 };
 
                 carrito.push(producto);
 
                 nuevoLocalStorage()
-                carritoCounter()
+                alertaCarrito()
             }
         }
 
@@ -249,7 +251,7 @@
 
             listaCarrito();
             nuevoLocalStorage();
-            carritoCounter()
+            alertaCarrito()
         }
 
         function nuevoLocalStorage() {
@@ -287,8 +289,15 @@
             });
         }
 
-        function carritoCounter() {
-            cantidadProductos.innerText = carrito.length;
+        function alertaCarrito() {
+            if(carrito.length > 0){
+                alertaProducto.setAttribute('class','position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger')
+                cantidadProductos.innerText = carrito.length;
+            }else{
+                alertaProducto.setAttribute('class','')
+                cantidadProductos.innerText = '';
+
+            }
         }
 
     </script>
