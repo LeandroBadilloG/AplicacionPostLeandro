@@ -1,50 +1,48 @@
 const usuario = require('../modelos/modelosUsuario');
 const vendedor = require('../modelos/modelosVendedores');
-const compra = require('../modelos/modelosVentas');
+// const compra = require('../modelos/modelosVentas');
 const nodemailer = require('nodemailer');
-const multer = require('multer')
+const multer = require('multer');
 
 const { body, validationResult } = require('express-validator');
 
 exports.navbar = async (req, res) => {
-
   res.render('parciales/navCliente', {
-    'usuario': await usuario.indOne({ '_id': req.cookies.usuario })
+    usuario: await usuario.indOne({ _id: req.cookies.usuario })
   });
-
-}
+};
 
 exports.paginaprincipal = async (req, res) => {
-  console.log(req)
+  console.log(req);
   res.render('principal', {
-    'rol': req.cookies.rol,
-    'usuario': await usuario.findOne({ '_id': req.cookies.usuario }),
-    'vendedor': await vendedor.findOne({ '_id': req.cookies.usuario })
+    rol: req.cookies.rol,
+    usuario: await usuario.findOne({ _id: req.cookies.usuario }),
+    vendedor: await vendedor.findOne({ _id: req.cookies.usuario })
   });
-}
+};
 
 // recuperar contraseña
 exports.formContraseña = (req, res) => {
-  res.render('usuarios/recuperarContraseña')
-}
+  res.render('usuarios/recuperarContraseña');
+};
 
 exports.enviarContraseña = async (req, res) => {
   const correo = req.body.correoUsuario;
-  const usuarion = await usuario.findOne({ 'correoUsuario': correo });
+  const usuarion = await usuario.findOne({ correoUsuario: correo });
 
-  var transporter = nodemailer.createTransport({
+  const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: 'ljbadillo7@misena.edu.co',
-      pass: `${process.env.D_PCORREO}`,
+      pass: `${process.env.D_PCORREO}`
     }
   });
 
-  var mailOptions = {
+  const mailOptions = {
     from: 'ljbadillo7@misena.edu.co',
     to: correo,
     subject: 'Recuperacion de contraseña',
-    text: `Para cambiar la contraseña entra en :  http://localhost:5900/tienda/v1/cambioContrasena/${usuarion._id}`,
+    text: `Para cambiar la contraseña entra en :  http://localhost:5900/tienda/v1/cambioContrasena/${usuarion._id}`
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
@@ -55,55 +53,51 @@ exports.enviarContraseña = async (req, res) => {
     }
   });
 
-  res.send('ya')
-}
+  res.send('ya');
+};
 
 exports.cambioContraseña = async (req, res) => {
-
-  const usuarios = await usuario.findOne({ '_id': req.params.id });
+  const usuarios = await usuario.findOne({ _id: req.params.id });
 
   res.render('usuarios/cambioContraseña', {
 
-    "usuario": usuarios,
+    usuario: usuarios
 
   });
-}
+};
 
 exports.nuevaContraseña = async (req, res) => {
-
   await usuario.findByIdAndUpdate(req.body.id, {
     contraseñaUsuario: req.body.confirmarnuevaContraseña
   });
 
   res.redirect('listaUsuarios');
-}
+};
 
 exports.formUsuario = (req, res) => {
   res.render('usuarios/formUsuario');
-}
+};
 
 exports.inicioSesion = (req, res) => {
-  res.render('usuarios/inicioSesion')
-}
+  res.render('usuarios/inicioSesion');
+};
 
 exports.cerrarSesion = async (req, res) => {
   res.clearCookie('rol');
   res.clearCookie('usuario');
-  res.redirect('principal')
-}
+  res.redirect('principal');
+};
 
 exports.nuevoUsuario = async (req, res) => {
-
-  const errors = validationResult(req)
+  const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    console.log(req.body)
-    const valores = req.body
-    const validaciones = errors.array()
-    res.render('usuarios/formUsuario', { validaciones: validaciones, valores: valores })
-
+    console.log(req.body);
+    const valores = req.body;
+    const validaciones = errors.array();
+    res.render('usuarios/formUsuario', { validaciones, valores });
   }
-  var nuevoUsuario = new usuario({
+  const nuevoUsuario = new usuario({
     nombreUsuario: req.body.nombreUsuario,
     apellidosUsuario: req.body.apellidoUsuario,
     telefonoUsuario: req.body.telefonoUsuario,
@@ -113,33 +107,29 @@ exports.nuevoUsuario = async (req, res) => {
     contraseñaUsuario: req.body.contraseñaUsuario,
     rol: req.body.rol
   });
-  await nuevoUsuario.save()
-
-
+  await nuevoUsuario.save();
 
   res.cookie('rol', req.body.rol, {
-    httpOnly: true,
+    httpOnly: true
   });
 
   res.cookie('usuario', nuevoUsuario._id, {
-    httpOnly: true,
+    httpOnly: true
   });
 
-  
-
-  var transporter = nodemailer.createTransport({
+  const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: 'ljbadillo7@misena.edu.co',
-      pass: `${process.env.D_PCORREO}`,
+      pass: `${process.env.D_PCORREO}`
     }
   });
 
-  var mailOptions = {
+  const mailOptions = {
     from: 'ljbadillo7@misena.edu.co',
     to: nuevoUsuario.correoUsuario,
     subject: 'Registro de Usuario Exitoso',
-    text: `Bienveni@ ${nuevoUsuario.nombreUsuario} 😊` 
+    text: `Bienveni@ ${nuevoUsuario.nombreUsuario} 😊`
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
@@ -150,110 +140,98 @@ exports.nuevoUsuario = async (req, res) => {
     }
   });
 
-  res.redirect('principal')
-
-
-}
+  res.redirect('principal');
+};
 
 exports.autenticarUsuario = async (req, res) => {
-
-  const errors = validationResult(req)
+  const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    console.log(req.body)
-    const valores = req.body
-    const validaciones = errors.array()
-    res.render('usuarios/inicioSesion', { validaciones: validaciones, valores: valores })
+    console.log(req.body);
+    const valores = req.body;
+    const validaciones = errors.array();
+    res.render('usuarios/inicioSesion', { validaciones, valores });
   } else {
+    const correo = req.body.correoUsuario;
+    const contraseña = req.body.contraseñaUsuario;
 
-    var correo = req.body.correoUsuario;
-    var contraseña = req.body.contraseñaUsuario;
-   
-    let buscarCliente = await usuario.findOne({ "correoUsuario": correo });
+    const buscarCliente = await usuario.findOne({ correoUsuario: correo });
 
     if (buscarCliente === null) {
-
-      var buscarVendedor = await vendedor.findOne({ "correoUsuario": correo });
+      const buscarVendedor = await vendedor.findOne({ correoUsuario: correo });
 
       if (buscarVendedor === null) {
-        res.send('no se encontro el usuario')
-
+        res.send('no se encontro el usuario');
       } else if (buscarVendedor.contraseñaUsuario === contraseña) {
         res.cookie('usuario', `${buscarVendedor._id}`, {
-          httpOnly: true,
+          httpOnly: true
         });
         res.cookie('rol', `${buscarVendedor.rol}`, {
-          httpOnly: true,
+          httpOnly: true
         });
 
         res.redirect('principal');
       }
     } else if (buscarCliente.contraseñaUsuario === contraseña) {
       res.cookie('usuario', `${buscarCliente._id}`, {
-        httpOnly: true,
+        httpOnly: true
       });
       res.cookie('rol', `${buscarCliente.rol}`, {
-        httpOnly: true,
+        httpOnly: true
       });
 
       res.redirect('principal');
     } else {
-      res.send('no se encontro el usuario')
+      res.send('no se encontro el usuario');
     }
   }
-}
+};
 
 exports.listaUsuarios = async (req, res) => {
   res.render('usuarios/listaUsuarios', {
-    "clientes": await usuario.find(),
-    "vendedores": await vendedor.find(),
-    'rol': req.cookies.rol,
-    'usuario': await usuario.findOne({ '_id': req.cookies.usuario }),
-    'vendedor': await vendedor.findOne({ '_id': req.cookies.usuario })
-  })
-}
+    clientes: await usuario.find(),
+    vendedores: await vendedor.find(),
+    rol: req.cookies.rol,
+    usuario: await usuario.findOne({ _id: req.cookies.usuario }),
+    vendedor: await vendedor.findOne({ _id: req.cookies.usuario })
+  });
+};
 
 exports.subirArchivo = (req, res) => {
   const storage = multer.diskStorage({
-    //ruta en la cual se guardan los documentos subidos 
+    // ruta en la cual se guardan los documentos subidos
     destination: './documentos',
 
-    //configuramos el nombre del archibo guardado y identificamos la extencion del documento suvido 
+    // configuramos el nombre del archibo guardado y identificamos la extencion del documento suvido
     filename: function (req, file, cb) {
-      //Tomamos el nombre original del documento y le ponesmos el mismo nombre
-      //cortamos en el ultimo punto del nombre del documento para identificar el archivo
-      var extencion = file.originalname.slice(file.originalname.lastIndexOf('.'));
-      //definimos el nombre con el cual se guradara el documento y la extencion
+      // Tomamos el nombre original del documento y le ponesmos el mismo nombre
+      // cortamos en el ultimo punto del nombre del documento para identificar el archivo
+      const extencion = file.originalname.slice(file.originalname.lastIndexOf('.'));
+      // definimos el nombre con el cual se guradara el documento y la extencion
       cb(null, Date.now() + extencion);
     }
-  })
-  console.log('exitoso')
-  multer({ storage: storage }).single('file');
+  });
+  console.log('exitoso');
+  multer({ storage }).single('file');
   console.log(multer);
-  res.send('listo')
-
-}
+  res.send('listo');
+};
 
 exports.editarUsuario = async (req, res) => {
-
   await usuario.findByIdAndUpdate(req.body.idUsuario, {
     nombreUsuario: req.body.nombreUsuario,
     apellidosUsuario: req.body.apellidoUsuario,
     telefonoUsuario: req.body.telefonoUsuario,
     ubicacionUsuario: req.body.direccionUsuario,
     documentoUsuario: req.body.documentoUsuario,
-    correoUsuario: req.body.correoUsuario,
-  })
+    correoUsuario: req.body.correoUsuario
+  });
 
-  res.redirect('listaUsuarios')
-}
-
-exports.eliminarUsuario = async (req, res) => {
-
-  await usuario.findByIdAndDelete({ '_id': req.body.usuarioEliminar });
-
-  res.redirect('listaUsuarios')
-
+  res.redirect('listaUsuarios');
 };
 
+exports.eliminarUsuario = async (req, res) => {
+  await usuario.findByIdAndDelete({ _id: req.body.usuarioEliminar });
 
+  res.redirect('listaUsuarios');
+};

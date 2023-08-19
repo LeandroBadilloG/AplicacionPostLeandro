@@ -1,56 +1,55 @@
 const vendedores = require('../modelos/modelosVendedores');
 const usuario = require('../modelos/modelosUsuario');
 
-
 exports.formVendedores = (req, res) => {
-  res.render('vendedores/formVendedor')
-}
+  res.render('vendedores/formVendedor');
+};
 
 exports.listaVendedores = async (req, res) => {
   const listaVendedores = await vendedores.find();
   res.render('vendedores/listaVendedores', {
-    'vendedores': listaVendedores,
-    'vendedor':await vendedores.findOne({'_id':req.cookies.usuario}),
-    'rol': req.cookies.rol,
-  })
-}
+    vendedores: listaVendedores,
+    vendedor: await vendedores.findOne({ _id: req.cookies.usuario }),
+    rol: req.cookies.rol
+  });
+};
 
-exports.navVendedor=async(req,res)=>{
-  res.render('parciales/navVendedor',{
-      'vendedor':await vendedores.findOne({'_id':req.cookies.usuario})
-    })
-}
+exports.navVendedor = async (req, res) => {
+  res.render('parciales/navVendedor', {
+    vendedor: await vendedores.findOne({ _id: req.cookies.usuario })
+  });
+};
 
 exports.nuevoVendedor = async (req, res) => {
-  var nuevoV= new vendedores({
+  const nuevoV = new vendedores({
     nombreUsuario: req.body.nombreUsuario,
     documentoUsuario: req.body.documentoUsuario,
     correoUsuario: req.body.correoUsuario,
     contraseñaUsuario: req.body.contraseñaUsuario,
     rol: req.body.rol
   });
-  await nuevoV.save()
+  await nuevoV.save();
 
-  res.cookie('rol', nuevoV.rol,{
-    httpOnly: true,
+  res.cookie('rol', nuevoV.rol, {
+    httpOnly: true
   });
   res.cookie('usuario', nuevoV._id, {
-    httpOnly: true,
+    httpOnly: true
   });
 
-  var transporter = nodemailer.createTransport({
+  const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: 'ljbadillo7@misena.edu.co',
-      pass: `${process.env.D_PCORREO}`,
+      pass: `${process.env.D_PCORREO}`
     }
   });
 
-  var mailOptions = {
+  const mailOptions = {
     from: 'ljbadillo7@misena.edu.co',
     to: nuevoV.correoUsuario,
     subject: 'Registro de Vendedor Exitoso',
-    text: `Bienveni@ ${nuevoV.nombreUsuario} 😊` 
+    text: `Bienveni@ ${nuevoV.nombreUsuario} 😊`
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
@@ -61,12 +60,10 @@ exports.nuevoVendedor = async (req, res) => {
     }
   });
 
-  res.redirect('principal')
-
-}
+  res.redirect('principal');
+};
 
 exports.editarVendedor = async (req, res) => {
-
   await vendedores.findByIdAndUpdate(req.body.idVUsuario, {
 
     nombreUsuario: req.body.nombreUsuario,
@@ -74,18 +71,15 @@ exports.editarVendedor = async (req, res) => {
     correoUsuario: req.body.correoUsuario,
     rol: req.body.rol
 
-  })
+  });
 
-  console.log(req.body)
+  console.log(req.body);
 
-  res.redirect('/tienda/v1/listaVendedores')
-}
-
+  res.redirect('/tienda/v1/listaVendedores');
+};
 
 exports.eliminarVendedor = async (req, res) => {
+  await vendedores.findByIdAndDelete({ _id: req.body.VendedorEliminar });
 
-  await vendedores.findByIdAndDelete({ '_id': req.body.VendedorEliminar });
-
-  res.redirect('listaVendedores')
-
+  res.redirect('listaVendedores');
 };
