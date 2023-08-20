@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const rutas = require('./enrutamiento/rutas');
 
-app.use('/tienda/v1', rutas);
+app.use('/', rutas);
 
 app.listen(PORT, () => {
   console.log(`Conectado en el puerto ${PORT}`);
