@@ -1,10 +1,10 @@
 const usuario = require('../modelos/modelosUsuario');
 const producto = require('../modelos/modelosProducto');
-const compra = require('../modelos/modelosVentas');
+// const compra = require('../modelos/modelosVentas');
 const xl = require('excel4node');
 const path = require('path');
 const fs = require('fs');
-const { localStorage } = require('node-localstorage');
+// const { localStorage } = require('node-localstorage');
 
 exports.descargarExcel = async (req, res) => {
   // configuramos el excel4node

@@ -1,5 +1,5 @@
 const vendedores = require('../modelos/modelosVendedores');
-const usuario = require('../modelos/modelosUsuario');
+// const usuario = require('../modelos/modelosUsuario');
 
 exports.formVendedores = (req, res) => {
   res.render('vendedores/formVendedor');

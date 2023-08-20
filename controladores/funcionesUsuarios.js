@@ -170,7 +170,7 @@ exports.autenticarUsuario = async (req, res) => {
           httpOnly: true
         });
 
-        res.redirect('principal');
+        res.redirect('/');
       }
     } else if (buscarCliente.contraseñaUsuario === contraseña) {
       res.cookie('usuario', `${buscarCliente._id}`, {
@@ -180,7 +180,7 @@ exports.autenticarUsuario = async (req, res) => {
         httpOnly: true
       });
 
-      res.redirect('principal');
+      res.redirect('/');
     } else {
       res.send('no se encontro el usuario');
     }
