@@ -6,7 +6,7 @@ const funcionesVentas = require('../controladores/funcionesVentas');
 const express = require('express');
 const router = express.Router();
 
-const { body, validationResult } = require('express-validator');
+const { body } = require('express-validator');
 
 // Productos
 router.get('/formProducto', funciones.formProducto);
@@ -21,7 +21,7 @@ router.post('/eliminarProducto', funciones.eliminarProducto);
 // usuarios
 router.get('/formContrasena', funcionesUsuarios.formContraseña);
 router.get('/navUsuario', funcionesUsuarios.navbar);
-router.get('/principal', funcionesUsuarios.paginaprincipal);
+router.get('/', funcionesUsuarios.paginaprincipal);
 router.get('/formUsuario', funcionesUsuarios.formUsuario);
 router.get('/listaUsuarios', funcionesUsuarios.listaUsuarios);
 router.get('/inicioSesion', funcionesUsuarios.inicioSesion);

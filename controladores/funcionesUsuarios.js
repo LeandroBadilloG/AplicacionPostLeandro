@@ -4,7 +4,7 @@ const vendedor = require('../modelos/modelosVendedores');
 const nodemailer = require('nodemailer');
 const multer = require('multer');
 
-const { body, validationResult } = require('express-validator');
+const { validationResult } = require('express-validator');
 
 exports.navbar = async (req, res) => {
   res.render('parciales/navCliente', {
