@@ -17,6 +17,7 @@
       <%}else{%>
         <%- include('../parciales/nav')%>
       <%}%>
+
         <script>
             $(document).ready(function () {
                 new DataTable('#table_id', {
@@ -25,9 +26,9 @@
             });
         </script>
         <div class="container mt-5">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end my-5 ">
-                <a href="http://localhost:5900/tienda/v1/formUsuario" class="btn btn-primary mx-2">Registrar Usuario</a>
-                <a href="http://localhost:5900/tienda/v1/formVendedor" class="btn btn-primary">Registrar Vendedor</a>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end my-5">
+                <a href="http://localhost:5900/formUsuario" class="btn btn-primary mx-2 mt-5">Registrar Usuario</a>
+                <a href="http://localhost:5900/formVendedor" class="btn btn-primary mt-5">Registrar Vendedor</a>
             </div>
             <div>
                 <div class="card-header ">
@@ -42,8 +43,6 @@
                                 <th scope="col">Correo</th>
                                 <th scope="col">rol</th>
                                 <th scope="col">opciones</th>
-
-
                             </tr>
                         </thead>
                         <tbody>

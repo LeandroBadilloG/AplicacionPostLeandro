@@ -22,27 +22,14 @@
                     <form class="m-5" action="autenticarUsuario" method="post">
                         <div class="form-group ">
                             <label for="correoUsuario" class="form-label p-1">CORREO</label>
-                            <input type="email" class="form-control" name="correoUsuario"
-                                value="<% if(typeof valores != 'undefined') {%> <%= valores.correoUsuario %> <% } %>">
+                            <input type="email" class="form-control" name="correoUsuario" required>
 
                             <label for="contraseñaUsuario" class="form-label p-1">CONTRASEÑA</label>
-                            <input type="password" class="form-control" name="contraseñaUsuario">
+                            <input type="password" class="form-control" name="contraseñaUsuario" required>
 
                         </div>
                         <div class="form-group text-center ">
                             <input type="submit" class="btn btn-primary p-1 mt-5" value="ingrezar">
-                        </div>
-                        <div>
-                            <% if(typeof validaciones !='undefined' ) {%>
-                                <% validaciones.forEach((validacion)=> {%>
-                                    <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
-                                        <strong>
-                                            <%= validacion.msg %>
-                                        </strong>
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <% })} %>
                         </div>
                     </form>
                 </div>

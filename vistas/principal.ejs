@@ -12,112 +12,114 @@
 </head>
 
 <body>
-
-    <%if(rol=='Cliente'){%>
-      <%- include('parciales/navCliente')%>
-    <%}else if(rol=='Vendedor'){%>
-      <%- include('parciales/navVendedor')%>
-    <%}else if(rol=='Administrador'){%>
-      <%- include('parciales/nav')%>
-    <%}else{%>
-      <%- include('parciales/nav')%>
-    <%}%>
-    <!--Carrusel princial-->
-    <div id="carouselExampleIndicators" class="carousel slide mt-5" data-bs-ride="true">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-          aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-          aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-          aria-label="Slide 3"></button>
-      </div>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="https://d6cuhh62rgdjh.cloudfront.net/spree/slides/321/original/Carrusel-08.jpg?1649337119"
-            class="d-block " alt="Productos para el hogar" width="100%" height="400px">
-        </div>
-        <div class="carousel-item">
-          <img src="https://static.doofinder.com/main-files/uploads/2018/01/Moda.png" class="d-block " alt="Moda"
-            width="100%" height="400px">
-        </div>
-        <div class="carousel-item">
-          <img src="https://peruretail.sfo3.cdn.digitaloceanspaces.com/wp-content/uploads/Venta-de-tecnologia.png"
-            class="d-block " alt="Tecnologia" width="100%" height="400px">
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="trtos/v1/cookierue"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
+  
+  <%if(rol=='Cliente'){%>
+    <%- include('parciales/navCliente')%>
+  <%}else if(rol=='Vendedor' ){%>
+    <%- include('parciales/navVendedor')%>
+  <%}else if(rol=='Administrador' ){%>
+    <%- include('parciales/nav')%>
+  <%}else{%>
+    <%- include('parciales/nav')%>
+  <%}%>
+  <!--Carrusel princial-->
+  <div id="carouselExampleIndicators" class="carousel slide mt-5" data-bs-ride="true">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+        aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+        aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+        aria-label="Slide 3"></button>
     </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="https://d6cuhh62rgdjh.cloudfront.net/spree/slides/321/original/Carrusel-08.jpg?1649337119"
+          class="d-block " alt="Productos para el hogar" width="100%" height="400px">
+      </div>
+      <div class="carousel-item">
+        <img src="https://static.doofinder.com/main-files/uploads/2018/01/Moda.png" class="d-block " alt="Moda"
+          width="100%" height="400px">
+      </div>
+      <div class="carousel-item">
+        <img src="https://peruretail.sfo3.cdn.digitaloceanspaces.com/wp-content/uploads/Venta-de-tecnologia.png"
+          class="d-block " alt="Tecnologia" width="100%" height="400px">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+      data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="trtos/v1/cookierue"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
 
 
-    <!--Contenido de la pagina principal-->
-    <section class="wrapper mt-5" id="registro">
-      <div class="container-fostrap ">
-        <div class="content mb-5">
-          <div class="container">
-            <div class="row">
+  <!--Contenido de la pagina principal-->
+  <section class="wrapper mt-5" id="registro">
+    <div class="container-fostrap ">
+      <div class="content mb-5">
+        <div class="container">
+          <div class="row">
 
-              <!--Descuentos-->
+            <!--Descuentos-->
 
-              <div class="col-xs-12 col-sm-6 my-auto ">
-                <div class="card my-2" style="max-width: 540px;">
-                  <div class="row no-gutters">
-                    <div class="col-md-4">
-                      <img
-                        src="https://images.pexels.com/photos/3049121/pexels-photo-3049121.jpeg?auto=compress&cs=tinysrgb&w=600"
-                        alt="cumpleanos.webp" width="200px">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body">
-                        <h5 class="card-title text-center">Los mejores productos para el hogar</h5>
-                        <br>
-                        <br>
-                        <p class="card-text text-center">Obtén los mejores precios para crear los espacios más
-                          asombrosos en tu hogar.</p>
-                      </div>
-                    </div>
+            <div class="col-xs-12 col-sm-6 my-auto ">
+              <div class="card my-2" style="max-width: 540px;">
+                <div class="row no-gutters">
+                  <div class="col-md-4">
+                    <img
+                      src="https://images.pexels.com/photos/3049121/pexels-photo-3049121.jpeg?auto=compress&cs=tinysrgb&w=600"
+                      alt="cumpleanos.webp" width="200px">
                   </div>
-                </div>
-                <div class="card my-2" style="max-width: 540px;">
-                  <div class="row no-gutters">
-                    <div class="col-md-4">
-                      <img
-                        src="https://images.pexels.com/photos/15685975/pexels-photo-15685975/free-photo-of-ligero-tecnologia-ordenador-moderno.jpeg?auto=compress&cs=tinysrgb&w=600"
-                        alt="domicilio.webp" width="200">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body">
-                        <h5 class="card-title text-center">Lo mejor en tecnolgia</h5>
-                        <br>
-                        <br>
-                        <p class="card-text text-center">Ten acceso a los mejores precios y mantente actualizado</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card my-2" style="max-width: 540px;">
-                  <div class="row no-gutters">
-                    <div class="col-md-4">
-                      <img
-                        src="https://images.pexels.com/photos/3651597/pexels-photo-3651597.jpeg?auto=compress&cs=tinysrgb&w=600"
-                        alt="" width="200" height="200">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body">
-                        <h5 class="card-title text-center">Moda</h5>
-                        <br>
-                        <br>
-                        <p class="card-text text-center">Encuentra las mejores marcas de moda a los mejores precios.</p>
-                      </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title text-center">Los mejores productos para el hogar</h5>
+                      <br>
+                      <br>
+                      <p class="card-text text-center">Obtén los mejores precios para crear los
+                        espacios más
+                        asombrosos en tu hogar.</p>
                     </div>
                   </div>
                 </div>
               </div>
-
+              <div class="card my-2" style="max-width: 540px;">
+                <div class="row no-gutters">
+                  <div class="col-md-4">
+                    <img
+                      src="https://images.pexels.com/photos/15685975/pexels-photo-15685975/free-photo-of-ligero-tecnologia-ordenador-moderno.jpeg?auto=compress&cs=tinysrgb&w=600"
+                      alt="domicilio.webp" width="200">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title text-center">Lo mejor en tecnolgia</h5>
+                      <br>
+                      <br>
+                      <p class="card-text text-center">Ten acceso a los mejores precios y mantente
+                        actualizado</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card my-2" style="max-width: 540px;">
+                <div class="row no-gutters">
+                  <div class="col-md-4">
+                    <img
+                      src="https://images.pexels.com/photos/3651597/pexels-photo-3651597.jpeg?auto=compress&cs=tinysrgb&w=600"
+                      alt="" width="200" height="200">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title text-center">Moda</h5>
+                      <br>
+                      <br>
+                      <p class="card-text text-center">Encuentra las mejores marcas de moda a los
+                        mejores precios.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
               <!--Registro nuevo usuario-->
               <div class="col-xs-12 col-sm-6">
                 <div class="card my-3">
@@ -127,45 +129,28 @@
                     </div>
                   </div>
                   <div class="card-body">
-                    <form class="m-5" action="/tienda/v1/registrarUsuario" method="post">
+                    <form class="m-5" action="/registrarUsuario" method="post">
                       <div class="form-group ">
-          
+
                         <label for="nombreUsuario" class="form-label p-1 ">NOMBRE</label>
-                        <input type="text" class="form-control" name="nombreUsuario"
-                          value="<% if(typeof valores != 'undefined') {%> <%= valores.nombreUsuario %> <% } %>">
-          
+                        <input type="text" class="form-control" name="nombreUsuario"required>
+
                         <label for="apellidoUsuario" class="form-label p-1">APELLIDO</label>
-                        <input type="text" class="form-control" name="apellidoUsuario"
-                          value="<% if(typeof valores != 'undefined') {%> <%= valores.apellidoUsuario %> <% } %>">
-          
+                        <input type="text" class="form-control" name="apellidoUsuario"required>
+
                         <label for="telefonoUsuario" class="form-label p-1">TELEFONO</label>
-                        <input type="number" class="form-control" name="telefonoUsuario"
-                          value="<% if(typeof valores != 'undefined') {%> <%= valores.telefonoUsuario %> <% } %>">
-          
+                        <input type="number" class="form-control" name="telefonoUsuario"required>
+
                         <label for="direccionUsuario" class="form-label p-1">DIRECCION</label>
-                        <input type="text" class="form-control" id="direccionUsuario" name="direccionUsuario"
-                          value="<% if(typeof valores != 'undefined') {%> <%= valores.direccionUsuario %> <% } %>">
-          
+                        <input type="text" class="form-control" id="direccionUsuario" name="direccionUsuario"required>
+
                         <label for="correoUsuario" class="form-label p-1">CORREO</label>
-                        <input type="email" class="form-control" name="correoUsuario"
-                          value="<% if(typeof valores != 'undefined') {%> <%= valores.correoUsuario %> <% } %>">
-          
+                        <input type="email" class="form-control" name="correoUsuario"required>
+
                         <label for="contraseñaUsuario" class="form-label p-1">CONTRASEÑA</label>
                         <input type="password" class="form-control" name="contraseñaUsuario">
-          
+
                         <input type="text" hidden id="rol" name="rol" value="usuario">
-          
-                      </div>
-                      <div>
-                        <% if(typeof validaciones !='undefined' ) {%>
-                          <% validaciones.forEach((validacion)=> {%>
-                            <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
-                              <strong>
-                                <%= validacion.msg %>
-                              </strong>
-                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                            <% })} %>
                       </div>
                       <div class="form-group ">
                         <input type="submit" class="btn btn-primary p-1 mt-5"></input>
@@ -173,17 +158,16 @@
                     </form>
                   </div>
                 </div>
-              </div>
-            </div>
+              </div>              
           </div>
         </div>
       </div>
+    </div>
 
-    </section>
+  </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-      crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
     </script>
 
 

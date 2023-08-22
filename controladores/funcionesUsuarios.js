@@ -13,7 +13,6 @@ exports.navbar = async (req, res) => {
 };
 
 exports.paginaprincipal = async (req, res) => {
-  console.log(req);
   res.render('principal', {
     rol: req.cookies.rol,
     usuario: await usuario.findOne({ _id: req.cookies.usuario }),
@@ -42,7 +41,7 @@ exports.enviarContraseña = async (req, res) => {
     from: 'ljbadillo7@misena.edu.co',
     to: correo,
     subject: 'Recuperacion de contraseña',
-    text: `Para cambiar la contraseña entra en :  http://localhost:5900/tienda/v1/cambioContrasena/${usuarion._id}`
+    text: `Para cambiar la contraseña entra en :  http://localhost:5900/cambioContrasena/${usuarion._id}`
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
@@ -85,18 +84,10 @@ exports.inicioSesion = (req, res) => {
 exports.cerrarSesion = async (req, res) => {
   res.clearCookie('rol');
   res.clearCookie('usuario');
-  res.redirect('principal');
+  res.redirect('/');
 };
 
 exports.nuevoUsuario = async (req, res) => {
-  const errors = validationResult(req);
-
-  if (!errors.isEmpty()) {
-    console.log(req.body);
-    const valores = req.body;
-    const validaciones = errors.array();
-    res.render('usuarios/formUsuario', { validaciones, valores });
-  }
   const nuevoUsuario = new usuario({
     nombreUsuario: req.body.nombreUsuario,
     apellidosUsuario: req.body.apellidoUsuario,
@@ -140,50 +131,46 @@ exports.nuevoUsuario = async (req, res) => {
     }
   });
 
-  res.redirect('principal');
+  res.redirect('/');
 };
 
 exports.autenticarUsuario = async (req, res) => {
-  const errors = validationResult(req);
+ 
+  const correo = req.body.correoUsuario;
+  const contraseña = req.body.contraseñaUsuario;
 
-  if (!errors.isEmpty()) {
-    console.log(req.body);
-    const valores = req.body;
-    const validaciones = errors.array();
-    res.render('usuarios/inicioSesion', { validaciones, valores });
-  } else {
-    const correo = req.body.correoUsuario;
-    const contraseña = req.body.contraseñaUsuario;
+  var buscarCliente = await usuario.findOne({ 'correoUsuario': correo });
+  var buscarVendedor = await vendedor.findOne({ 'correoUsuario': correo });
 
-    const buscarCliente = await usuario.findOne({ correoUsuario: correo });
 
-    if (buscarCliente === null) {
-      const buscarVendedor = await vendedor.findOne({ correoUsuario: correo });
+  if (buscarCliente === null) {
+    
+    if (buscarVendedor === null) {
+      res.send('no se encontro el usuario');
 
-      if (buscarVendedor === null) {
-        res.send('no se encontro el usuario');
-      } else if (buscarVendedor.contraseñaUsuario === contraseña) {
-        res.cookie('usuario', `${buscarVendedor._id}`, {
-          httpOnly: true
-        });
-        res.cookie('rol', `${buscarVendedor.rol}`, {
-          httpOnly: true
-        });
+    } else if (buscarVendedor.contraseñaUsuario === contraseña) {
 
-        res.redirect('/');
-      }
-    } else if (buscarCliente.contraseñaUsuario === contraseña) {
-      res.cookie('usuario', `${buscarCliente._id}`, {
+      res.cookie('usuario', `${buscarVendedor._id}`, {
         httpOnly: true
       });
-      res.cookie('rol', `${buscarCliente.rol}`, {
+      
+      res.cookie('rol', `${buscarVendedor.rol}`, {
         httpOnly: true
       });
 
       res.redirect('/');
-    } else {
-      res.send('no se encontro el usuario');
     }
+  } else if (buscarCliente.contraseñaUsuario === contraseña) {
+    res.cookie('usuario', `${buscarCliente._id}`, {
+      httpOnly: true
+    });
+    res.cookie('rol', `${buscarCliente.rol}`, {
+      httpOnly: true
+    });
+
+    res.redirect('/');
+  } else {
+    res.send('no se encontro el usuario');
   }
 };
 
@@ -211,9 +198,7 @@ exports.subirArchivo = (req, res) => {
       cb(null, Date.now() + extencion);
     }
   });
-  console.log('exitoso');
   multer({ storage }).single('file');
-  console.log(multer);
   res.send('listo');
 };
 

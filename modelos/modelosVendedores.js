@@ -1,6 +1,5 @@
 const mongoose = require('../configuracion/conexionBD');
 
-require('./modelosUsuario');
 
 const schemaVendedor = new mongoose.Schema({
   nombreUsuario: {

@@ -1,14 +1,15 @@
 const vendedores = require('../modelos/modelosVendedores');
 // const usuario = require('../modelos/modelosUsuario');
+const nodemailer = require('nodemailer');
+
 
 exports.formVendedores = (req, res) => {
   res.render('vendedores/formVendedor');
 };
 
 exports.listaVendedores = async (req, res) => {
-  const listaVendedores = await vendedores.find();
   res.render('vendedores/listaVendedores', {
-    vendedores: listaVendedores,
+    vendedores: await vendedores.find(),
     vendedor: await vendedores.findOne({ _id: req.cookies.usuario }),
     rol: req.cookies.rol
   });
@@ -60,7 +61,7 @@ exports.nuevoVendedor = async (req, res) => {
     }
   });
 
-  res.redirect('principal');
+  res.redirect('/');
 };
 
 exports.editarVendedor = async (req, res) => {
@@ -75,11 +76,11 @@ exports.editarVendedor = async (req, res) => {
 
   console.log(req.body);
 
-  res.redirect('/tienda/v1/listaVendedores');
+  res.redirect('/listaVendedores');
 };
 
 exports.eliminarVendedor = async (req, res) => {
   await vendedores.findByIdAndDelete({ _id: req.body.VendedorEliminar });
 
-  res.redirect('listaVendedores');
+  res.redirect('listaUsuarios');
 };

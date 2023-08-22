@@ -1,35 +1,23 @@
 const mongoose = require('../configuracion/conexionBD');
 
 const schemaVenta = new mongoose.Schema({
-  vendedor: {
-    type: String,
-    require: true
-  },
-  productos: [
-    {
-      producto: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Producto'
-      },
-      cantidad: Number
-    }
-  ],
+vendedor:{
 
-  valorTotal: {
-    type: Number,
-    require: true
-  },
-  usuario: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Usuario'
-  },
-  metodoPago: {
-    type: String
-  },
-  fechaVenta: {
-  }
+},
+
+cliente:[
+    
+],
+
+productos:[
+
+],
+
+totalCompra:{
+
+}
 
 });
 
-const nuevoVenta = mongoose.model('Ventas', schemaVenta);
-module.exports = nuevoVenta;
+const nuevaVenta = mongoose.model('Ventas', schemaVenta);
+module.exports = nuevaVenta;

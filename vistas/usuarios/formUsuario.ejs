@@ -15,54 +15,37 @@
 
   <%- include('../parciales/nav')%>
 
-    <div class="row g-0">
+    <div class="row g-0 mt-5">
       <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class=" col-md-6 border border-dark mt-5">
+        <div class=" col-md-6 border mt-5">
           <h1 class="text-center mt-5 border-bottom">Registro de usuario</h1>
-          <form class="m-5" action="/tienda/v1/registrarUsuario" method="post">
+          <form class="m-5" action="/registrarUsuario" method="post">
             <div class="form-group ">
 
               <label for="nombreUsuario" class="form-label p-1 ">NOMBRE</label>
-              <input type="text" class="form-control" name="nombreUsuario"
-                value="<% if(typeof valores != 'undefined') {%> <%= valores.nombreUsuario %> <% } %>">
+              <input type="text" class="form-control" name="nombreUsuario" required>
 
               <label for="apellidoUsuario" class="form-label p-1">APELLIDO</label>
-              <input type="text" class="form-control" name="apellidoUsuario"
-                value="<% if(typeof valores != 'undefined') {%> <%= valores.apellidoUsuario %> <% } %>">
+              <input type="text" class="form-control" name="apellidoUsuario" required>
 
               <label for="telefonoUsuario" class="form-label p-1">TELEFONO</label>
-              <input type="number" class="form-control" name="telefonoUsuario"
-                value="<% if(typeof valores != 'undefined') {%> <%= valores.telefonoUsuario %> <% } %>">
+              <input type="number" class="form-control" name="telefonoUsuario" required>
 
               <label for="direccionUsuario" class="form-label p-1">DIRECCION</label>
-              <input type="text" class="form-control" id="direccionUsuario" name="direccionUsuario"
-                value="<% if(typeof valores != 'undefined') {%> <%= valores.direccionUsuario %> <% } %>">
+              <input type="text" class="form-control" id="direccionUsuario" name="direccionUsuario" required>
 
               <label for="documentoUsuario" class="form-label p-1">DOCUMENTO:</label>
-              <input type="text" class="form-control" id="documentoUsuario" name="documentoUsuario"
-                value="<% if(typeof valores != 'undefined') {%> <%= valores.documentoUsuario %> <% } %>">
+              <input type="text" class="form-control" id="documentoUsuario" name="documentoUsuario" required>
 
 
               <label for="correoUsuario" class="form-label p-1">CORREO</label>
-              <input type="email" class="form-control" name="correoUsuario"
-                value="<% if(typeof valores != 'undefined') {%> <%= valores.correoUsuario %> <% } %>">
+              <input type="email" class="form-control" name="correoUsuario" required>
 
               <label for="contraseñaUsuario" class="form-label p-1">CONTRASEÑA</label>
-              <input type="password" class="form-control" name="contraseñaUsuario">
+              <input type="password" class="form-control" name="contraseñaUsuario" required>
 
               <input type="text" hidden id="rol" name="rol" value="Cliente">
 
-            </div>
-            <div>
-              <% if(typeof validaciones !='undefined' ) {%>
-                <% validaciones.forEach((validacion)=> {%>
-                  <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
-                    <strong>
-                      <%= validacion.msg %>
-                    </strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                  </div>
-                  <% })} %>
             </div>
             <div class="form-group text-center">
               <input type="submit" class="btn btn-primary px-5 mt-5"></input>

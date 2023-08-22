@@ -37,8 +37,9 @@
         <div class=" col-md-10 mt-5">
           <div class="accordion" id="accordionExample">
             <form action="comprar" method="post">
+              
               <!--PARTE 1-->
-              <input type="text" hidden id="productosCompra" name="productosCompra">
+              <input type="text" name="productosCarrito" id="productosCarrito">
               <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
                   <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
@@ -51,25 +52,25 @@
                   <div class="accordion-body">
                     <div class="mb-3">
                       <label for="nombreUsuario" class="form-label">Nombres</label>
-                      <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" 
+                      <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" required
                       value="<% if(rol=='Cliente') {%> <%=usuario.nombreUsuario%> <%}%>">
 
                     </div>
                     <div class="mb-3">
                       <label for="apellidoUsuario" class="form-label">Apellidos</label>
-                      <input type="text" class="form-control" id="apellidoUsuario" name="apellidoUsuario"
+                      <input type="text" class="form-control" id="apellidoUsuario" name="apellidoUsuario" required
                       value="<% if(rol=='Cliente') {%> <%=usuario.apellidosUsuario%> <%}%>">
 
                     </div>
                     <div class="mb-3">
                       <label for="telefonoUsuario" class="form-label">Telefono</label>
-                      <input type="text" class="form-control" id="telefonoUsuario" name="telefonoUsuario"
+                      <input type="text" class="form-control" id="telefonoUsuario" name="telefonoUsuario" required
                       value="<% if(rol=='Cliente') {%> <%=usuario.telefonoUsuario%> <%}%>">
 
                     </div>
                     <div class="mb-3">
                       <label for="correoUsuario" class="form-label">Email</label>
-                      <input type="email" class="form-control" id="correoUsuario" name="correoUsuario"
+                      <input type="email" class="form-control" id="correoUsuario" name="correoUsuario" required
                         aria-describedby="emailHelp"
                         value="<% if(rol=='Cliente') {%> <%=usuario.correoUsuario%> <%}%>">
                     </div>
@@ -90,7 +91,7 @@
                   <div class="accordion-body">
                     <div class="mb-3">
                       <label for="direccionUsuario" class="form-label">Direccion</label>
-                      <input type="text" class="form-control" id="direccionUsuario" name="direccionUsuario"
+                      <input type="text" class="form-control" id="direccionUsuario" name="direccionUsuario" required
                       value="<% if(rol=='Cliente') {%> <%=usuario.ubicacionUsuario%> <%}%>">
 
                     </div>
@@ -119,7 +120,6 @@
                 <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
                     data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-
                         <ul class="list-group">
                             <li class="list-group-item">
                                 <input class="form-check-input me-1" type="radio" name="listGroupRadio" value=""
@@ -143,13 +143,17 @@
                                 <label class="form-check-label" for="efecti">Efecti</label>
                             </li>
                             <li class="list-group-item">
-                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value=""
+                                <input class="form-check-inpute-1 m" type="radio" name="listGroupRadio" value=""
                                     id="bancolombia">
                                 <label class="form-check-label" for="bancolombia">Bancolombia</label>
                             </li>
                         </ul>
                     </div>
                 </div>
+            </div>
+            <div>
+              <input type="text" hidden id="vendedor" name="vendedor"  
+              value="<% if(rol=='Vendedor') {%> <%=vendedor._id%> <%}%>">
             </div>
               <div class="text-center mt-5">
                 <button type="submit" class="btn btn-dark">Comprar</button>
@@ -163,14 +167,15 @@
     <script>
       var carrito = JSON.parse(localStorage.getItem('carrito'));
 
+      productosCarrito.value=carrito;
       function datosCompra() {
         productosCompra.innerHTML =``
-        JSON.parse(localStorage.getItem('carrito')).forEach((elemento) => {
+        carrito.forEach((elemento) => {
 
           productosCompra.innerHTML +=
             `
             <div class="card-group" >
-              <div class="card mb-1">
+              <div class="card my-5" style="height: 470px;">
                 <img src="https://picsum.photos/300/300??random${elemento.id}" class="card-img-top" alt="...">
                 <div class="card-body">
                   <h5 class="card-title">${elemento.nombre}</h5>
@@ -179,13 +184,13 @@
                   <div class="row" >
                     <div  class="row row-cols-md-2">
             
-                      <button  class="btn btn-outline-primary ms-1" style="max-height:40px; max-width:40px;" onclick="restarC('${elemento.id}')">-</button>
+                      <button  class="btn btn-outline-primary ms-1 btn-sm" style="max-height:30px; max-width:30px;" onclick="restarC('${elemento.id}')">-</button>
 
-                      <input name='cantidad'  class="form-control mx-1" type="text" value="${elemento.cantidad}" style="max-height:40px; max-width:45px;"  readonly>
+                      <input name='cantidad'  class="form-control mx-1 btn-sm" type="text" value="${elemento.cantidad}" style="max-height:30px; max-width:45px;"  readonly>
 
-                      <button class="btn btn-outline-success" style="max-height:40px; max-width:40px;" onclick="sumarC('${elemento.id}')">+</button> 
+                      <button class="btn btn-outline-success btn-sm" style="max-height:30px; max-width:30px;" onclick="sumarC('${elemento.id}')">+</button> 
                       
-                      <button class="btn btn-outline-danger ms-1 mt-2" style="max-height:40px; max-width:40px;" onclick="eliminarProductoP('${elemento.id}')"><i class="bi bi-trash3"></i></button>                                 
+                      <button class="btn btn-outline-danger ms-2 btn-sm" style="max-height:30px; max-width:30px;" onclick="eliminarProductoP('${elemento.id}')"><i class="bi bi-trash3"></i></button>                                 
                     
                       </div>
                   </div>

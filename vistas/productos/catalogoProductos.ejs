@@ -21,15 +21,12 @@
   <%}else{%>
     <%- include('../parciales/nav')%>
   <%}%>
-    <div class="container">
-      <div class="row">
-        <main id="items" class="col-sm-12 row ">
-          <div class="row row-cols-2 row-cols-md-4 m-5">
-
+    <div class="container-fluid mt-5">
+          <div class="row row-cols-md-6">
             <% productos.forEach(function(elemento) { %>
               <div class="col">
-                <div class="card mt-3" style="height: 530px;">
-                  <img src="https://picsum.photos/300/300?random<%=elemento.id%>" class="card-img-top" alt="...">
+                <div class="card mt-3" style="height: 470px;">
+                  <img src="https://picsum.photos/300/300?random<%=elemento.id%>" class="card-img-top" alt="https://picsum.photos/300/300?random<%=elemento.id%>">
                   <div class="card-body">
                     <h5 class="card-title">
                       <%=elemento.nombre%>
@@ -47,8 +44,6 @@
               </div>
               <%})%>
           </div>
-        </main>
-      </div>
     </div>
 
 

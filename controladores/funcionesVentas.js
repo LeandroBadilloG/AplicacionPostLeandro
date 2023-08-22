@@ -1,5 +1,6 @@
 const usuario = require('../modelos/modelosUsuario');
 const vendedor = require('../modelos/modelosVendedores');
+const compra = require('../modelos/modelosVentas');
 
 exports.datosCompra = async (req, res) => {
   res.render('../vistas/parciales/datosCompra', {
@@ -10,10 +11,10 @@ exports.datosCompra = async (req, res) => {
 };
 
 exports.guardarCompra = async (req, res) => {
-  console.log(req.body);
   // const venta = new compra({
-
+    
   // });
   // await venta.save();
+  console.log(req.body);
   res.send('listo');
 };
