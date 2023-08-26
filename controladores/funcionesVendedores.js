@@ -1,10 +1,14 @@
 const vendedores = require('../modelos/modelosVendedores');
-// const usuario = require('../modelos/modelosUsuario');
+const usuario = require('../modelos/modelosUsuario');
 const nodemailer = require('nodemailer');
 
 
-exports.formVendedores = (req, res) => {
-  res.render('vendedores/formVendedor');
+exports.formVendedores = async(req, res) => {
+  res.render('vendedores/formVendedor',{
+    rol: req.cookies.rol,
+    usuario: await usuario.findOne({ _id: req.cookies.usuario }),
+    vendedor: await vendedores.findOne({ _id: req.cookies.usuario }),
+  });
 };
 
 exports.listaVendedores = async (req, res) => {

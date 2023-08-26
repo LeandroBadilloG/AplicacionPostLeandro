@@ -7,14 +7,14 @@
   <title>Datos compra</title>
 </head>
 
-<body onload="datosCompra()">
+<body onload="datosCompra(), alertaCarrito()">
   
   <%if(rol=='Cliente'){%>
     <%- include('../parciales/navCliente')%>
   <%}else if(rol=='Vendedor'){%>
     <%- include('../parciales/nav')%>
   <%}else if(rol=='Administrador'){%>
-    <%- include('../parciales/nav')%>
+    <%- include('../parciales/navAdministrador')%>
   <%}else{%>
     <%- include('../parciales/nav')%>
   <%}%>
@@ -122,28 +122,27 @@
                     <div class="accordion-body">
                         <ul class="list-group">
                             <li class="list-group-item">
-                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value=""
+                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="Tarjeta visa"
                                     id="visa" checked>
                                 <label class="form-check-label" for="visa">Tarjeta visa</label>
-                                <img src="estaticas/imagenes/visa.png" alt="">
                             </li>
                             <li class="list-group-item">
-                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value=""
+                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="Pago contra entrega"
                                     id="contraEntrega">
                                 <label class="form-check-label" for="contraEntrega">Pago contra entrega</label>
                             </li>
                             <li class="list-group-item">
-                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value=""
+                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="PSE"
                                     id="PSE">
                                 <label class="form-check-label" for="PSE">PSE</label>
                             </li>
                             <li class="list-group-item">
-                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value=""
+                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="Efecti"
                                     id="efecti">
                                 <label class="form-check-label" for="efecti">Efecti</label>
                             </li>
                             <li class="list-group-item">
-                                <input class="form-check-inpute-1 m" type="radio" name="listGroupRadio" value=""
+                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="Bancolombia"
                                     id="bancolombia">
                                 <label class="form-check-label" for="bancolombia">Bancolombia</label>
                             </li>
@@ -153,7 +152,7 @@
             </div>
             <div>
               <input type="text" hidden id="vendedor" name="vendedor"  
-              value="<% if(rol=='Vendedor') {%> <%=vendedor._id%> <%}%>">
+              value="<% if(rol=='Vendedor') {%> <%=vendedor._id%> <%}else{%>'onlay'<%}%>">
             </div>
               <div class="text-center mt-5">
                 <button type="submit" class="btn btn-dark">Comprar</button>
@@ -167,7 +166,8 @@
     <script>
       var carrito = JSON.parse(localStorage.getItem('carrito'));
 
-      productosCarrito.value=carrito;
+      productosCarrito.value=localStorage.getItem('carrito');
+      
       function datosCompra() {
         productosCompra.innerHTML =``
         carrito.forEach((elemento) => {
@@ -199,6 +199,7 @@
             </div> 
           `
           totalCompraP()
+          alertaCarrito()
         });
       }
 
@@ -221,7 +222,7 @@
 
             nuevoLocalStorage();
             datosCompra();
-
+            alertaCarrito()
           }
         });
       }
@@ -238,7 +239,7 @@
             }
             nuevoLocalStorage();
             datosCompra();
-            
+            alertaCarrito()
           }
         });
       }
@@ -253,12 +254,23 @@
         
         nuevoLocalStorage();
         datosCompra();
-
+        alertaCarrito()
       }
 
       function nuevoLocalStorage() {
         localStorage.setItem('carrito', JSON.stringify(carrito));
       }
+
+      function alertaCarrito() {
+            if (carrito.length > 0) {
+                alertaProducto.setAttribute('class', 'position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger')
+                cantidadProductos.innerText = carrito.length;
+            } else {
+                alertaProducto.setAttribute('class', '')
+                cantidadProductos.innerText = '';
+
+            }
+        }
 
     </script>
 </body>

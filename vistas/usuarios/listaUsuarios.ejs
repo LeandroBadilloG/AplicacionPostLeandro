@@ -12,8 +12,8 @@
         <%- include('../parciales/navCliente')%>
       <%}else if(rol=='Vendedor'){%>
         <%- include('../parciales/navVendedor')%>
-      <%}else if(rol=='Administrador'){%>
-        <%- include('../parciales/nav')%>
+      <%}else if(rol=='Administrador' ){%>
+        <%- include('../parciales/navAdministrador')%>
       <%}else{%>
         <%- include('../parciales/nav')%>
       <%}%>
@@ -228,7 +228,7 @@
                     correoUsuario.value = corre;
                     idUsuario.value = id;
                     const from = document.getElementById('formularioUsuario');
-                    from.setAttribute('action', 'actualizarUsuario');
+                    from.setAttribute('action', 'editarUsuario');
                 }
                 function eliminarUsuario(id, nombre) {
                     confirmacionEliminar.innerHTML = ``;

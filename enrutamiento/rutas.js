@@ -19,21 +19,22 @@ router.post('/actualizarProducto', funciones.actualizarProducto);
 router.post('/eliminarProducto', funciones.eliminarProducto);
 
 // usuarios
+router.get('/', funcionesUsuarios.paginaprincipal);
+router.get('/perfilCliente',funcionesUsuarios.perfilCliente);
 router.get('/formContrasena', funcionesUsuarios.formContraseña);
 router.get('/navUsuario', funcionesUsuarios.navbar);
-router.get('/', funcionesUsuarios.paginaprincipal);
 router.get('/formUsuario', funcionesUsuarios.formUsuario);
 router.get('/listaUsuarios', funcionesUsuarios.listaUsuarios);
 router.get('/inicioSesion', funcionesUsuarios.inicioSesion);
 router.get('/cambioContrasena/:id', funcionesUsuarios.cambioContraseña);
 router.get('/cerrarSesion', funcionesUsuarios.cerrarSesion);
 router.post('/enviarContrasena', funcionesUsuarios.enviarContraseña);
+router.post('/actualizarUsuario',funcionesUsuarios.actuaizarUsuario);
 router.post('/nuevaContrasena', funcionesUsuarios.nuevaContraseña);
 router.post('/subirArchivo', funcionesUsuarios.subirArchivo);
-router.post('/actualizarUsuario', funcionesUsuarios.editarUsuario);
+router.post('/editarUsuario', funcionesUsuarios.editarUsuario);
 router.post('/eliminarUsuario', funcionesUsuarios.eliminarUsuario);
 router.post('/registrarUsuario', funcionesUsuarios.nuevoUsuario);
-
 router.post('/autenticarUsuario', funcionesUsuarios.autenticarUsuario);
 
 // vendedores

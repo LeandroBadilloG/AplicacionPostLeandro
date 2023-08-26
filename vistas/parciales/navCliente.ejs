@@ -46,12 +46,15 @@
                 </ul>
 
                 <button class="btn btn-black" type="button" data-bs-toggle="offcanvas" data-bs-target="#perfilUsuario"
-                aria-controls="perfilUsuario"><h5>Hola! <%=usuario.nombreUsuario%> <i class="bi bi-caret-down-fill"></i></h5></button>
+                    aria-controls="perfilUsuario">
+                    <h5>Hola! <%=usuario.nombreUsuario%> <i class="bi bi-caret-down-fill"></i></h5>
+                </button>
 
-                
+
                 <a class="btn btn-black m-1 position-relative" href="" role="button" data-bs-toggle="offcanvas"
                     data-bs-target="#carrito" aria-controls="carrito" onclick="listaCarrito()"><i
-                        class="bi bi-cart3"><span id="alertaProducto"><span id="cantidadProductos"></span></span></i></a>
+                        class="bi bi-cart3"><span id="alertaProducto"><span
+                                id="cantidadProductos"></span></span></i></a>
             </div>
         </div>
     </nav>
@@ -60,7 +63,10 @@
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="perfilUsuario" aria-labelledby="perfilUsuarioLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="perfilUsuarioLabel"><h5>Hola! <%=usuario.nombreUsuario%></h5></h5>
+            <h5 class="offcanvas-title" id="perfilUsuarioLabel">
+                <h5>Hola! <%=usuario.nombreUsuario%>
+                </h5>
+            </h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
@@ -68,19 +74,26 @@
                 <img class="rounded-circle" src="https://picsum.photos/300/300?random" alt="">
             </div>
             <div class="text-center border-bottom  mt-4">
-                <h3 class="mb-2" ><%=usuario.nombreUsuario%> <%=usuario.apellidosUsuario%></h3>
+                <h3 class="mb-2">
+                    <%=usuario.nombreUsuario%>
+                        <%=usuario.apellidosUsuario%>
+                </h3>
             </div>
             <div class="text-center border-bottom  mt-3">
-                <h3 class="mb-2" >Editar perfil <i class="bi bi-pen"></i></h3>
-            </div>       
-            <div class="text-center border-bottom  mt-3">
-                <h3 class="mb-2" >Mis compras <i class="bi bi-bag-check"></i></h3>
+                <a class="btn btn-light" class="text-dark" href="perfilCliente">
+                    <h3 class="mb-2">Editar perfil <i class="bi bi-pen"></i></h3>
+                </a>
             </div>
             <div class="text-center border-bottom  mt-3">
-                <h3 class="mb-2" >Ayuda <i class="bi bi-question-octagon"></i></h3>
+                <h3 class="mb-2">Mis compras <i class="bi bi-bag-check"></i></h3>
             </div>
             <div class="text-center border-bottom  mt-3">
-                <a class="btn btn-light"  onclick="cerrarSesion()" class="text-dark" href="cerrarSesion" ><h3 class="mb-2" >Cerrar sesion <i class="bi bi-box-arrow-left"></i></h3></a> 
+                <h3 class="mb-2">Ayuda <i class="bi bi-question-octagon"></i></h3>
+            </div>
+            <div class="text-center border-bottom  mt-3">
+                <a class="btn btn-light" onclick="cerrarSesion()" class="text-dark" href="cerrarSesion">
+                    <h3 class="mb-2">Cerrar sesion <i class="bi bi-box-arrow-left"></i></h3>
+                </a>
             </div>
         </div>
     </div>
@@ -97,45 +110,33 @@
                     <form class="m-5" action="autenticarUsuario" method="post">
                         <div class="form-group ">
                             <label for="correoUsuario" class="form-label p-1">CORREO</label>
-                            <input type="email" class="form-control" name="correoUsuario"
-                                value="<% if(typeof valores != 'undefined') {%> <%= valores.correoUsuario %> <% } %>">
+                            <input type="email" class="form-control" name="correoUsuario" required>
 
                             <label for="contraseñaUsuario" class="form-label p-1">CONTRASEÑA</label>
-                            <input type="password" class="form-control" name="contraseñaUsuario">
+                            <input type="password" class="form-control" name="contraseñaUsuario" required>
 
                         </div>
                         <div class="form-group text-center ">
                             <input type="submit" class="btn btn-outline-primary p-1 mt-5" value="ingresar">
                         </div>
-                        <div>
-                            <% if(typeof validaciones !='undefined' ) {%>
-                                <% validaciones.forEach((validacion)=> {%>
-                                    <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
-                                        <strong>
-                                            <%= validacion.msg %>
-                                        </strong>
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <% })} %>
-                        </div>
-                    </form>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                <div class="modal-footer">
-                    <div>
-                        <a href="http://localhost:5900/formUsuario"
-                            class="btn btn-outline-primary mx-5">Registrarse</a>
-                    </div>
-                    <div>
-                        <a class="mx-5" href="http://localhost:5900/formContrasena"> ¿olvidaste tu
-                            contraseña?</a>
-                    </div>
-
-
-
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div>
+                    <a href="http://localhost:5900/formUsuario" class="btn btn-outline-primary mx-5">Registrarse</a>
                 </div>
+                <div>
+                    <a class="mx-5" href="http://localhost:5900/formContrasena"> ¿olvidaste tu
+                        contraseña?</a>
+                </div>
+
+
+
             </div>
         </div>
+    </div>
     </div>
     <!-- Offcanvas del carrito -->
     <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="carrito"
@@ -158,11 +159,11 @@
     <script type="text/javascript">
         var carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-        function cerrarSesion(){
+        function cerrarSesion() {
             localStorage.clear();
         }
 
-        function agregarAlCarrito(nombre, precio,descripcion, id) {
+        function agregarAlCarrito(nombre, precio, descripcion, id) {
 
             const verificarProducto = carrito.some((elemento) => elemento.id === id);
             console.log(verificarProducto)
@@ -180,7 +181,7 @@
 
             } else {
 
-                const producto = {'nombre': nombre, 'precio': precio,  'descripcion': descripcion, 'id': id,'cantidad': 1 };
+                const producto = { 'nombre': nombre, 'precio': precio, 'descripcion': descripcion, 'id': id, 'cantidad': 1 };
 
                 carrito.push(producto);
 
@@ -290,11 +291,11 @@
         }
 
         function alertaCarrito() {
-            if(carrito.length > 0){
-                alertaProducto.setAttribute('class','position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger')
+            if (carrito.length > 0) {
+                alertaProducto.setAttribute('class', 'position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger')
                 cantidadProductos.innerText = carrito.length;
-            }else{
-                alertaProducto.setAttribute('class','')
+            } else {
+                alertaProducto.setAttribute('class', '')
                 cantidadProductos.innerText = '';
 
             }

@@ -24,7 +24,7 @@
 <body onload="alertaCarrito()">
 
     <!-- Navbar -->
-    <nav class="navbar fixed-top navbar-expand-lg bg-light navbar">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -35,268 +35,54 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+                        <a class="nav-link active" aria-current="page" href="/">Administrador</a>
                     </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="catalogoProductos">CATALOGO</a>
+                    <li class="nav-item mx-1">
+                        <a class="nav-link active" aria-current="page" href="listaUsuarios">Lista Usuarios</a>
                     </li>
-
-
+                    <li class="nav-item mx-1">
+                        <a class="nav-link active" aria-current="page" href="listaProductos">Lista Productos</a>
+                    </li>
                 </ul>
 
-
-                <button class="btn btn-black" type="button" data-bs-toggle="offcanvas" data-bs-target="#perfilVendedor"
-                aria-controls="perfilUsuario"><h5>Hola! <%=vendedor.nombreUsuario%> <i class="bi bi-caret-down-fill"></i></h5></button>
-
-                
-                <a class="btn btn-black m-1 position-relative" href="" role="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#carrito" aria-controls="carrito" onclick="listaCarrito()"><i
-                        class="bi bi-cart3"><span id="alertaProducto"><span id="cantidadProductos"></span></span></i></a>
+                <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#perfilUsuario"
+                    aria-controls="perfilUsuario">
+                    <h5>Hola! <%=usuario.nombreUsuario%> <i class="bi bi-caret-down-fill"></i></h5>
+                </button>
             </div>
         </div>
     </nav>
 
-
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="perfilVendedor" aria-labelledby="perfilVendedorLabel">
+    <div class="text-bg-dark offcanvas offcanvas-end" tabindex="-1" id="perfilUsuario" aria-labelledby="perfilUsuarioLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="perfilVendedorLabel"></h5>
+            <h5 class="offcanvas-title" id="perfilUsuarioLabel">
+                <h5>Admi <%=usuario.nombreUsuario%>
+                </h5>
+            </h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
             <div class="text-center">
                 <img class="rounded-circle" src="https://picsum.photos/300/300?random" alt="">
             </div>
-            <div class="text-center border-bottom  mt-5">
-                <h3 class="mb-2" ><%=vendedor.nombreUsuario%> </h3>
-            </div>
-            <div class="text-center border-bottom  mt-3">
-                <h3 class="mb-2" >Editar perfil <i class="bi bi-pen"></i></h3>
-            </div>       
-            <div class="text-center border-bottom  mt-3">
-                <h3 class="mb-2" >Mis ventas <i class="bi bi-bag-check"></i></h3>
-            </div>
-            <div class="text-center border-bottom  mt-3">
-                <h3 class="mb-2" >Ayuda <i class="bi bi-question-octagon"></i></h3>
-            </div>
-            <div class="text-center border-bottom  mt-3">
-                <a class="text-dark" href="cerrarSesion" ><h3 class="mb-2" >Cerrar sesion <i class="bi bi-box-arrow-left"></i></h3></a> 
+            <div class="text-center border-bottom  mt-4">
+                <h3 class="mb-2">
+                    <%=usuario.nombreUsuario%>
+                        <%=usuario.apellidosUsuario%>
+                </h3>
             </div>
 
-        </div>
-    </div>
-
-    <div class="modal fade" id="modalInicioSesion" tabindex="-1" aria-labelledby="modalInicioSesionLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5 " id="modalInicioSesionLabel">Inicio de sesion</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form class="m-5" action="autenticarUsuario" method="post">
-                        <div class="form-group ">
-                            <label for="correoUsuario" class="form-label p-1">CORREO</label>
-                            <input type="email" class="form-control" name="correoUsuario"
-                                value="<% if(typeof valores != 'undefined') {%> <%= valores.correoUsuario %> <% } %>">
-
-                            <label for="contraseñaUsuario" class="form-label p-1">CONTRASEÑA</label>
-                            <input type="password" class="form-control" name="contraseñaUsuario">
-
-                        </div>
-                        <div class="form-group text-center ">
-                            <input type="submit" class="btn btn-outline-primary p-1 mt-5" value="ingresar">
-                        </div>
-                        <div>
-                            <% if(typeof validaciones !='undefined' ) {%>
-                                <% validaciones.forEach((validacion)=> {%>
-                                    <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
-                                        <strong>
-                                            <%= validacion.msg %>
-                                        </strong>
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <% })} %>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <div>
-                        <a href="http://localhost:5900/formUsuario"
-                            class="btn btn-outline-primary mx-5">Registrarse</a>
-                    </div>
-                    <div>
-                        <a class="mx-5" href="http://localhost:5900/formContrasena"> ¿olvidaste tu
-                            contraseña?</a>
-                    </div>
-                </div>
+            <div class="text-center border-bottom  mt-3">
+                <a class="text-white" onclick="cerrarSesion()" class="text-dark" href="cerrarSesion">
+                    <h3 class="mb-2">Cerrar sesion <i class="bi bi-box-arrow-left"></i></h3>
+                </a>
             </div>
         </div>
     </div>
 
-    <!-- Offcanvas del carrito -->
-
-    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="carrito"
-        aria-labelledby="carritoLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="carritoLabel">Carrito</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" onclick=""></button>
-        </div>
-        <div class="offcanvas-body">
-
-            <div id="productos">
-
-            </div>
-
-        </div>
-        <div class="offcanvas-end py-3" id="precioTotal">
-        </div>
-
-    </div>
-    <script type="text/javascript">
-        var carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-
-        function agregarAlCarrito(nombre, precio,descripcion, id) {
-
-            const verificarProducto = carrito.some((elemento) => elemento.id === id);
-            console.log(verificarProducto)
-
-            if (verificarProducto) {
-                carrito.map((elemento) => {
-                    if (elemento.id === id) {
-
-                        elemento.cantidad++;
-
-                        nuevoLocalStorage();
-
-                    }
-                });
-
-            } else {
-
-                const producto = { 'nombre': nombre, 'precio': precio,  'descripcion': descripcion, 'id': id,'cantidad': 1 };
-
-                carrito.push(producto);
-
-                nuevoLocalStorage()
-                alertaCarrito()
-            }
-        }
-
-        function listaCarrito() {
-
-            productos.innerHTML = ``;
-
-            carrito.forEach((elemento) => {
-
-                productos.innerHTML += `
-                <div class="card mb-3" style="max-width: 545px;">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="https:picsum.photos/100/155?random${elemento.id}" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">${elemento.nombre}</h5>
-                                <p class="card-text text-success">${elemento.precio}</p>
-                                <div class="row" >
-                                    <div  class="row row-cols-md-2">
-            
-                                        <button  class="btn btn-outline-primary ms-1" style="max-height:40px; max-width:40px;" onclick="restar('${elemento.id}')">-</button>
-
-                                        <input name='cantidad'  class="form-control mx-1" type="text" value="${elemento.cantidad}" style="max-height:40px; max-width:45px;"  readonly>
-
-                                        <button class="btn btn-outline-success" style="max-height:40px; max-width:40px;" onclick="sumar('${elemento.id}')">+</button>
-                                        
-                                        <button class="btn btn-outline-danger ms-1" style="max-height:40px; max-width:40px;" onclick="eliminarProducto('${elemento.id}')"><i class="bi bi-trash3"></i></button>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `
-            })
-            totalCompra();
-
-
-
-        }
-
-        function totalCompra() {
-
-            const total = carrito.reduce((acc, el) => acc + parseFloat(el.precio * el.cantidad), 0).toFixed(2);
-
-            precioTotal.innerHTML = `
-            <div class="row" >
-                <div class="row row-cols-6 row-cols-md-2 ms-2">
-                    <h5 class="text-success">Total: $${total}</h5>
-                    <a href="http://localhost:5900/datosCompra" class="btn btn-dark m-2 " tabindex="-1" role="button" aria-disabled="true">Comprar</a>
-                </div>
-            </div>
-            `
-        }
-
-        function eliminarProducto(id) {
-
-            const idProducto = carrito.find((elemento) => elemento.id === id);
-
-            carrito = carrito.filter((elemento) => {
-                return elemento !== idProducto;
-            });
-
-            listaCarrito();
-            nuevoLocalStorage();
-            alertaCarrito();
-        }
-
-        function nuevoLocalStorage() {
-            localStorage.setItem('carrito', JSON.stringify(carrito));
-        }
-
-        function sumar(id) {
-
-            carrito.map((elemento) => {
-                if (elemento.id === id) {
-
-                    elemento.cantidad++;
-
-                    nuevoLocalStorage();
-                    listaCarrito();
-
-                }
-            });
-        }
-
-        function restar(id) {
-
-            carrito.map((elemento) => {
-                if (elemento.id === id) {
-
-                    elemento.cantidad--;
-
-                    if (elemento.cantidad == 0) {
-                        eliminarProducto(id)
-                    }
-
-                    nuevoLocalStorage();
-                    listaCarrito();
-                }
-            });
-        }
-
-        function alertaCarrito() {
-            if(carrito.length > 0){
-                alertaProducto.setAttribute('class','position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger')
-                cantidadProductos.innerText = carrito.length;
-            }else{
-                alertaProducto.setAttribute('class','');
-                cantidadProductos.innerText = '';
-
-            }
+    <script>
+        function cerrarSesion() {   
+            localStorage.clear();
         }
     </script>
     <script src="https:cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"

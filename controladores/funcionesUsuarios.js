@@ -1,6 +1,7 @@
 const usuario = require('../modelos/modelosUsuario');
 const vendedor = require('../modelos/modelosVendedores');
 // const compra = require('../modelos/modelosVentas');
+const producto = require('../modelos/modelosProducto');
 const nodemailer = require('nodemailer');
 const multer = require('multer');
 
@@ -13,14 +14,24 @@ exports.navbar = async (req, res) => {
 };
 
 exports.paginaprincipal = async (req, res) => {
+  console.log(req)
   res.render('principal', {
     rol: req.cookies.rol,
     usuario: await usuario.findOne({ _id: req.cookies.usuario }),
-    vendedor: await vendedor.findOne({ _id: req.cookies.usuario })
+    vendedor: await vendedor.findOne({ _id: req.cookies.usuario }),
+    productos: await producto.find(),
   });
 };
 
-// recuperar contraseña
+exports.perfilCliente= async(req,res)=>{
+  res.render('usuarios/perfilCliente', {
+    rol: req.cookies.rol,
+    usuario: await usuario.findOne({ _id: req.cookies.usuario }),
+    vendedor: await vendedor.findOne({ _id: req.cookies.usuario }),
+    productos: await producto.find(),
+  });
+}
+
 exports.formContraseña = (req, res) => {
   res.render('usuarios/recuperarContraseña');
 };
@@ -73,8 +84,12 @@ exports.nuevaContraseña = async (req, res) => {
   res.redirect('listaUsuarios');
 };
 
-exports.formUsuario = (req, res) => {
-  res.render('usuarios/formUsuario');
+exports.formUsuario = async (req, res) => {
+  res.render('usuarios/formUsuario', {
+    rol: req.cookies.rol,
+    usuario: await usuario.findOne({ _id: req.cookies.usuario }),
+    vendedor: await vendedor.findOne({ _id: req.cookies.usuario })
+  });
 };
 
 exports.inicioSesion = (req, res) => {
@@ -135,14 +150,10 @@ exports.nuevoUsuario = async (req, res) => {
 };
 
 exports.autenticarUsuario = async (req, res) => {
- 
   const correo = req.body.correoUsuario;
   const contraseña = req.body.contraseñaUsuario;
-
   var buscarCliente = await usuario.findOne({ 'correoUsuario': correo });
   var buscarVendedor = await vendedor.findOne({ 'correoUsuario': correo });
-
-
   if (buscarCliente === null) {
     
     if (buscarVendedor === null) {
@@ -188,7 +199,6 @@ exports.subirArchivo = (req, res) => {
   const storage = multer.diskStorage({
     // ruta en la cual se guardan los documentos subidos
     destination: './documentos',
-
     // configuramos el nombre del archibo guardado y identificamos la extencion del documento suvido
     filename: function (req, file, cb) {
       // Tomamos el nombre original del documento y le ponesmos el mismo nombre
@@ -211,12 +221,23 @@ exports.editarUsuario = async (req, res) => {
     documentoUsuario: req.body.documentoUsuario,
     correoUsuario: req.body.correoUsuario
   });
-
   res.redirect('listaUsuarios');
 };
 
 exports.eliminarUsuario = async (req, res) => {
   await usuario.findByIdAndDelete({ _id: req.body.usuarioEliminar });
-
   res.redirect('listaUsuarios');
+};
+
+exports.actuaizarUsuario = async (req, res) => {
+  console.log();
+  await usuario.findByIdAndUpdate(req.cookies.usuario, {
+    nombreUsuario: req.body.nombreUsuario,
+    apellidosUsuario: req.body.apellidoUsuario,
+    telefonoUsuario: req.body.telefonoUsuario,
+    ubicacionUsuario: req.body.direccionUsuario,
+    documentoUsuario: req.body.documentoUsuario,
+    correoUsuario: req.body.correoUsuario
+  });
+  res.redirect('perfilCliente');
 };

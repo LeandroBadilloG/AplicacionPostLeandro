@@ -13,7 +13,15 @@
 
 <body>
 
-  <%- include('../parciales/nav')%>
+  <%if(rol=='Cliente'){%>
+    <%- include('../parciales/navCliente')%>
+  <%}else if(rol=='Vendedor'){%>
+    <%- include('../parciales/navVendedor')%>
+  <%}else if(rol=='Administrador' ){%>
+    <%- include('../parciales/navAdministrador')%>
+  <%}else{%>
+    <%- include('../parciales/nav')%>
+  <%}%>
 
   <div class="row g-0 mt-5">
     <div class="row d-flex justify-content-center align-items-center h-100">
